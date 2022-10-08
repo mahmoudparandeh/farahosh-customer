@@ -1,0 +1,14 @@
+<section class="content" *ngIf="rfqTitles">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <ul class="nav nav-tabs px-2">
+        <li class="nav-item px-2">
+          <a class="nav-link" [ngClass]="{ active: currentTab === 'inquiry' }" (click)="setCurrentTab('inquiry')">{{
+            rfqTitles.inquiry_tab
+            }}</a>
+        </li>
+      </ul>
+      <app-inquiry-list-page *ngIf="currentTab === 'inquiry'"></app-inquiry-list-page>
+    </div>
+  </div>
+</section>

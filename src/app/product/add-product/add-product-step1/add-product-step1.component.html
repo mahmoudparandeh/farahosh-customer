@@ -1,0 +1,163 @@
+<form class="d-flex flex-column w-100" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div class="d-flex flex-row flex-wrap">
+    <div class="d-flex flex-column col-12 col-md-6 mb-3">
+      <div class="col-12 mb-3">
+        <app-form-field
+          [title]="productDetailsTitles.product_name + '*'"
+          [placeholder]="productDetailsTitles.product_name_required"
+          [control]="name"
+        ></app-form-field>
+        <span class="red fs-12 px-2 mt-1" *ngIf="name.touched && name.hasError('required')">
+          {{ productDetailsTitles.product_name_required }}
+        </span>
+      </div>
+      <div class="col-12 mb-3 d-flex flex-column">
+        <label class="fs-16 medium-gray">{{ productDetailsTitles.customizable }}</label>
+        <div class="d-flex flex-row flex-wrap">
+          <app-form-radio
+            [title]="productDetailsTitles.customizable_yes"
+            [name]="'customizable'"
+            [checked]="this.customizable === 'yes'"
+            [id]="'customizable-yes'"
+            (click)="setCustomizable('yes')"
+          ></app-form-radio>
+          <app-form-radio
+            [title]="productDetailsTitles.customizable_no"
+            [name]="'customizable'"
+            [checked]="this.customizable === 'no'"
+            [id]="'customizable-no'"
+            (click)="setCustomizable('no')"
+          ></app-form-radio>
+        </div>
+      </div>
+      <div class="col-12 mb-3 d-flex flex-column">
+        <label class="fs-16 medium-gray">{{ productDetailsTitles.is_ready_to_ship }}</label>
+        <div class="d-flex flex-row flex-wrap">
+          <app-form-radio
+            [title]="productDetailsTitles.yes_ready_to_ship"
+            [name]="'ready-to-ship'"
+            [checked]="this.readyToShip === 'yes'"
+            [id]="'ready-to-ship-yes'"
+            (click)="setReadyToShip('yes')"
+          ></app-form-radio>
+          <app-form-radio
+            [title]="productDetailsTitles.no_ready_to_ship"
+            [name]="'ready-to-ship'"
+            [checked]="this.readyToShip === 'no'"
+            [id]="'ready-to-ship-no'"
+            (click)="setReadyToShip('no')"
+          ></app-form-radio>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <app-form-textarea
+        [title]="productDetailsTitles.shortDescription + '*'"
+        [control]="shortDescription"
+        [placeholder]="productDetailsTitles.shortDescription_required"
+      ></app-form-textarea>
+      <span class="red fs-12 px-2 mt-1" *ngIf="shortDescription.touched && shortDescription.hasError('required')">
+        {{ productDetailsTitles.shortDescription_required }}
+      </span>
+    </div>
+  </div>
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <app-form-textarea
+        [title]="productDetailsTitles.product_fullDescription + '*'"
+        [control]="fullDescription"
+        [placeholder]="productDetailsTitles.product_fullDescription_required"
+      ></app-form-textarea>
+      <span class="red fs-12 px-2 mt-1" *ngIf="fullDescription.touched && fullDescription.hasError('required')">
+        {{ productDetailsTitles.product_fullDescription_required }}
+      </span>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <app-form-textarea
+        [title]="productDetailsTitles.product_metaDescription"
+        [control]="metaDescription"
+        [placeholder]="productDetailsTitles.product_metaDescription"
+      ></app-form-textarea>
+    </div>
+  </div>
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <app-form-textarea
+        [title]="productDetailsTitles.product_metaKeywords"
+        [control]="metaKeywords"
+        [placeholder]="productDetailsTitles.product_metaKeywords"
+      ></app-form-textarea>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <app-form-textarea
+        [title]="productDetailsTitles.product_metaTitle"
+        [control]="metaTitle"
+        [placeholder]="productDetailsTitles.product_metaTitle"
+      ></app-form-textarea>
+    </div>
+  </div>
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 mb-3">
+      <app-form-textarea
+        [title]="productDetailsTitles.UserAgreement"
+        [control]="userAgreement"
+        [placeholder]="productDetailsTitles.UserAgreement"
+      ></app-form-textarea>
+    </div>
+  </div>
+  <div class="d-flex flex-column flex-md-row">
+    <div class="d-flex flex-row col-12 col-md-6 mb-3">
+      <div class="col-6">
+        <app-form-select
+          [title]="productDetailsTitles.brand + '*'"
+          [control]="brand"
+          [values]="brands"
+        ></app-form-select>
+        <span class="red fs-12 px-2 mt-1" *ngIf="brand.touched && brand.hasError('required')">
+          {{ productDetailsTitles.brand_required }}
+        </span>
+      </div>
+      <div class="col-6">
+        <app-form-field
+          [title]="productDetailsTitles.sku"
+          [placeholder]="productDetailsTitles.sku"
+          [control]="sku"
+        ></app-form-field>
+      </div>
+    </div>
+    <div class="d-flex flex-row col-12 col-md-6 mb-3">
+      <div class="col-6">
+        <app-form-field
+          [title]="productDetailsTitles.Gtin"
+          [placeholder]="productDetailsTitles.Gtin"
+          [control]="gtin"
+        ></app-form-field>
+      </div>
+      <div class="col-6">
+        <app-form-field
+          [title]="productDetailsTitles.ManufacturerPartNumber"
+          [placeholder]="productDetailsTitles.ManufacturerPartNumber"
+          [control]="manufacturerPartNumber"
+        ></app-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex">
+    <div class="col-12 mb-3">
+      <app-editor
+        class="col-12 mt-3"
+        [id]="'other-features'"
+        [others]="this"
+        [onChanged]="onOtherFeatureChanged"
+        [text]="getOtherFeature()"
+        [title]="productDetailsTitles.other"
+      ></app-editor>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center align-items-center mt-3">
+    <button type="button" class="btn btn-secondary mx-2" (click)="goBack()">{{ productDetailsTitles.back }}</button>
+    <button type="submit" class="btn btn-primary">
+      {{ productDetailsTitles.next }}
+    </button>
+  </div>
+</form>

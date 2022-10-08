@@ -1,0 +1,154 @@
+<section class="content">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <div class="my-3 bgd-blue fs-18 bold p-3 border-radius white">
+        {{ productPriceTitles.products }}: {{ productName }}
+      </div>
+      <div class="d-flex flex-row flex-wrap my-2">
+        <div class="col-12 col-sm-6 col-md-4 d-flex flex-column mb-2">
+          <h3 class="fs-16">{{ newProductPriceTitles.Quantity }}</h3>
+          <app-form-checkbox
+            [control]="quantityCheckboxController"
+            [title]="newProductPriceTitles.Negotiated"
+            [id]="'quantity'"
+          ></app-form-checkbox>
+          <div class="d-flex flex-row flex-wrap" *ngIf="!quantityCheckboxController.value">
+            <div class="col-12 col-sm-6">
+              <app-form-field [control]="fromController" [title]="newProductPriceTitles.QuantityFrom"></app-form-field>
+              <span
+                class="red fs-12"
+                *ngIf="!quantityCheckboxController.value && fromController.touched && fromController.errors"
+                >{{ newProductPriceTitles.QuantityFrom_required }}</span
+              >
+            </div>
+            <div class="col-12 col-sm-6">
+              <app-form-field [control]="toController" [title]="newProductPriceTitles.QuantityTo"></app-form-field>
+              <span
+                class="red fs-12"
+                *ngIf="!quantityCheckboxController.value && toController.touched && toController.errors"
+                >{{ newProductPriceTitles.QuantityTo_required }}</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 d-flex flex-column mb-2">
+          <h3 class="fs-16">{{ newProductPriceTitles.incoterms }}</h3>
+          <app-form-checkbox
+            [control]="incotermCheckboxController"
+            [title]="newProductPriceTitles.Negotiated"
+            [id]="'incoterm'"
+          ></app-form-checkbox>
+          <app-form-select
+            *ngIf="!incotermCheckboxController.value"
+            [control]="incotermController"
+            [values]="incoterms"
+            [title]="newProductPriceTitles.incoterms"
+          ></app-form-select>
+          <span
+            class="red fs-12"
+            *ngIf="!incotermCheckboxController.value && incotermController.touched && incotermController.errors"
+            >{{ newProductPriceTitles.incoterms_required }}</span
+          >
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 d-flex flex-column mb-2">
+          <h3 class="fs-16">{{ newProductPriceTitles.GeoLocation }}</h3>
+          <app-form-checkbox
+            [control]="locationCheckboxController"
+            [title]="newProductPriceTitles.Negotiated"
+            [id]="'geolocation'"
+          ></app-form-checkbox>
+          <app-form-autocomplete
+            *ngIf="!locationCheckboxController.value"
+            [object]="this"
+            [onSelected]="onSelectGeolocation"
+            [control]="geoLocationController"
+            [title]="newProductPriceTitles.GeoLocation"
+            [list]="locations"
+          ></app-form-autocomplete>
+          <span
+            class="red fs-12"
+            *ngIf="!locationCheckboxController.value && geoLocationController.touched && geoLocationController.errors"
+            >{{ newProductPriceTitles.GeoLocation_required }}</span
+          >
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 d-flex flex-column mb-2">
+          <h3 class="fs-16">{{ newProductPriceTitles.Price }}</h3>
+          <app-form-checkbox
+            [control]="priceCheckboxController"
+            [title]="newProductPriceTitles.Negotiated"
+            [id]="'price'"
+          ></app-form-checkbox>
+          <app-form-field
+            *ngIf="!priceCheckboxController.value"
+            [control]="priceController"
+            [title]="newProductPriceTitles.Price"
+            [placeholder]="newProductPriceTitles.Price"
+          ></app-form-field>
+          <span
+            class="red fs-12"
+            *ngIf="!priceCheckboxController.value && priceController.touched && priceController.errors"
+            >{{ newProductPriceTitles.Price_required }}</span
+          >
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 d-flex flex-column">
+          <app-form-field
+            (keypress)="isNumber($event)"
+            (keyup)="isNumber($event)"
+            [control]="displayOrderController"
+            [title]="newProductPriceTitles.DisplayOrder"
+          ></app-form-field>
+          <span class="red fs-12" *ngIf="displayOrderController.touched && displayOrderController.errors">{{
+            newProductPriceTitles.DisplayOrder_required
+          }}</span>
+        </div>
+      </div>
+      <div class="d-flex flex-row flex-wrap">
+        <div class="col-12 col-sm-6 col-md-4 px-2">
+          <button class="w-100 btn btn-primary" (click)="addPrice()">
+            {{ isEdit ? newProductPriceTitles.update : newProductPriceTitles.submit }}
+          </button>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 px-2">
+          <button *ngIf="isEdit" class="w-100 btn btn-primary" (click)="onCreate()">
+            {{ newProductPriceTitles.create }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white my-3 p-3">
+      <div class="my-3 bgd-blue fs-18 bold p-3 border-radius white">
+        {{ productPriceTitles.product_listing }}: {{ productName }}
+      </div>
+      <div class="d-flex flex-row border-radius border item-dark-container my-3 p-3">
+        <span class="col-1">{{ newProductPriceTitles.warehouse }}</span>
+        <span class="col-2">{{ newProductPriceTitles.attributes }}</span>
+        <span class="col-1">{{ newProductPriceTitles.QuantityFrom }}</span>
+        <span class="col-1">{{ newProductPriceTitles.QuantityTo }}</span>
+        <span class="col-2">{{ newProductPriceTitles.incoterms }}</span>
+        <span class="col-1">{{ newProductPriceTitles.unit }}</span>
+        <span class="col-2">{{ newProductPriceTitles.Price }}</span>
+        <span class="col-1">{{ newProductPriceTitles.DisplayOrder }}</span>
+      </div>
+      <div class="d-flex flex-column">
+        <app-product-price-item
+          *ngFor="
+            let product of productPrices
+              | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: total }
+          "
+          [product]="product"
+        ></app-product-price-item>
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <pagination-controls
+          class="my-pagination"
+          [directionLinks]="true"
+          [autoHide]="true"
+          [responsive]="true"
+          previousLabel="<<"
+          nextLabel=">>"
+          (pageChange)="pageChanged($event)"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+</section>

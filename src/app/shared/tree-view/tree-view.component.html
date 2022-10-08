@@ -1,0 +1,110 @@
+<div [dir]="direction === 'rtl' ? 'rtl' : 'ltr'" class="treeView">
+  <div class="header">
+    <button
+      class="btn btn-lg btn-danger btn-primary"
+      type="button"
+      (click)="expandTree()"
+      data-toggle="collapse"
+      aria-expanded="false"
+    >
+      {{ selectedCategories }}
+    </button>
+    <input
+      type="text"
+      [ngClass]="expanded ? 'show' : ''"
+      class="my-2 form-control"
+      (input)="filter($event.target)"
+      placeholder="فیلتر"
+    />
+  </div>
+
+  <div class="multi-collapse border-dark collapse" [ngClass]="expanded ? 'show' : ''">
+    <div *ngIf="items.length > 0">
+      <ul>
+        <li *ngFor="let item of filteredItems">
+          <i
+            [ngClass]="item.expand ? 'note-icon-arrow-circle-down' : 'note-icon-arrow-circle-left'"
+            *ngIf="item.Childes!.length > 0"
+            (click)="expandItem(item)"
+          ></i>
+          <span (click)="selectItem(item)">
+            {{ item.currentName !== null ? item.currentName : item.Name }}
+            <input type="checkbox" [checked]="item.selected" />
+          </span>
+          <ul *ngIf="item.Childes!.length > 0" [ngClass]="item.expand ? '' : 'collapse'">
+            <li *ngFor="let cItem1 of item.Childes!">
+              <i
+                class="note-icon-arrow-circle-left"
+                [ngClass]="cItem1.expand ? 'note-icon-arrow-circle-down' : 'note-icon-arrow-circle-left'"
+                *ngIf="cItem1.Childes!.length > 0"
+                (click)="expandItem(cItem1)"
+              ></i>
+              <span (click)="selectItem(cItem1)">
+                {{ cItem1.currentName !== null ? cItem1.currentName : cItem1.Name }}
+                <input type="checkbox" [checked]="cItem1.selected" />
+              </span>
+
+              <ul *ngIf="cItem1.Childes!.length > 0" [ngClass]="cItem1.expand ? '' : 'collapse'">
+                <li *ngFor="let cItem2 of cItem1.Childes!">
+                  <i
+                    [ngClass]="cItem2.expand ? 'note-icon-arrow-circle-down' : 'note-icon-arrow-circle-left'"
+                    *ngIf="cItem2.Childes!.length > 0"
+                    (click)="expandItem(cItem2)"
+                  ></i>
+                  <span (click)="selectItem(cItem2)">
+                    {{ cItem2.currentName !== null ? cItem2.currentName : cItem2.Name }}
+                    <input type="checkbox" [checked]="cItem2.selected" />
+                  </span>
+
+                  <ul *ngIf="cItem2.Childes!.length > 0" [ngClass]="cItem2.expand ? '' : 'collapse'">
+                    <li *ngFor="let cItem3 of cItem2.Childes!">
+                      <i
+                        [ngClass]="cItem3.expand ? 'note-icon-arrow-circle-down' : 'note-icon-arrow-circle-left'"
+                        *ngIf="cItem3.Childes!.length > 0"
+                        (click)="expandItem(cItem3)"
+                      ></i>
+                      <span (click)="selectItem(cItem3)">
+                        {{ cItem3.currentName !== null ? cItem3.currentName : cItem3.Name }}
+                        <input type="checkbox" [checked]="cItem3.selected" />
+                      </span>
+
+                      <ul *ngIf="cItem3.Childes!.length > 0" [ngClass]="cItem3.expand ? '' : 'collapse'">
+                        <li *ngFor="let cItem4 of cItem3.Childes!">
+                          <i
+                            [ngClass]="cItem4.expand ? 'note-icon-arrow-circle-down' : 'note-icon-arrow-circle-left'"
+                            *ngIf="cItem4.Childes!.length > 0"
+                            (click)="expandItem(cItem4)"
+                          ></i>
+                          <span (click)="selectItem(cItem4)">
+                            {{ cItem4.currentName !== null ? cItem4.currentName : cItem4.Name }}
+                            <input type="checkbox" [checked]="cItem4.selected" />
+                          </span>
+
+                          <ul *ngIf="cItem4.Childes!.length > 0" [ngClass]="cItem4.expand ? '' : 'collapse'">
+                            <li *ngFor="let cItem5 of cItem4.Childes!">
+                              <i
+                                [ngClass]="
+                                  cItem5.expand ? 'note-icon-arrow-circle-down' : 'note-icon-arrow-circle-left'
+                                "
+                                *ngIf="cItem5.Childes!.length > 0"
+                                (click)="expandItem(cItem5)"
+                              ></i>
+                              <span (click)="selectItem(cItem5)">
+                                {{ cItem5.currentName !== null ? cItem5.currentName : cItem5.Name }}
+                                <input type="checkbox" [checked]="cItem5.selected" />
+                              </span>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

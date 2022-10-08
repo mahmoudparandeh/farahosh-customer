@@ -1,0 +1,31 @@
+<div class="d-flex flex-row flex-wrap">
+  <app-form-field
+    [control]="from"
+    (keypress)="isNumber($event)"
+    (keyup)="isNumber($event)"
+    [title]="productCapacityTitles.from"
+    [id]="'from'"
+    class="col-12 col-md-6 mb-2"
+  ></app-form-field>
+  <app-form-field
+    [control]="to"
+    (keypress)="isNumber($event)"
+    (keyup)="isNumber($event)"
+    [title]="productCapacityTitles.to + ' (' + productCapacityTitles.help_bigger + ')'"
+    [id]="'to'"
+    class="col-12 col-md-6 mb-2"
+  ></app-form-field>
+  <app-form-select
+    [control]="unit"
+    [values]="units"
+    [title]="productCapacityTitles.unit"
+    [id]="'unit'"
+    class="col-12 col-md-6 mb-2"
+  ></app-form-select>
+  <app-form-field
+    [control]="time"
+    [title]="productCapacityTitles.time"
+    [id]="'time'"
+    class="col-12 col-md-6 mb-2"
+  ></app-form-field>
+</div>

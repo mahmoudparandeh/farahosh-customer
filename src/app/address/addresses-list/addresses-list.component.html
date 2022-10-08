@@ -1,0 +1,45 @@
+<section class="content">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <div class="d-flex justify-content-between mb-3 align-items-center">
+        <h2 class="fs-18 bold blue">{{ addressListTitles.address }}</h2>
+        <a class="d-flex align-items-center pointer" routerLink="add-address">
+          <span class="fs-14 bold blue">{{ addressListTitles.new_address }}</span>
+          <span>
+            <img src="../../../assets/icons/add.png" alt="" />
+          </span>
+        </a>
+      </div>
+      <div class="d-none d-lg-flex flex-row align-items-center w-100 my-2 p-3 border-radius bgd-blue white">
+        <span class="col-1 text-right fw-bold d-flex align-items-center fs-12">
+          <span>{{ addressListTitles.id }}</span>
+        </span>
+        <span class="col-1 text-right fw-bold fs-12">{{ addressListTitles.Title }}</span>
+        <span class="col-1 text-right fw-bold fs-12">{{ addressListTitles.Receiver }}</span>
+        <span class="col-1 text-right fw-bold fs-12"> {{ addressListTitles.GeoLocation }}</span>
+        <span class="col-1 text-center fw-bold fs-12">{{ addressListTitles.ZipPostalCode }}</span>
+        <div class="col-2 text-right fw-bold d-flex flex-column align-items-center fs-12">
+          <span>{{ addressListTitles.PhoneNumbers }}</span>
+        </div>
+        <span class="col-2 text-right fw-bold fs-12">{{ addressListTitles.MobileNumbers }}</span>
+        <span class="col-1 text-right fw-bold fs-12">{{ addressListTitles.FaxNumbers }}</span>
+        <span class="col-1 text-center fw-bold d-flex justify-content-center fs-12">{{
+          addressListTitles.Published
+        }}</span>
+        <span class="col-1 text-right fw-bold d-flex justify-content-end fs-12"></span>
+      </div>
+      <app-address-item *ngFor="let address of addressList" [address]="address"></app-address-item>
+      <div class="d-flex justify-content-center align-items-center">
+        <pagination-controls
+          class="my-pagination"
+          [directionLinks]="true"
+          [autoHide]="true"
+          [responsive]="true"
+          previousLabel="<<"
+          nextLabel=">>"
+          (pageChange)="pageChanged($event)"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+</section>

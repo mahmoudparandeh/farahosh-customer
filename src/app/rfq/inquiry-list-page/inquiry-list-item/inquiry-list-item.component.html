@@ -1,0 +1,40 @@
+<div class="d-flex flex-row align-items-center p-3 mb-3 border border-radius shadow-border">
+  <span class="col-1">{{ inquiry.InqueryId }}</span>
+  <div class="col-3 d-flex flex-row align-items-center">
+    <img
+      width="75"
+      height="75"
+      class="border border-radius object-fit"
+      [src]="inquiry.ProductImagePath ? inquiry.ProductImagePath : 'assets/images/default-product-image.png'"
+    />
+    <span class="margin">{{
+      inquiry.ProductNameById ? inquiry.ProductNameById[language] : inquiry.ProductNameWithOutId[language]
+    }}</span>
+  </div>
+  <div class="col-2 d-flex flex-row align-items-center">
+    <img
+      width="75"
+      height="75"
+      class="border border-radius object-fit"
+      [src]="inquiry.UserImagePath ? inquiry.UserImagePath : 'assets/images/avatar.png'"
+    />
+    <span class="margin"> {{ inquiry.FirstName + ' ' + inquiry.LastName }}</span>
+  </div>
+  <span class="col-2">{{inquiry.CategoryName[language]}}</span>
+  <span class="col-2">{{inquiry.IncotermName[language]}}</span>
+  <span class="col-1">{{inquiry.Quantity}} {{inquiry.UnitId}}</span>
+  <div class="col-1 d-flex flex-row justify-content-end align-items-center mb-1">
+    <a class="pointer" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+      <li>
+        <a
+          class="dropdown-item green"
+          [routerLink]="['/', language, 'rfqs', 'inquiry', 'details', inquiry.InqueryId]"
+          >{{ rfqTitles.detail }}</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>

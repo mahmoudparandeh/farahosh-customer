@@ -1,0 +1,13 @@
+<ng-container *ngIf="showMenus">
+  <app-header class="dontShow"></app-header>
+  <app-sidebar class="dontShow"></app-sidebar>
+</ng-container>
+<router-outlet></router-outlet>
+<ng-http-loader
+  [backgroundColor]="'#0038b8'"
+  [filteredUrlPatterns]="[
+    '/api/v1/VendorVendor/GetPageByPageVendorFiles',
+    '/api/v1/TicketItem/TicketReplay',
+    '/api/v1/TicketItem/GetVendor'
+  ]"
+></ng-http-loader>

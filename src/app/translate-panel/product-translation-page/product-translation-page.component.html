@@ -1,0 +1,204 @@
+<section class="content">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
+        <h2 class="fs-18 bold blue">
+          {{ productTitles.translator
+          }}<span *ngIf="productName !== ''" class="fs-16 grey">: {{ productName[languages] }}</span>
+        </h2>
+        <div class="d-flex flex-row flex-wrap">
+          <app-form-select
+            [control]="fromLanguageController"
+            [others]="this"
+            [selectionChanged]="onFromLanguageChanged"
+            [values]="languages"
+            [title]="productTitles.from_language"
+          ></app-form-select>
+          <app-form-select
+            class="margin"
+            [control]="toLanguageController"
+            [others]="this"
+            [selectionChanged]="onToLanguageChanged"
+            [values]="languages"
+            [title]="productTitles.to_language"
+          ></app-form-select>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-row flex-wrap align-items-center border-radius shadow-border shadow bgd-white p-3 my-3">
+      <h3 class="fs-16 bold blue">{{ productTitles.choose_product }}:</h3>
+      <app-form-autocomplete
+        class="margin flex-grow-1"
+        [onSelected]="onProductSelected"
+        [object]="this"
+        [control]="productSearchController"
+        [id]="'product-search'"
+        [list]="products"
+      ></app-form-autocomplete>
+    </div>
+    <div class="d-flex flex-row flex-wrap align-items-center border-radius shadow-border shadow bgd-white p-3 my-3">
+      <app-form-field
+        class="col-12 col-sm-6 mb-3"
+        [control]="productNameFromController"
+        [title]="productTitles.product_name + ' (' + currentFromLanguage + ')'"
+        [id]="'company-name-from'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-sm-6 mb-3"
+        [control]="productNameToController"
+        [title]="productTitles.product_name + ' (' + currentToLanguage + ')'"
+        [id]="'company-name-to'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-sm-6 mb-3"
+        [control]="productShortDescriptionFromController"
+        [title]="productTitles.shortDescription + ' (' + currentFromLanguage + ')'"
+        [id]="'company-subject-from'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-sm-6 mb-3"
+        [control]="productShortDescriptionToController"
+        [title]="productTitles.shortDescription + ' (' + currentToLanguage + ')'"
+        [id]="'company-subject-to'"
+      ></app-form-field>
+      <app-form-textarea
+        class="col-12 col-sm-6 mb-3"
+        [control]="productFullDescriptionFromController"
+        [title]="productTitles.product_fullDescription + ' (' + currentFromLanguage + ')'"
+        [id]="'company-short-description-from'"
+      ></app-form-textarea>
+      <app-form-textarea
+        class="col-12 col-sm-6 mb-3"
+        [control]="productFullDescriptionToController"
+        [title]="productTitles.product_fullDescription + ' (' + currentToLanguage + ')'"
+        [id]="'company-short-description-to'"
+      ></app-form-textarea>
+      <app-form-textarea
+        class="col-12 col-md-6 mb-3"
+        [control]="productMetaDescriptionFromController"
+        [title]="productTitles.product_metaDescription + ' (' + currentFromLanguage + ')'"
+        [id]="'company-meta-description-from'"
+      ></app-form-textarea>
+      <app-form-textarea
+        class="col-12 col-md-6 mb-3"
+        [control]="productMetaDescriptionToController"
+        [title]="productTitles.product_metaDescription + ' (' + currentToLanguage + ')'"
+        [id]="'company-meta-description-to'"
+      ></app-form-textarea>
+      <app-form-textarea
+        class="col-12 col-md-6 mb-3"
+        [control]="productMetaKeywordsFromController"
+        [title]="productTitles.product_metaKeywords + ' (' + currentFromLanguage + ')'"
+        [id]="'company-meta-keywords-from'"
+      ></app-form-textarea>
+      <app-form-textarea
+        class="col-12 col-md-6 mb-3"
+        [control]="productMetaKeywordsToController"
+        [title]="productTitles.product_metaKeywords + ' (' + currentToLanguage + ')'"
+        [id]="'company-meta-keywords-to'"
+      ></app-form-textarea>
+      <app-form-textarea
+        class="col-12 col-md-6 mb-3"
+        [control]="productMetaTitleFromController"
+        [title]="productTitles.product_metaTitle + ' (' + currentFromLanguage + ')'"
+        [id]="'company-meta-title-from'"
+      ></app-form-textarea>
+      <app-form-textarea
+        class="col-12 col-md-6 mb-3"
+        [control]="productMetaTitleToController"
+        [title]="productTitles.product_metaTitle + ' (' + currentToLanguage + ')'"
+        [id]="'company-meta-title-to'"
+      ></app-form-textarea>
+      <app-form-textarea
+        class="col-12 col-md-6 mb-3"
+        [control]="productContractFromController"
+        [title]="productTitles.UserAgreement + ' (' + currentFromLanguage + ')'"
+        [id]="'company-meta-title-from'"
+      ></app-form-textarea>
+      <app-form-textarea
+        class="col-12 col-md-6 mb-3"
+        [control]="productContractToController"
+        [title]="productTitles.UserAgreement + ' (' + currentToLanguage + ')'"
+        [id]="'company-meta-title-to'"
+      ></app-form-textarea>
+      <app-editor
+        class="col-12 col-md-6 mb-3"
+        [id]="'company-profile-from'"
+        [text]="getDataFrom()"
+        [others]="this"
+        [onChanged]="productFromChanged"
+        [title]="productTitles.other + ' (' + currentFromLanguage + ')'"
+      ></app-editor>
+      <app-editor
+        class="col-12 col-md-6 mb-3"
+        [id]="'company-profile-to'"
+        [text]="getDataTo()"
+        [others]="this"
+        [onChanged]="productToChanged"
+        [title]="productTitles.other + ' (' + currentToLanguage + ')'"
+      ></app-editor>
+      <div class="d-flex flex-row w-100" *ngIf="product && product.FAQ">
+        <h4 class="fs-18 bold blue px-2">{{ productTitles.faq }}</h4>
+        <hr class="margin flex-grow-1" />
+      </div>
+      <ng-container *ngIf="product && product.FAQ">
+        <div class="d-flex flex-row flex-wrap col-12" *ngFor="let faq of product.FAQ; let i = index">
+          <app-form-textarea
+            class="col-12 col-md-6 mb-3"
+            [control]="faqQuestionFromControllers[i]"
+            [title]="productTitles.faq_question + '-' + (i + 1) + ' (' + currentFromLanguage + ')'"
+            [id]="'company-question-from-' + i"
+          ></app-form-textarea>
+          <app-form-textarea
+            class="col-12 col-md-6 mb-3"
+            [control]="faqQuestionToControllers[i]"
+            [title]="productTitles.faq_question + '-' + (i + 1) + ' (' + currentToLanguage + ')'"
+            [id]="'company-question-to-' + i"
+          ></app-form-textarea>
+          <app-form-textarea
+            class="col-12 col-md-6 mb-3"
+            [control]="faqAnswerFromControllers[i]"
+            [title]="productTitles.faq_answer + '-' + (i + 1) + ' (' + currentFromLanguage + ')'"
+            [id]="'company-answer-from-' + i"
+          ></app-form-textarea>
+          <app-form-textarea
+            class="col-12 col-md-6 mb-3"
+            [control]="faqAnswerToControllers[i]"
+            [title]="productTitles.faq_answer + '-' + (i + 1) + ' (' + currentToLanguage + ')'"
+            [id]="'company-question-to-' + i"
+          ></app-form-textarea>
+        </div>
+      </ng-container>
+      <div class="d-flex flex-row w-100" *ngIf="tags">
+        <h4 class="fs-18 bold blue px-2">{{ productTitles.tags }}</h4>
+        <hr class="margin flex-grow-1" />
+      </div>
+      <ng-container *ngIf="tags">
+        <div class="d-flex flex-row flex-wrap col-12" *ngFor="let tag of tagsFromControllers; let i = index">
+          <app-form-textarea
+            class="col-12 col-md-6 mb-3"
+            [control]="tagsFromControllers[i]"
+            [title]="productTitles.tags + '-' + (i + 1) + ' (' + currentFromLanguage + ')'"
+            [id]="'company-tag-from-' + i"
+          ></app-form-textarea>
+          <app-form-textarea
+            class="col-12 col-md-6 mb-3"
+            [control]="tagsToControllers[i]"
+            [title]="productTitles.tags + '-' + (i + 1) + ' (' + currentToLanguage + ')'"
+            [id]="'company-tag-to-' + i"
+          ></app-form-textarea>
+        </div>
+      </ng-container>
+      <div class="col-12 col-sm-6 px-2">
+        <button class="btn btn-warning w-100" [disabled]="productName === ''" (click)="translate()">
+          {{ productTitles.translate_button }}
+        </button>
+      </div>
+      <div class="col-12 col-sm-6 px-2 mt-2 mt-sm-0">
+        <button [disabled]="productName === ''" class="btn btn-primary w-100" (click)="onSubmit()">
+          {{ productTitles.submit_button }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

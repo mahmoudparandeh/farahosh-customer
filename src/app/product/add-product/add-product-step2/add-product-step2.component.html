@@ -1,0 +1,295 @@
+<form
+  class="d-flex flex-column w-100"
+  (click)="isSelectCategory = false; isOpenHsContent = false; $event.stopPropagation()"
+>
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 mb-3">
+      <div class="d-flex flex-column flex-md-row justify-content-md-between">
+        <div class="col-12 col-md-8 col-lg-6 pe-md-0">
+          <div class="w-100 position-relative">
+            <div class="select-category" (click)="onOpenCategoryContent($event)">
+              <h2 class="medium-gray fs-16">{{ productDetailsTitles.product_category + '*' }}</h2>
+              <span>
+                <img src="assets/icons/chevron-down.svg" alt="arrow down" />
+              </span>
+            </div>
+            <div class="select-category-content" *ngIf="isSelectCategory" (click)="$event.stopPropagation()">
+              <app-tree-category
+                [categories]="productCategoryList"
+                (categoryId)="getCategoryAttributes($event)"
+              ></app-tree-category>
+            </div>
+          </div>
+        </div>
+        <div
+          class="d-flex flex-column selected-category-list col-12 col-md-4 col-lg-6 mx-1"
+          *ngIf="selectedCategories.length > 0"
+        >
+          <span class="p-1 medium-gray fs-16">{{ productDetailsTitles.product_category }}</span>
+          <div class="d-flex flex-wrap mt-2">
+            <div class="px-3 selected-category m-1" *ngFor="let selectedCategory of selectedCategories; let i = index">
+              <span>{{ selectedCategory?.Name[language] }}</span>
+              <img
+                src="assets/icons/delete-x.svg"
+                alt="delete-icon"
+                class="pointer mx-1"
+                (click)="removeCategory(i, selectedCategory.Id)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="red fs-12 px-2 my-3 d-flex w-100" *ngIf="selectedCategories.length === 0">{{
+        productDetailsTitles.product_category_required
+      }}</span>
+    </div>
+  </div>
+  <div class="d-flex">
+    <div class="col-12 mb-3" *ngIf="categoryAttributes.length > 0">
+      <h2 class="medium-gray fs-16">{{ productDetailsTitles.product_attribute }}</h2>
+
+      <ng-container *ngFor="let attribute of categoryAttributes; let i = index">
+        <div class="d-flex flex-row flex-wrap">
+          <div class="col-12 col-md-6 px-0">
+            <div class="d-flex flex-column">
+              <h2 class="medium-gray fs-14 mt-3">{{ attribute.AttributeName[language] }}</h2>
+              <div class="d-flex flex-wrap">
+                <div class="my-3" *ngFor="let item of attribute.DefaultValues; let j = index">
+                  <app-form-checkbox
+                    [title]="item[language]"
+                    [id]="i + '-' + attribute.DefaultValueIds[j]"
+                    [control]="attribute.FormControllers[j]"
+                  ></app-form-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 px-0">
+            <app-form-select
+              [title]="attributeTitles.type"
+              [values]="attributeTypeValues"
+              [control]="attribute.TypeController"
+            ></app-form-select>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <!--  <hr *ngIf="categoryAttributes.length > 0" />-->
+  <div class="d-flex flex-column flex-md-row justify-content-md-between">
+    <div class="col-12 col-md-8 col-lg-6 mb-3">
+      <div class="w-100 position-relative">
+        <div class="select-category" (click)="onOpenHsCodeContent($event)">
+          <h2 class="medium-gray fs-16">{{ productDetailsTitles.HSTTitle }}</h2>
+          <span>
+            <img src="assets/icons/chevron-down.svg" alt="arrow down" />
+          </span>
+        </div>
+        <div class="hs-code-content" *ngIf="isOpenHsContent" (click)="$event.stopPropagation()">
+          <app-hs-code-tree-view
+            [sections]="hsCodeList"
+            [hsCodeListWithSectionId]="hsCodeListWithSectionId"
+            [hsCodeListWithChapterId]="hsCodeListWithChapterId"
+            [hsCodeListWithHsNumber]="hsCodeListWithHsNumber"
+            [hsCodeListWithIndent]="hsCodeListWithIndent"
+            (getHsCode)="changeHsId()"
+            (htsNumber)="setHtsNumber($event)"
+            (hsCode)="setHsCode($event)"
+          ></app-hs-code-tree-view>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4 col-lg-6 mx-lg-1 mb-3">
+      <div class="select-hst-number" *ngIf="selectedHtsNumber !== ''">
+        <div class="d-flex flex-column">
+          <span class="p-1 medium-gray fs-16">{{ productDetailsTitles.HSTTitle }}</span>
+          <div class="d-flex">
+            <div class="px-3 selected-category m-1">
+              <span>{{ selectedHtsNumber }} </span>
+              <span class="mx-2">{{ selectedHtsNumberDescription }}</span>
+              <img
+                src="assets/icons/delete-x.svg"
+                alt="delete-icon"
+                class="pointer mx-1"
+                (click)="selectedHtsNumber = ''"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="col-12 col-md-8 col-lg-6 mb-3">
+      <!--      <app-form-autocomplete-->
+      <!--        [title]="productDetailsTitles.HSTTitle"-->
+      <!--        [control]="htsNumberSearchController"-->
+      <!--        [list]=""-->
+      <!--        (input)="searchHtsNumber()"-->
+      <!--      ></app-form-autocomplete>-->
+    </div>
+  </div>
+  <hr />
+  <div class="d-flex flex-column">
+    <div class="d-flex flex-row align-items-center">
+      <div class="col-11 col-md-6 px-0 mb-3">
+        <app-form-field
+          [title]="productDetailsTitles.tags"
+          [placeholder]="productDetailsTitles.tags"
+          [control]="tagController"
+        ></app-form-field>
+      </div>
+      <img src="/assets/icons/add.png" alt="" class="pointer mt-3" (click)="addTag()" />
+    </div>
+    <div class="col-12 mb-3 d-flex px-2" *ngIf="tags && tags.fa.length > 0">
+      <div class="tag-box">
+        <div class="col-12 d-flex flex-wrap justify-content-end">
+          <div class="tag-container" *ngFor="let tag of tags.fa; let i = index">
+            <img src="assets/icons/delete-x.svg" alt="delete-icon" class="pointer" (click)="removeTag(i)" />
+            <span class="px-3 fs-14"> {{ tag }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-column col-12 col-md-6 px-0 mb-3">
+    <app-form-select
+      [title]="productDetailsTitles.TaxCategory + '*'"
+      [values]="taxes"
+      [control]="taxController"
+    ></app-form-select>
+    <span class="fs-12 red mt-1" *ngIf="taxController.touched && taxController.errors">{{
+      productDetailsTitles.TaxCategory_required
+    }}</span>
+  </div>
+  <hr />
+  <h3 class="fs-16">{{ productDetailsTitles.product_gallery + '*' }}</h3>
+  <h5 class="fs-12 medium-gray">{{ productDetailsTitles.image_policy }}</h5>
+  <div class="d-flex flex-row flex-wrap">
+    <ng-container *ngIf="productImages.length > 0">
+      <div
+        *ngFor="let image of productImages; let i = index"
+        class="border border-radius p-3 file-image-container d-flex flex-row flex-wrap justify-content-between margin mb-2 position-relative"
+      >
+        <div class="delete-button position-absolute">
+          <img src="../../../../assets/icons/delete.svg" alt="delete gallery" (click)="deleteProductImage(i)" />
+        </div>
+        <img [src]="image.path" class="file-image" alt="add image" />
+        <div class="border border-radius p-2 d-flex flex-column">
+          <app-form-field
+            [title]="fileTitles.alt"
+            [control]="image.alt"
+            [placeholder]="fileTitles.alt"
+          ></app-form-field>
+          <app-form-field
+            [title]="fileTitles.seo"
+            [control]="image.tags"
+            [placeholder]="fileTitles.seo"
+          ></app-form-field>
+          <app-form-field
+            [title]="fileTitles.description"
+            [control]="image.description"
+            [placeholder]="fileTitles.description"
+          ></app-form-field>
+        </div>
+      </div>
+    </ng-container>
+    <div class="d-flex flex-column">
+      <div class="border border-radius p-3 logo-container margin mb-2" (click)="setFileManagerType('Image', 'Image')">
+        <img src="../../../assets/images/add-image.png" alt="add image" />
+      </div>
+      <span class="red fs-12" *ngIf="productImages.length === 0">{{
+        productDetailsTitles.product_gallery_required
+      }}</span>
+    </div>
+  </div>
+  <h3 class="fs-16 mt-3">{{ productDetailsTitles.video }}</h3>
+  <h5 class="fs-12 medium-gray">{{ productDetailsTitles.video_policy_short }}</h5>
+  <div
+    *ngIf="video.path === ''"
+    class="border border-radius p-3 logo-container"
+    (click)="setFileManagerType('Video', 'Video')"
+  >
+    <img src="../../../assets/images/add-video.png" alt="add image" />
+  </div>
+  <div
+    *ngIf="video.path !== ''"
+    class="border border-radius p-3 file-image-container position-relative d-flex flex-row flex-wrap justify-content-between margin"
+  >
+    <div class="delete-button position-absolute">
+      <img
+        src="../../../../assets/icons/delete.svg"
+        alt="delete gallery"
+        (click)="deleteVideo(); $event.stopPropagation()"
+      />
+    </div>
+    <video
+      controls
+      [src]="video.path"
+      class="file-image pointer"
+      alt="add video"
+      (click)="setFileManagerType('Video', 'Video')"
+    ></video>
+    <div class="border border-radius p-2 d-flex flex-column">
+      <app-form-field [title]="fileTitles.seo" [control]="video.tags" [placeholder]="fileTitles.seo"></app-form-field>
+      <app-form-field
+        [title]="fileTitles.description"
+        [control]="video.description"
+        [placeholder]="fileTitles.description"
+      ></app-form-field>
+    </div>
+  </div>
+  <h3 class="fs-16 mt-3">{{ productDetailsTitles.introductory_video }}</h3>
+  <h5 class="fs-12 medium-gray">{{ productDetailsTitles.video_policy_long }}</h5>
+  <div
+    *ngIf="introductionVideo.path === ''"
+    class="border border-radius p-3 logo-container"
+    (click)="setFileManagerType('Video', 'Introduction')"
+  >
+    <img src="../../../assets/images/add-video.png" alt="add image" />
+  </div>
+  <div
+    *ngIf="introductionVideo.path !== ''"
+    class="border border-radius p-3 file-image-container position-relative d-flex flex-row flex-wrap justify-content-between margin"
+  >
+    <div class="delete-button position-absolute">
+      <img
+        src="../../../../assets/icons/delete.svg"
+        alt="delete gallery"
+        (click)="deleteIntroductionVideo(); $event.stopPropagation()"
+      />
+    </div>
+    <video
+      controls
+      [src]="introductionVideo.path"
+      class="file-image pointer"
+      alt="add video"
+      (click)="setFileManagerType('Video', 'Introduction')"
+    ></video>
+    <div class="border border-radius p-2 d-flex flex-column">
+      <app-form-field
+        [title]="fileTitles.seo"
+        [control]="introductionVideo.tags"
+        [placeholder]="fileTitles.seo"
+      ></app-form-field>
+      <app-form-field
+        [title]="fileTitles.description"
+        [control]="introductionVideo.description"
+        [placeholder]="fileTitles.description"
+      ></app-form-field>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center align-items-center mt-3">
+    <button type="button" class="btn btn-secondary mx-2" (click)="goBack()">{{ productDetailsTitles.back }}</button>
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+      {{ productDetailsTitles.next }}
+    </button>
+  </div>
+</form>
+<app-file-manager-modal
+  [type]="fileManagerType"
+  [onFileSelected]="onGallerySelected"
+  [other]="this"
+  [id]="galleryType"
+  [currentPage]="imageGalleryIndex"
+></app-file-manager-modal>

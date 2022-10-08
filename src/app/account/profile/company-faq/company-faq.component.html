@@ -1,0 +1,19 @@
+<div class="d-flex flex-column border-radius shadow-border shadow bgd-white mt-3 p-3">
+  <div class="d-flex flex-row justify-content-between align-items-center">
+    <h2 class="fs-18 bold blue">{{ profileTitles.faq }}</h2>
+    <button class="btn" (click)="createFAQ()">
+      <img src="../../../assets/icons/add.png" alt="add faq" width="48px" height="48px" />
+    </button>
+  </div>
+  <div class="d-flex flex-row flex-wrap mt-3">
+    <div class="col-12 d-flex flex-row" *ngFor="let faq of controllers; let i = index">
+      <app-faq-item class="col-10" [answer]="faq.answer" [question]="faq.question"></app-faq-item>
+      <button *ngIf="i !== 0" class="btn col-2" (click)="deleteFAQ(i)">
+        <img src="../../../assets/icons/delete.svg" alt="delete faq" />
+      </button>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary my-2 mx-2 btn-w-240" (click)="updateProfile()">
+    {{ profileTitles.update_profile }}
+  </button>
+</div>

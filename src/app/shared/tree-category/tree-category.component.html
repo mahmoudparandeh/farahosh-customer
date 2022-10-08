@@ -1,0 +1,47 @@
+<div class="treeview w-20">
+  <h2 class="p-3 medium-gray fs-16" *ngIf="title">{{ title }}</h2>
+  <ul class="mb-1 p-2 p-md-3">
+    <li
+      *ngFor="let category of categories; let i = index"
+      class="main-category mb-2"
+      [ngClass]="{ active: i === openedItemIndex }"
+    >
+      <div class="d-flex align-items-center">
+        <i class="fas pointer mx-1" [ngClass]="getIcon(i)" (click)="onOpenAccordion(i)"></i>
+        <div class="medium-gray fs-16 mx-2 text-truncate">{{ category.Name[language] }}</div>
+        <img class="pointer" src="assets/icons/add-button.svg" alt="add category" (click)="addCategory(category)" />
+        <!--        <app-checkbox-->
+        <!--          [title]="category.Name"-->
+        <!--          [control]="selectCheckbox"-->
+        <!--          [id]="category.Id"-->
+        <!--          class="selected-category"-->
+        <!--          [name]="category.Id"-->
+        <!--          [checked]="selectedCategory === category.Id"-->
+        <!--          (click)="changeCategory(category.Id)"-->
+        <!--          (selectedCategoryId)="onChangeCategory($event)"-->
+        <!--        ></app-checkbox>-->
+      </div>
+      <ul class="nested m-3 pe-1 pe-md-4">
+        <li *ngFor="let subCategory of category.Childs; let j = index" class="w-100 d-flex flex-column">
+          <div class="d-flex align-items-center mb-2">
+            <i class="fas pointer mx-1" [ngClass]="getSubIcon(j)" (click)="onOpenSubAccordion(j)"></i>
+            <div class="medium-gray fs-16 mx-2 text-truncate">{{ subCategory.Name[language] }}</div>
+            <span class="add-category" (click)="addCategory(subCategory)">
+              <img src="assets/icons/blue-circle-plus.svg" alt="add category" />
+            </span>
+          </div>
+          <ul class="second-nested m-3 pe-1 pe-md-3" *ngIf="openedSubItemIndex === j">
+            <li *ngFor="let secondSubCategory of subCategory.Childs">
+              <div class="d-flex align-items-center mb-2">
+                <div class="medium-gray fs-16 mx-2 text-truncate">{{ secondSubCategory.Name[language] }}</div>
+                <span class="add-category" (click)="addCategory(secondSubCategory)">
+                  <img src="assets/icons/blue-circle-plus.svg" alt="add category" />
+                </span>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

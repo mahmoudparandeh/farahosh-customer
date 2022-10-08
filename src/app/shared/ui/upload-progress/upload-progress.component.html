@@ -1,0 +1,17 @@
+<div class="upload d-flex item-container flex-column align-items-center invisible" id="upload-progress">
+  <div class="d-flex flex-row align-items-center">
+    <img src="../../../../assets/images/upload.png" alt="upload" />
+  </div>
+  <div class="progress w-100">
+    <div
+      class="progress-bar progress-bar-striped"
+      role="progressbar"
+      [style]="{ width: value + '%' }"
+      [attr.aria-valuenow]="value"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      {{ value + '%' }}
+    </div>
+  </div>
+</div>

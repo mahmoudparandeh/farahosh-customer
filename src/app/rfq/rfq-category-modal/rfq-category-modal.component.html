@@ -1,0 +1,56 @@
+<div class="modal fade" id="rfq_select_category" tabindex="-1" aria-labelledby="rfq_select_category" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="d-flex flex-row justify-content-between modal-header">
+        <h5 class="modal-title" id="fileManagerLabel">{{ rfqTitles.select_category }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-column">
+        <div class="d-flex flex-row flex-wrap" id="category-container" #category>
+          <div class="col-12 col-lg-4 d-flex flex-column">
+            <span
+              class="fs-16 mb-1 pointer text-truncate"
+              [title]="category.Name[language]"
+              *ngFor="let category of categories"
+              [ngClass]="{ 'blue-container': selectedCategory === category.Id }"
+              (click)="selectCategory(category.Id, 1)"
+              >{{ category.Name[language] }}</span
+            >
+          </div>
+          <ng-container *ngIf="subCategories.length > 0">
+            <div class="d-none d-lg-flex vertical-line-rfq mx-2"></div>
+            <hr class="d-flex d-lg-none w-100" />
+            <div class="col-12 col-lg-4 d-flex flex-column">
+              <span
+                class="fs-16 mb-1 pointer text-truncate"
+                [title]="category.Name[language]"
+                *ngFor="let category of subCategories"
+                [ngClass]="{ 'blue-container': selectedSubCategory === category.Id }"
+                (click)="selectCategory(category.Id, 2)"
+                >{{ category.Name[language] }}</span
+              >
+            </div>
+          </ng-container>
+          <ng-container *ngIf="subSubCategories.length > 0">
+            <div class="d-none d-lg-flex vertical-line-rfq mx-2"></div>
+            <hr class="d-flex d-lg-none w-100" />
+            <div class="d-flex col-12 col-lg-3 flex-column">
+              <span
+                class="fs-16 mb-1 pointer text-truncate"
+                [title]="category.Name[language]"
+                *ngFor="let category of subSubCategories"
+                [ngClass]="{ 'blue-container': selectedSubSubCategory === category.Id }"
+                (click)="selectCategory(category.Id, 3)"
+                >{{ category.Name[language] }}</span
+              >
+            </div>
+          </ng-container>
+        </div>
+        <hr />
+        <button class="btn btn-warning btn-w-240" data-bs-dismiss="modal" (click)="onSelectCategories()">
+          {{ rfqTitles.select_category }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

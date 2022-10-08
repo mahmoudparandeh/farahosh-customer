@@ -1,0 +1,172 @@
+<section class="content">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="fs-18 bold blue">
+          {{ id && (id !== 0 || id !== undefined) ? addressTitles.edit_address : addressTitles.new_address }}
+        </h2>
+      </div>
+      <form class="d-flex flex-column">
+        <hr class="bg-light-gray" />
+        <div class="d-flex flex-column flex-lg-row mb-3 mb-lg-4">
+          <div class="col-12 col-lg-6">
+            <app-form-autocomplete
+              [object]="this"
+              [onSelected]="onSelectGeolocation"
+              [control]="geoLocation"
+              [title]="addressTitles.GeoLocation + '*'"
+              [list]="locations"
+            ></app-form-autocomplete>
+            <span class="red fs-12 px-2" *ngIf="geoLocation.touched && this.geoLocationId === 0">
+              {{ addressTitles.GeoLocation_required }}
+            </span>
+          </div>
+          <div class="col-12 col-lg-6 my-3 my-lg-0">
+            <app-form-field
+              [title]="addressTitles.ZipPostalCode + '*'"
+              [control]="zipPostalCode"
+              [placeholder]="addressTitles.ZipPostalCode"
+              (keypress)="isNumber($event)"
+              (keyup)="isNumber($event)"
+              [maxLength]="10"
+            ></app-form-field>
+            <span class="red fs-12 px-2" *ngIf="zipPostalCode.touched && zipPostalCode.hasError('required')">
+              {{ addressTitles.ZipPostalCode_required }}
+            </span>
+            <span class="red fs-12 px-2" *ngIf="zipPostalCode.touched && zipPostalCode.hasError('pattern')">
+              {{ addressTitles.ZipPostalCode_invalid }}
+            </span>
+          </div>
+        </div>
+        <div class="d-flex flex-column flex-lg-row mb-3 mb-lg-4">
+          <div class="col-12 col-lg-6 d-flex flex-column">
+            <app-country-code
+              [id]="'country-mobile'"
+              [control]="mobileCountry"
+              [title]="addressTitles.country_code + '*'"
+            ></app-country-code>
+            <span class="red fs-12 px-2" *ngIf="mobileCountry.touched && mobileCountry.hasError('required')">
+              {{ addressTitles.country_code_validation }}
+            </span>
+          </div>
+          <div class="col-12 col-lg-6">
+            <app-form-field
+              [title]="addressTitles.MobileNumbers + '*'"
+              [control]="mobileNumbers"
+              [placeholder]="'9xxxxxxxxx'"
+              [type]="'text'"
+              (keypress)="isNumber($event)"
+              (keyup)="isNumber($event)"
+              [maxLength]="10"
+            ></app-form-field>
+            <span class="red fs-12 px-2" *ngIf="mobileNumbers.touched && mobileNumbers.hasError('required')">
+              {{ addressTitles.MobileNumbers_required }}
+            </span>
+            <span class="red fs-12 px-2" *ngIf="mobileNumbers.touched && mobileNumbers.value?.length < 10 && mobileNumbers.value?.length > 0">
+              {{ addressTitles.MobileNumbers_invalid }}
+            </span>
+          </div>
+        </div>
+        <div class="d-flex flex-column flex-lg-row mb-3 mb-lg-4">
+          <div class="col-12 col-lg-6 d-flex flex-column">
+            <app-country-code
+              [id]="'country-fax'"
+              [control]="faxCountry"
+              [title]="addressTitles.country_code + '*'"
+            ></app-country-code>
+            <span class="red fs-12 px-2" *ngIf="faxCountry.touched && faxCountry.hasError('required')">
+              {{ addressTitles.country_code_validation }}
+            </span>
+          </div>
+          <div class="col-12 col-lg-6">
+            <app-form-field
+              [title]="addressTitles.FaxNumbers + '*'"
+              [control]="faxNumbers"
+              [placeholder]="'9xxxxxxxxx'"
+              (keyup)="isNumber($event)"
+              (keypress)="isNumber($event)"
+              [maxLength]="10"
+            ></app-form-field>
+            <span class="red fs-12 px-2" *ngIf="faxNumbers.touched && faxNumbers.hasError('required')">
+              {{ addressTitles.FaxNumbers_required }}
+            </span>
+            <span class="red fs-12 px-2" *ngIf="faxNumbers.touched && faxNumbers.value?.length < 10 && faxNumbers.value?.length > 0">
+              {{ addressTitles.FaxNumbers_invalid }}
+            </span>
+          </div>
+        </div>
+        <div class="d-flex flex-column flex-lg-row mb-3 mb-lg-4">
+          <div class="col-12 col-lg-6 d-flex flex-column">
+            <app-country-code
+              [id]="'country-phone'"
+              [control]="phoneCountry"
+              [title]="addressTitles.country_code + '*'"
+            ></app-country-code>
+            <span class="red fs-12 px-2" *ngIf="phoneCountry.touched && phoneCountry.hasError('required')">
+              {{ addressTitles.country_code_validation }}
+            </span>
+          </div>
+          <div class="col-12 col-lg-6 my-3 my-lg-0">
+            <app-form-field
+              [title]="addressTitles.PhoneNumbers + '*'"
+              [control]="phoneNumbers"
+              (keypress)="isNumber($event)"
+              (keyup)="isNumber($event)"
+              [maxLength]="10"
+              [placeholder]="'9xxxxxxxxx'"
+            ></app-form-field>
+            <span class="red fs-12 px-2" *ngIf="phoneNumbers.touched && phoneNumbers.hasError('required')">
+              {{ addressTitles.PhoneNumbers_required }}
+            </span>
+            <span class="red fs-12 px-2" *ngIf="phoneNumbers.touched && phoneNumbers.value?.length < 10 && phoneNumbers.value?.length > 0">
+              {{ addressTitles.PhoneNumbers_invalid }}
+            </span>
+          </div>
+        </div>
+        <div class="d-flex flex-column flex-lg-row mb-3 mb-lg-4 align-items-lg-center">
+          <div class="col-12 col-lg-6">
+            <app-form-field
+              [title]="addressTitles.Title + '*'"
+              [control]="title"
+              [placeholder]="addressTitles.Title"
+            ></app-form-field>
+            <span class="red fs-12 px-2" *ngIf="title.touched && title.hasError('required')">
+              {{ addressTitles.Title_required }}
+            </span>
+          </div>
+          <div class="col-12 col-lg-6 my-3 my-lg-0">
+            <app-form-field
+              [title]="addressTitles.Receiver + '*'"
+              [control]="receiver"
+              [placeholder]="addressTitles.Receiver"
+            ></app-form-field>
+            <span class="red fs-12 px-2" *ngIf="receiver.touched && receiver.hasError('required')">
+              {{ addressTitles.Receiver_required }}
+            </span>
+          </div>
+        </div>
+        <div class="d-flex flex-column flex-lg-row mb-3 mb-lg-4 align-items-lg-center">
+          <div class="col-12 col-lg-6">
+            <app-form-field
+              [title]="addressTitles.Address + '*'"
+              [control]="address"
+              [placeholder]="addressTitles.Address"
+            ></app-form-field>
+            <span class="red fs-12 px-2" *ngIf="address.touched && address.hasError('required')">
+              {{ addressTitles.Address_required }}
+            </span>
+          </div>
+          <div class="col-12 col-lg-6 margin-lg">
+            <app-form-checkbox [title]="addressTitles.published" [control]="published"></app-form-checkbox>
+          </div>
+        </div>
+        <hr class="bg-light-gray" />
+        <div class="d-flex justify-content-center align-items-center mt-3">
+          <button type="button" class="btn btn-primary" (click)="submit()">{{addressTitles.submit}}</button>
+          <button type="button" class="btn btn-warning mx-3" (click)="reset()">{{addressTitles.reset}}</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">{{addressTitles.cancel}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

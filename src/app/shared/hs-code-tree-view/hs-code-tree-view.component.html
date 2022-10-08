@@ -1,0 +1,81 @@
+<div class="treeview w-20">
+  <ul class="mb-1 p-2">
+    <li
+      *ngFor="let section of sections; let i = index"
+      class="main-category mb-2"
+      [ngClass]="{ active: i === openedItemIndex }"
+    >
+      <div class="d-flex">
+        <i class="fas pointer mx-1 mt-1" [ngClass]="getIcon(i)" (click)="onOpenAccordion(i, section)"></i>
+        <span class="medium-gray fs-16 mx-2">{{ section.Title }}</span>
+      </div>
+      <ul class="nested m-2 pe-1 pe-md-4">
+        <li
+          *ngFor="let subCategory of hsCodeListWithSectionId; let j = index"
+          class="second-main-category"
+          [ngClass]="{ active: j === openedItemIndex2 }"
+        >
+          <div class="d-flex mb-1">
+            <i
+              class="fas pointer mx-1 mt-1"
+              [ngClass]="getIcon2(j)"
+              (click)="onOpenAccordion2(j, section, subCategory)"
+            ></i>
+            <span class="medium-gray fs-14 mx-2">{{ subCategory.Title }}</span>
+          </div>
+          <ul class="second-nested m-2 pe-1 pe-md-4">
+            <li
+              *ngFor="let secondSubCategory of hsCodeListWithChapterId; let d = index"
+              class="third-main-category"
+              [ngClass]="{ active: d === openedItemIndex3 }"
+            >
+              <div class="d-flex mb-1">
+                <i
+                  class="fas pointer mx-1 mt-1"
+                  [ngClass]="getIcon3(d)"
+                  (click)="onOpenAccordion3(d, section, subCategory, secondSubCategory)"
+                ></i>
+                <span class="medium-gray fs-14 mx-2">{{ secondSubCategory.Description }}</span>
+              </div>
+              <ul class="third-nested m-2 pe-1 pe-md-4">
+                <li
+                  *ngFor="let thirdSubCategory of hsCodeListWithHsNumber; let k = index"
+                  class="forth-main-category"
+                  [ngClass]="{ active: k === openedItemIndex4 }"
+                >
+                  <div class="d-flex mb-1">
+                    <i
+                      class="fas pointer mx-1 mt-1"
+                      [ngClass]="getIcon4(k)"
+                      (click)="onOpenAccordion4(k, section, subCategory, secondSubCategory, thirdSubCategory)"
+                    ></i>
+                    <span class="medium-gray fs-14 mx-2" *ngIf="thirdSubCategory.HTSNumber === '-1'">{{
+                      thirdSubCategory.Description
+                    }}</span>
+                    <span
+                      class="medium-gray fs-14 mx-2 pointer"
+                      *ngIf="thirdSubCategory.HTSNumber !== '-1'"
+                      (click)="setHsCode(thirdSubCategory.HTSNumber, thirdSubCategory)"
+                      >{{ thirdSubCategory.Description }} ({{ thirdSubCategory.HTSNumber }})</span
+                    >
+                  </div>
+                  <ul class="forth-nested m-2 pe-1 pe-md-4">
+                    <li *ngFor="let forthSubCategory of hsCodeListWithIndent">
+                      <div class="d-flex mb-1">
+                        <span
+                          class="medium-gray fs-14 mx-2 pointer"
+                          (click)="setHsCode(forthSubCategory.HTSNumber, forthSubCategory)"
+                          >{{ forthSubCategory.Description }} ({{ forthSubCategory.HTSNumber }})</span
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

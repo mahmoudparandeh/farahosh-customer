@@ -1,0 +1,77 @@
+<section class="content" *ngIf="!isLoading">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
+        <h2 class="fs-18 bold blue">
+          {{ addressTitles.translator }}
+        </h2>
+        <div class="d-flex flex-row flex-wrap">
+          <app-form-select
+            [control]="fromLanguageController"
+            [others]="this"
+            [selectionChanged]="onFromLanguageChanged"
+            [values]="languages"
+            [title]="addressTitles.from_language"
+          ></app-form-select>
+          <app-form-select
+            class="margin"
+            [control]="toLanguageController"
+            [others]="this"
+            [selectionChanged]="onToLanguageChanged"
+            [values]="languages"
+            [title]="addressTitles.to_language"
+          ></app-form-select>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-row flex-wrap align-items-center border-radius shadow-border shadow bgd-white p-3 my-3">
+      <ng-container class="col-12" *ngFor="let address of addresses; let i = index">
+        <app-form-field
+          class="col-12 col-md-6 mb-3"
+          [control]="addressTitleFromControllers[i]"
+          [title]="addressTitles.Title + '-' + (i + 1) + ' (' + currentFromLanguage + ')'"
+          [id]="'address-title-from-' + i"
+        ></app-form-field>
+        <app-form-field
+          class="col-12 col-md-6 mb-3"
+          [control]="addressTitleToControllers[i]"
+          [title]="addressTitles.Title + '-' + (i + 1) + ' (' + currentToLanguage + ')'"
+          [id]="'address-title-to-' + i"
+        ></app-form-field>
+        <app-form-field
+          class="col-12 col-md-6 mb-3"
+          [control]="addressReceiverFromControllers[i]"
+          [title]="addressTitles.Receiver + '-' + (i + 1) + ' (' + currentFromLanguage + ')'"
+          [id]="'address-receiver-from-' + i"
+        ></app-form-field>
+        <app-form-field
+          class="col-12 col-md-6 mb-3"
+          [control]="addressReceiverToControllers[i]"
+          [title]="addressTitles.Receiver + '-' + (i + 1) + ' (' + currentToLanguage + ')'"
+          [id]="'address-receiver-to-' + i"
+        ></app-form-field>
+        <app-form-field
+          class="col-12 col-md-6 mb-3"
+          [control]="addressAddressFromControllers[i]"
+          [title]="addressTitles.Address + '-' + (i + 1) + ' (' + currentFromLanguage + ')'"
+          [id]="'address-address-from-' + i"
+        ></app-form-field>
+        <app-form-field
+          class="col-12 col-md-6 mb-3"
+          [control]="addressAddressToControllers[i]"
+          [title]="addressTitles.Address + '-' + (i + 1) + ' (' + currentToLanguage + ')'"
+          [id]="'address-address-to-' + i"
+        ></app-form-field>
+        <div class="col-12 col-sm-6 px-2">
+          <button class="btn btn-warning w-100" (click)="translate(i)">
+            {{ addressTitles.translate_button }}
+          </button>
+        </div>
+        <div class="col-12 col-sm-6 px-2 pt-2 pt-sm-0">
+          <button class="btn btn-primary w-100" (click)="onSubmit(i)">{{ addressTitles.submit_button }}</button>
+        </div>
+        <hr class="w-100" />
+      </ng-container>
+    </div>
+  </div>
+</section>

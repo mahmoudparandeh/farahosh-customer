@@ -1,0 +1,178 @@
+<div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3 mt-3" id="company_history">
+  <h2 class="fs-18 bold blue">{{ profileTitles.company_history }}</h2>
+  <div class="d-flex flex-column">
+    <h2 class="fs-16">{{ profileTitles.logo_vendor }}</h2>
+    <div
+      *ngIf="logo.path === ''"
+      class="border border-radius p-3 logo-container"
+      data-bs-toggle="modal"
+      [attr.data-bs-target]="'#' + galleryType"
+      (click)="setFileManagerType('Image', 'Logo')"
+    >
+      <img src="../../../assets/images/add-image.png" alt="add image" />
+    </div>
+    <div
+      *ngIf="logo.path !== ''"
+      class="border border-radius p-3 file-image-container d-flex flex-row flex-wrap justify-content-between margin"
+    >
+      <img [src]="logo.path" class="file-image pointer" alt="add image" (click)="setFileManagerType('Image', 'Logo')" />
+      <div class="border border-radius p-2 d-flex flex-column">
+        <app-form-field [title]="fileTitles.alt" [control]="logo.alt" [placeholder]="fileTitles.alt"></app-form-field>
+        <app-form-field [title]="fileTitles.seo" [control]="logo.tags" [placeholder]="fileTitles.seo"></app-form-field>
+        <app-form-field
+          [title]="fileTitles.description"
+          [control]="logo.description"
+          [placeholder]="fileTitles.description"
+        ></app-form-field>
+      </div>
+    </div>
+    <h2 class="fs-16 mt-3">{{ profileTitles.gallery_vendor }}</h2>
+    <div class="d-flex flex-row flex-wrap">
+      <ng-container *ngIf="gallery.length > 0">
+        <div
+          *ngFor="let image of gallery; let i = index"
+          class="border border-radius p-3 file-image-container d-flex flex-row flex-wrap justify-content-between margin mb-2 position-relative"
+        >
+          <div class="delete-button position-absolute">
+            <img src="../../../../assets/icons/delete.svg" alt="delete gallery" (click)="deleteGallery(i)" />
+          </div>
+          <img [src]="image.path" class="file-image" alt="add image" />
+          <div class="border border-radius p-2 d-flex flex-column">
+            <app-form-field
+              [title]="fileTitles.alt"
+              [control]="image.alt"
+              [placeholder]="fileTitles.alt"
+            ></app-form-field>
+            <app-form-field
+              [title]="fileTitles.seo"
+              [control]="image.tags"
+              [placeholder]="fileTitles.seo"
+            ></app-form-field>
+            <app-form-field
+              [title]="fileTitles.description"
+              [control]="image.description"
+              [placeholder]="fileTitles.description"
+            ></app-form-field>
+          </div>
+        </div>
+      </ng-container>
+      <div class="border border-radius p-3 logo-container margin mb-2" (click)="setFileManagerType('Image', 'Gallery')">
+        <img src="../../../assets/images/add-image.png" alt="add image" />
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-row flex-wrap mt-3">
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        [control]="controllers.emailController"
+        [title]="profileTitles.email"
+        [id]="'company-email'"
+      ></app-form-field>
+      <span class="red" *ngIf="controllers.emailController.touched && controllers.emailController.hasError('email')">{{
+        profileTitles.email_invalid
+      }}</span>
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        [control]="controllers.contactPersonController"
+        [title]="profileTitles.contact_person"
+        [id]="'company-contact-person'"
+      ></app-form-field>
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-country-code
+        [id]="'country-mobile'"
+        [control]="controllers.mobileCountry"
+        [title]="profileTitles.country_code + '*'"
+      ></app-country-code>
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        (keypress)="isNumber($event)"
+        (keyup)="isNumber($event)"
+        [maxLength]="10"
+        [placeholder]="'9xxxxxxxxxx'"
+        [control]="controllers.faxController"
+        [title]="profileTitles.fax"
+        [id]="'company-fax'"
+      ></app-form-field>
+    </div>
+
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        [control]="controllers.legalStatusController"
+        [title]="profileTitles.legal_status"
+        [id]="'company-legal-status'"
+      ></app-form-field>
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        (keypress)="isNumber($event)"
+        (keyup)="isNumber($event)"
+        [control]="controllers.yearEstablishedController"
+        [title]="profileTitles.year_established"
+        [id]="'company-year-established'"
+      ></app-form-field>
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        (keypress)="isNumber($event)"
+        (keyup)="isNumber($event)"
+        [control]="controllers.numberOfEmployeeController"
+        [title]="profileTitles.number_of_employee"
+        [id]="'company-number-of-employee'"
+      ></app-form-field>
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        (keypress)="isNumber($event)"
+        (keyup)="isNumber($event)"
+        [control]="controllers.grossAnnualTurnoverController"
+        [title]="profileTitles.gross_annual_turnover"
+        [id]="'company-gross-annual-turnover'"
+      ></app-form-field>
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        (keypress)="isNumber($event)"
+        (keyup)="isNumber($event)"
+        [control]="controllers.annualExportTurnoverController"
+        [title]="profileTitles.annual_export_turnover"
+        [id]="'company-annual-export-turnover'"
+      ></app-form-field>
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        [control]="controllers.typeOfBusinessProductsController"
+        [title]="profileTitles.type_of_business_products"
+        [id]="'company-type-of-business-products'"
+      ></app-form-field>
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        [control]="controllers.referencesController"
+        [title]="profileTitles.refrences"
+        [id]="'company-refrences'"
+      ></app-form-field>
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        (keypress)="isNumber($event)"
+        (keyup)="isNumber($event)"
+        [control]="controllers.responseRFQTimeController"
+        [title]="profileTitles.responseRFQTime"
+        [id]="'company-responseRFQTime'"
+      ></app-form-field>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary my-2 mx-2 btn-w-240" (click)="updateProfile()">
+    {{ profileTitles.update_profile }}
+  </button>
+</div>
+<app-file-manager-modal
+  [type]="fileManagerType"
+  [onFileSelected]="onFileGallerySelected"
+  [other]="this"
+  [id]="galleryType"
+  [currentPage]="imageGalleryIndex"
+></app-file-manager-modal>

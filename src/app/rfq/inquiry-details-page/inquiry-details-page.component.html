@@ -1,0 +1,297 @@
+<section class="content" *ngIf="rfqTitles && inquiryDetail">
+  <div class="container-fluid d-flex flex-column">
+    <h2 class="blue fs-18 bold mb-2">{{ rfqTitles.inquiry }}</h2>
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <h3 class="dark-gray fs-16 bold mt-3">{{ rfqTitles.user_input }} ({{inquiryDetail.UserFirstName + ' ' + inquiryDetail.UserLastName}})</h3>
+      <hr />
+      <div class="d-flex flex-row flex-wrap align-items-center my-3">
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <a [href]="inquiryDetail.ProductPicturePath ? inquiryDetail.ProductPicturePath : 'assets/images/default-product-image.png'" target='_blank'>
+            <img class='border-radius border' width='64' height='64' [src]="inquiryDetail.ProductPicturePath ? inquiryDetail.ProductPicturePath : 'assets/images/default-product-image.png'"/>
+          </a>
+          <label class="medium-gray fs-16 margin">{{ rfqTitles.product }}:</label>
+          <span class="margin fs-16">{{ inquiryDetail.ProductName[language]}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.category }}:</label>
+          <span class="margin fs-16">{{inquiryDetail.CategoryName[language]}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.quantity }}:</label>
+          <span class="margin fs-16">{{inquiryDetail.Quantity}} ({{inquiryDetail.UnitName[language]}})</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.incoterms }}:</label>
+          <span class="margin fs-16">{{inquiryDetail.IncotermTitle[language]}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.max_budget }}:</label>
+          <span class="margin fs-16">{{inquiryDetail.MaxBudgetName[language]}} ({{inquiryDetail.CurrencyName[language]}})</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.sourcing_type }}:</label>
+          <span class="margin fs-16">{{inquiryDetail.SourcingTypeName[language]}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.sourcing_purpose }}:</label>
+          <span class="margin fs-16">{{inquiryDetail.SourcingPurposeName[language]}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.cas_number }}:</label>
+          <span class="margin fs-16">{{inquiryDetail.CasNO}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.purity }}:</label>
+          <span class="margin fs-16">{{inquiryDetail.Purity ? inquiryDetail.Purity[language]: ''}}</span>
+        </div>
+        <div class="col-12 d-flex flex-column mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.details }}:</label>
+          <span class="fs-16">{{inquiryDetail.TicketRFQDetails[language]}}</span>
+        </div>
+        <div class="col-12 d-flex flex-column mb-3" *ngIf="attachments.length > 0">
+          <label class="medium-gray fs-16">{{ rfqTitles.attachments }}:</label>
+          <div class="d-flex flex-row flex-wrap">
+            <a *ngFor="let attachment of attachments" [href]="attachment.Path" class="margin" target="_blank">
+              <img
+                [src]="attachment.Path"
+                [alt]="attachment.Alt"
+                width="150"
+                height="150"
+                class="border border-radius object-fit"
+              />
+            </a>
+          </div>
+        </div>
+        <hr class="w-100" />
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="fs-16 medium-gray">{{ rfqTitles.supplier_business_type }}:</label>
+          <span class="fs-16 margin">{{inquiryDetail.SupplierBusinessTypeName[language]}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap mb-3">
+          <label class="fs-16 medium-gray">{{ rfqTitles.product_certification }}:</label>
+          <div class="d-flex flex-row flex-wrap" *ngFor="let certificate of inquiryDetail.ProductCertificateIds">
+            <span class="fs-16 margin">{{ certificate.Name }}</span>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="fs-16 medium-gray">{{ rfqTitles.business_certification }}:</label>
+          <div class="d-flex flex-row flex-wrap" *ngFor="let certificate of inquiryDetail.BusinessCertificateIds">
+            <span class="fs-16 margin">{{ certificate.Name }}</span>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="fs-16 medium-gray">{{ rfqTitles.test_report }}:</label>
+          <span class="fs-16 margin">{{inquiryDetail.TestReportName[language]}}</span>
+        </div>
+        <div class="col-12 d-flex flex-column mb-3">
+          <label class="fs-16 medium-gray">{{ rfqTitles.other_requiremnets }}:</label>
+          <span class="fs-16">{{inquiryDetail.OtherRequirements[language]}}</span>
+        </div>
+        <hr class="w-100" />
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.shopping_method }}:</label>
+          <span class="margin">{{inquiryDetail.ShoppingMethodName[language]}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.destination }}:</label>
+          <span class="margin">{{inquiryDetail.GeoLocationName[language]}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.port }}:</label>
+          <span class="margin">{{inquiryDetail.Port}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.lead_time }}:</label>
+          <span class="margin">{{inquiryDetail.LeadTime}} {{ rfqTitles.day }}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.payment_method }}:</label>
+          <span class="margin">{{inquiryDetail.PaymentMethodName[language]}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3 my-3">
+      <h1 class="fs-18 bold orange">{{ rfqTitles.tell_customer }}</h1>
+      <main class="d-flex flex-column border border-radius bg-white my-2 p-3">
+        <h2 class="fs-16 bold medium-gray m-0 p-0">{{ rfqTitles.rfq_title }}</h2>
+        <hr />
+        <app-form-autocomplete
+          class="col-12"
+          [id]="'product'"
+          [object]="this"
+          [onSelected]="selectProduct"
+          [list]="filters"
+          [control]="productController"
+          [title]="rfqTitles.product_name"
+        ></app-form-autocomplete>
+        <span class="px-2 fs-12 red mt-1" *ngIf="productController.errors && productController.touched">{{
+          rfqTitles.product_name_required
+          }}</span>
+        <ng-container>
+          <label class="fs-16 medium-gray mt-3">{{ rfqTitles.category }}</label>
+          <div class="d-flex flex-row flex-wrap">
+            <div class="d-flex flex-row" *ngFor="let category of selectedCategories; let i = index">
+              <span class="fs-16 text-black mt-1">{{ category.Name[language] }}</span>
+              <img
+                class="mx-1"
+                *ngIf="i !== selectedCategories.length - 1"
+                [src]="
+              direction === 'rtl' ? '../../../assets/icons/left-arrow.svg' : '../../../assets/icons/right-arrow.svg'
+            "
+                alt="arrow"
+              />
+            </div>
+          </div>
+          <a class="fs-12 orange" data-bs-toggle="modal" data-bs-target="#rfq_select_category">{{
+            selectedCategories.length > 0 ? rfqTitles.change_category : rfqTitles.select_category
+            }}</a>
+          <span class="px-2 fs-12 red mt-1" *ngIf="selectedCategories.length === 0">{{ rfqTitles.category_required }}</span>
+        </ng-container>
+        <label class="fs-16 medium-gray mt-3">{{ rfqTitles.quantity + '*' }}</label>
+        <div class="d-flex flex-row flex-wrap align-items-center">
+          <button class="btn" (click)="changeQuantity(1)">
+            <img src="../../../assets/icons/add.png" width="32" height="32" alt="add-button" />
+          </button>
+          <div class="d-flex flex-column">
+            <app-form-field
+              [control]="quantityController"
+              (keyup)="isNumber($event)"
+              [id]="'quantity'"
+              (keypress)="isNumber($event)"
+            ></app-form-field>
+            <span class="px-2 fs-12 red mt-1" *ngIf="quantityController.errors && quantityController.touched">{{
+              rfqTitles.quantity_required
+              }}</span>
+          </div>
+          <button class="btn" (click)="changeQuantity(-1)">
+            <img src="../../../assets/icons/remove.png" width="28" height="28" alt="remove-button" />
+          </button>
+          <div class="d-flex flex-column">
+            <app-form-select
+              [values]="quantityTypes"
+              [control]="quantityTypeController"
+              [id]="'quantity-type'"
+            ></app-form-select>
+            <span class="px-2 fs-12 red mt-1" *ngIf="quantityTypeController.errors && quantityTypeController.touched">{{
+              rfqTitles.unit_required
+              }}</span>
+          </div>
+        </div>
+        <app-form-select
+          class="mt-3"
+          [title]="rfqTitles.incoterms + '*'"
+          [values]="incotermsTypes"
+          [control]="incotermsController"
+          [id]="'incoterms'"
+        ></app-form-select>
+        <span class="px-2 fs-12 red mt-1" *ngIf="incotermsController.errors && incotermsController.touched">{{
+          rfqTitles.incoterms_required
+          }}</span>
+        <label class="fs-16 medium-gray mt-3">{{ rfqTitles.price + '*' }}</label>
+        <div class="d-flex flex-row flex-wrap">
+          <div class="d-flex flex-column col-12 col-md-6">
+            <app-form-field
+              [control]="priceController"
+              [id]="'max-budget'"
+            ></app-form-field>
+            <span class="px-2 fs-12 red mt-1" *ngIf="priceController.errors && priceController.touched">{{
+              rfqTitles.price_required
+              }}</span>
+          </div>
+          <div class="d-flex flex-column col-12 col-md-6">
+            <app-form-select
+              [values]="currenciesValue"
+              [control]="currencyTypeController"
+              [id]="'currency'"
+            ></app-form-select>
+            <span class="px-2 fs-12 red mt-1" *ngIf="currencyTypeController.errors && currencyTypeController.touched">{{
+              rfqTitles.currency_required
+              }}</span>
+          </div>
+        </div>
+        <app-form-textarea
+          class="mt-3"
+          [title]="rfqTitles.details + '*'"
+          [control]="detailsController"
+          [id]="'details'"
+        ></app-form-textarea>
+        <span class="px-2 fs-12 red mt-1" *ngIf="detailsController.errors && detailsController.touched">{{
+          rfqTitles.details_required
+          }}</span>
+        <label class="fs-16 medium-gray mt-3">{{ rfqTitles.attachments }}</label>
+        <span class="my-1 fs-14">{{ rfqTitles.attachments_help }}</span>
+        <div class="d-flex flex-row flex-wrap">
+          <div *ngFor="let image of filesPath; let i = index" class="position-relative">
+            <button class="btn position-absolute remove-image" (click)="removeImage(i)">
+              <img src="../../../assets/icons/delete-button.png" />
+            </button>
+            <img [src]="image" width="162px" height="162px" class="border border-radius margin" />
+          </div>
+          <label class="border border-radius p-3 margin" for="file">
+            <img src="../../../assets/images/add-image.png" alt="add-images" />
+            <input
+              type="file"
+              id="file"
+              class="d-none"
+              onclick="this.value = null"
+              (change)="uploadProductPicture($event)"
+              accept="image/*"
+            />
+          </label>
+        </div>
+      </main>
+      <main class="d-flex flex-column border border-radius bg-white my-2 p-3">
+        <h2 class="fs-16 bold medium-gray m-0 p-0">{{ rfqTitles.shopping_payment }}</h2>
+        <hr />
+        <app-form-select
+          class="col-12 mt-3"
+          [title]="rfqTitles.shopping_method + '*'"
+          [id]="'shopping method'"
+          [control]="shoppingMethodController"
+          [values]="shoppingMethodTypes"
+        ></app-form-select>
+        <span class="px-2 fs-12 red mt-1" *ngIf="shoppingMethodController.errors && shoppingMethodController.touched">{{
+          rfqTitles.shopping_method_required
+          }}</span>
+        <app-form-autocomplete-country
+          class="col-12 mt-3"
+          [title]="rfqTitles.destination + '*'"
+          [id]="'destination'"
+          [control]="destinationController"
+          [list]="destinationsFiltered"
+          [onSelected]="onDestinationSelected"
+          [object]="this"
+        ></app-form-autocomplete-country>
+        <span class="px-2 fs-12 red mt-1" *ngIf="destinationController.errors && destinationController.touched">{{
+          rfqTitles.destination_required
+          }}</span>
+        <app-form-field
+          class="col-12 mt-3"
+          [title]="rfqTitles.port"
+          [id]="'port'"
+          [control]="portController"
+          [placeholder]="rfqTitles.port"
+        ></app-form-field>
+        <div class="col-12 mt-3 d-flex flex-column">
+          <label class="medium-gray fs-16 px-2">{{ rfqTitles.lead_time }}</label>
+          <div class="d-flex flex-row flex-wrap align-items-center px-2">
+            <span class="fs-16 medium-gray">{{ rfqTitles.ship_in }}</span>
+            <app-form-field [control]="daysController" [id]="'days'"></app-form-field>
+            <span class="fs-16 medium-gray">{{ rfqTitles.time }}</span>
+          </div>
+        </div>
+        <app-form-select
+          class="col-12 mt-3"
+          [title]="rfqTitles.payment_method + '*'"
+          [id]="'payment method'"
+          [control]="paymentMethodController"
+          [values]="paymentMethods"
+        ></app-form-select>
+        <span class="px-2 fs-12 red mt-1" *ngIf="paymentMethodController.errors && paymentMethodController.touched">{{
+          rfqTitles.payment_required
+          }}</span>
+      </main>
+    </div>
+  </div>
+</section>
+<app-rfq-category-modal></app-rfq-category-modal>

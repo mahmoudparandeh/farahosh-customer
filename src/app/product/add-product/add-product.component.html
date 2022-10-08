@@ -1,0 +1,44 @@
+<section class="content">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <app-stepper [activeTab]="activeTab" (activatedTab)="changeTab($event)"></app-stepper>
+      <div class="d-flex flex-column">
+        <hr class="bg-light-gray" />
+        <app-add-product-step1 *ngIf="activeTab === 1" (activatedTab)="changeTab($event)"></app-add-product-step1>
+        <app-add-product-step2
+          *ngIf="activeTab === 2"
+          [guid]="id"
+          (activatedTab)="changeTab($event)"
+        ></app-add-product-step2>
+        <app-add-product-step3
+          *ngIf="activeTab === 3"
+          [guid]="id"
+          (activatedTab)="changeTab($event)"
+        ></app-add-product-step3>
+        <app-add-product-step4
+          *ngIf="activeTab === 4"
+          [guid]="id"
+          (activatedTab)="changeTab($event)"
+        ></app-add-product-step4>
+        <app-add-product-step5
+          *ngIf="activeTab === 5"
+          [guid]="id"
+          (activatedTab)="changeTab($event)"
+        ></app-add-product-step5>
+        <app-add-product-step6
+          *ngIf="activeTab === 6"
+          [guid]="id"
+          (activatedTab)="changeTab($event)"
+        ></app-add-product-step6>
+        <app-add-product-final
+          *ngIf="activeTab === 7"
+          (activatedTab)="changeTab($event)"
+          [logo]="logo"
+          [guid]="id"
+          [gallery]="gallery"
+        ></app-add-product-final>
+        <hr class="bg-light-gray" />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,78 @@
+@import "../../../../utilities/colors"
+.tag-container
+  //border: 1px solid #00bcd4
+  border-radius: 12px
+  background-color: $primary-color
+  color: white
+  min-width: 80px
+  padding: 5px 16px
+  width: fit-content
+  display: flex
+  align-items: center
+  justify-content: space-between
+  margin: 5px
+.selected-category
+  border-radius: 16px
+  padding: 7px 16px
+  background-color: $primary-color
+  color: white
+  max-width: fit-content
+  font-size: 12px
+
+.tag-box
+  display: flex
+  flex-direction: column
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px
+  padding: 5px 16px
+  width: 100%
+  border-radius: 10px
+.tag-box-icon
+  cursor: pointer
+
+.tag-remove-icon
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 15px
+  height: 15px
+  padding: 2px
+
+.select-category
+  display: flex
+  align-items: center
+  justify-content: space-between
+  cursor: pointer
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px
+  padding: 5px 16px
+  width: 100%
+  border-radius: 6px
+
+.select-category-content
+  position: absolute
+  width: 100%
+  z-index: 100
+  background-color: white
+  margin-top: 2px
+  border-radius: 6px
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px
+
+.selected-category-list
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px
+  padding: 5px 16px
+  border-radius: 6px
+
+.line
+  color: rgba(0,0,0,0.5)
+@media screen and ( min-width: 768px )
+  .tag-box
+    flex-direction: row
+.image-gallery
+  width: 256px
+  height: 256px
+  overflow: hidden
+  border-radius: 10px
+  cursor: pointer
+.image-fit
+  object-fit: cover
+  height: 100%
+  width: 100%

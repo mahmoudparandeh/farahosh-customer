@@ -1,0 +1,86 @@
+<ng-container>
+  <div
+    class="d-none d-md-flex flex-row align-items-center p-3 border-radius shadow-border mb-2 bgd-white shadow-sm"
+    [dir]="direction === 'rtl' ? 'rtl' : 'ltr'"
+  >
+    <div class="col-2">
+      <img
+        class="border-radius shadow-border border"
+        *ngIf="file.Type === 'Image'"
+        [src]="file.Path"
+        [alt]="file.Name"
+        width="120px"
+        height="120px"
+      />
+      <video
+        class="border-radius shadow-border border"
+        controls
+        *ngIf="file.Type === 'Video'"
+        [src]="file.Path"
+        width="120px"
+        height="120px"
+      ></video>
+    </div>
+    <span class="col-2 fs-16 overflow-wrap">{{ file.Name }}</span>
+    <div class="col-2">
+      <img
+        [src]="file.Type === 'Image' ? '../../../../assets/icons/image.png' : '../../../../assets/icons/video.png'"
+        alt="file type"
+        width="64px"
+        height="64px"
+      />
+    </div>
+    <span class="col-2 fs-16">{{ file.Size }}</span>
+    <span>{{ file.UploadDate }}</span>
+    <div class="d-flex justify-content-end flex-grow-1">
+      <button class="btn" (click)="deleteFile()"><img src="../../../../assets/icons/delete.svg" /></button>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column d-md-none align-items-center w-100">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 w-100">
+      <span class="fs-16 bold">{{ fileManagerTitles.Path }} : </span>
+      <img
+        class="border-radius shadow-border border"
+        *ngIf="file.Type === 'Image'"
+        [src]="file.Path"
+        [alt]="file.Name"
+        width="120px"
+        height="120px"
+      />
+      <video
+        class="border-radius shadow-border border"
+        controls
+        *ngIf="file.Type === 'Video'"
+        [src]="file.Path"
+        width="120px"
+        height="120px"
+      ></video>
+    </div>
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 w-100">
+      <span class="fs-16 bold">{{ fileManagerTitles.Name }} :</span>
+      <span>{{ file.Name }}</span>
+    </div>
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 w-100">
+      <span class="fs-16 bold">{{ fileManagerTitles.Type }} :</span>
+      <img
+        [src]="file.Type === 'Image' ? '../../../../assets/icons/image.png' : '../../../../assets/icons/video.png'"
+        alt="file type"
+        width="64px"
+        height="64px"
+      />
+    </div>
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 w-100">
+      <span class="fs-16 bold">{{ fileManagerTitles.Size }} :</span>
+      <span>{{ file.Size }}</span>
+    </div>
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 w-100">
+      <span class="fs-16 bold">{{ fileManagerTitles.UploadDate }} : </span>
+      <span>{{ file.UploadDate }}</span>
+    </div>
+    <div class="d-flex justify-content-center mb-3">
+      <button class="btn" (click)="deleteFile()"><img src="../../../../assets/icons/delete.svg" /></button>
+    </div>
+    <hr class="w-100" />
+  </div>
+</ng-container>

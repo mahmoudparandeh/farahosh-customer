@@ -1,0 +1,67 @@
+<section class="content">
+  <ul class="nav nav-tabs px-2">
+    <li class="nav-item px-2">
+      <a
+        class="nav-link"
+        [ngClass]="{ active: currentTab === 'companyOverview' }"
+        (click)="setCurrentTab('companyOverview')"
+        >{{ profileTitles.company_overview }}</a
+      >
+    </li>
+    <li class="nav-item px-2">
+      <a
+        class="nav-link"
+        [ngClass]="{ active: currentTab === 'companyHistory' }"
+        (click)="setCurrentTab('companyHistory')"
+        >{{ profileTitles.company_history }}</a
+      >
+    </li>
+    <li class="nav-item px-2">
+      <a
+        class="nav-link"
+        [ngClass]="{ active: currentTab === 'companyCertificate' }"
+        (click)="setCurrentTab('companyCertificate')"
+        >{{ profileTitles.certificates }}</a
+      >
+    </li>
+    <li class="nav-item px-2">
+      <a
+        class="nav-link"
+        [ngClass]="{ active: currentTab === 'productionCapacity' }"
+        (click)="setCurrentTab('productionCapacity')"
+        >{{ profileTitles.production_capacity }}</a
+      >
+    </li>
+    <li class="nav-item px-2">
+      <a class="nav-link" [ngClass]="{ active: currentTab === 'faqTab' }" (click)="setCurrentTab('faqTab')">{{
+        profileTitles.faq
+      }}</a>
+    </li>
+  </ul>
+  <div class="container-fluid d-flex flex-column mb-3">
+    <app-company-overview
+      [controllers]="companyOverviewControllers"
+      [profile]="profile"
+      [profileController]="this.profileController"
+      *ngIf="currentTab === 'companyOverview'"
+    ></app-company-overview>
+    <app-company-history
+      [logo]="logo"
+      [gallery]="gallery"
+      [deletedGallery]="deletedGallery"
+      [controllers]="companyHistoryControllers"
+      *ngIf="currentTab === 'companyHistory'"
+    ></app-company-history>
+    <app-company-certificates
+      [isosCheckboxes]="isosCheckboxes"
+      [isos]="isos"
+      [isosImages]="isosImages"
+      *ngIf="currentTab === 'companyCertificate'"
+    ></app-company-certificates>
+    <app-company-production-capacity
+      [controllers]="capacityControllers"
+      *ngIf="currentTab === 'productionCapacity'"
+    ></app-company-production-capacity>
+    <app-company-faq [controllers]="faqControllers" *ngIf="currentTab === 'faqTab'"></app-company-faq>
+  </div>
+</section>

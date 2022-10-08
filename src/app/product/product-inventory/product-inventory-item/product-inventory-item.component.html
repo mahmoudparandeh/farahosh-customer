@@ -1,0 +1,104 @@
+<ng-container>
+  <div class="d-none d-lg-flex flex-row p-3 border-radius shadow-border mb-2 bgd-white">
+    <span class="col-1">{{ product.ProductInventoryId }}</span>
+    <span class="col-1">{{
+      product.QuantityFrom === -1 ? newProductPriceTitles.Negotiated : (product.QuantityFrom | number: '1.0-0')
+    }}</span>
+    <span class="col-1">{{
+      product.QuantityTo === -1 ? newProductPriceTitles.Negotiated : (product.QuantityTo === 0 ? '>=' : (product.QuantityTo | number: '1.0-0'))
+    }}</span>
+    <span [ngClass]="{'col-2': product.SpecialAttributeValue.length === 0,'col-1': product.SpecialAttributeValue.length > 0 }">{{ product.UnitName }}</span>
+    <div class="col-2 d-flex flex-column" *ngIf="product.SpecialAttributeValue.length > 0">
+      <div *ngFor="let specialFeature of product.SpecialAttributeValue">
+        <span>{{ specialFeature.AttributeName }}: {{ specialFeature.AttributeValue }}</span>
+      </div>
+    </div>
+    <span class="col-2">{{ product.IncotermName }}</span>
+    <span class="col-2">{{
+      product.GeolocationId === -1 ? newProductPriceTitles.Negotiated : product.GeolocationName[language]
+    }}</span>
+    <span [ngClass]="{'col-2': product.SpecialAttributeValue.length === 0,'col-1': product.SpecialAttributeValue.length > 0 }">{{
+      product.Price === -1 ? newProductPriceTitles.Negotiated : ((product.Price | number: '1.0-0') + ' ' +product.CurrencyName[language])
+    }}</span>
+    <div class="col-1 text-dark d-flex justify-content-end">
+      <a class="pointer" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li>
+          <a class="dropdown-item" (click)="onEdit()">{{ productInventoryListTitles.edit }}</a>
+        </li>
+        <li>
+          <a class="dropdown-item" (click)="onDelete()">{{ productInventoryListTitles.delete }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="d-flex d-lg-none flex-column border-radius shadow-border mb-3 mb-lg-2 bgd-white mx-2 p-3">
+    <div class="d-flex flex-row justify-content-between align-items-center mb-1">
+      <label class="text-right dark-gray">{{ productInventoryListTitles.id }}:</label>
+      <span class="text-right text-dark">{{ product.ProductInventoryId }}</span>
+    </div>
+    <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+      <label class="text-right dark-gray">{{ productInventoryTitles.QuantityFrom }}:</label>
+      <span class="text-right text-dark">
+        {{ product.QuantityFrom === -1 ? newProductPriceTitles.Negotiated : (product.QuantityFrom | number: '1.0-0') }}
+      </span>
+    </div>
+    <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+      <label class="text-right dark-gray">{{ productInventoryTitles.QuantityTo }}:</label>
+      <span class="text-right text-dark">
+        {{ product.QuantityTo === -1 ? newProductPriceTitles.Negotiated : (product.QuantityTo === 0 ? '>=' : (product.QuantityTo | number: '1.0-0')) }}
+      </span>
+    </div>
+    <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+      <label class="text-right dark-gray">{{ productInventoryListTitles.unit }}:</label>
+      <span class="text-right text-dark">
+        {{ product.UnitName }}
+      </span>
+    </div>
+    <div class="d-flex flex-row justify-content-between mb-3" *ngIf="product.SpecialAttributeValue.length > 0">
+      <label class="text-right dark-gray">{{ productInventoryListTitles.attributes }}:</label>
+      <span class="text-right text-dark">
+        <div class="d-flex flex-column">
+          <div *ngFor="let specialFeature of product.SpecialAttributeValue">
+            <span>{{ specialFeature.AttributeName }}: {{ specialFeature.AttributeValue }}</span>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+      <label class="text-right dark-gray">{{ productInventoryTitles.incoterms }}:</label>
+      <span class="text-right text-dark">
+        {{ product.IncotermName }}
+      </span>
+    </div>
+    <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+      <label class="text-right dark-gray">{{ productInventoryTitles.GeoLocation }}:</label>
+      <span class="text-right text-dark">
+        {{ product.GeolocationId === -1 ? newProductPriceTitles.Negotiated : product.GeolocationName[language] }}
+      </span>
+    </div>
+    <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+      <label class="text-right dark-gray">{{ productInventoryTitles.Price }}:</label>
+      <span class="text-right text-dark">
+        {{ product.Price === -1 ? newProductPriceTitles.Negotiated : ((product.Price | number: '1.0-0') + ' ' +product.CurrencyName[language]) }}
+      </span>
+    </div>
+    <div class="d-flex flex-row justify-content-end align-items-center mb-3">
+      <a class="pointer" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li>
+          <a class="dropdown-item" (click)="onEdit()">{{ productInventoryListTitles.edit }}</a>
+        </li>
+        <li>
+          <a class="dropdown-item" (click)="onDelete()">{{ productInventoryListTitles.delete }}</a>
+        </li>
+      </ul>
+    </div>
+    <hr />
+  </div>
+</ng-container>

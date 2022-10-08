@@ -1,0 +1,43 @@
+.rtl
+  .form-select
+    background-position: left 0.75rem center
+    padding: 0.375rem 1.25rem 0.375rem 2.75rem
+.rtl
+  .navbar-brand
+    margin-right: 10px!important
+    margin-left: -15px!important
+.ltr
+  .form-select
+    background-position: right 0.75rem center
+    padding: 0.375rem 2.75rem 0.375rem 1.25rem
+
+.navbar
+  background-color: white
+.white
+  background-color: #212529
+.menu-desc2
+  margin: 0
+  font-size: 12px
+  color: #212529
+  float: left
+  width: 100%
+  line-height: 20px
+ul li
+  list-style-type: none
+@mixin svg-icon($path, $height, $width, $color )
+  height: $height
+  width: $width
+  background-color: $color
+  mask-image: url($path)
+  background-size: cover
+  -webkit-mask-size: contain
+  mask-size: contain
+  -webkit-mask-position: center
+  mask-position: center
+  -webkit-mask-repeat: no-repeat
+  mask-repeat: no-repeat
+  transition: all 0.3s ease-in-out
+.fullscreen-dark
+  @include svg-icon('../../../assets/icons/fullscreen.svg', 24px, 24px, white)
+.fullscreen-light
+  @include svg-icon('../../../assets/icons/fullscreen.svg', 24px, 24px, black)

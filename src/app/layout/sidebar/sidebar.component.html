@@ -1,0 +1,87 @@
+<div>
+  <!-- Left Sidebar -->
+  <aside id="leftsidebar" class="sidebar" (mouseenter)="mouseHover($event)" (mouseleave)="mouseOut($event)">
+    <!-- Menu -->
+    <div class="sidebar-user-panel">
+      <div class="user-panel">
+        <div class="image">
+          <img alt="User Image" class="img-circle user-img-circle" src="../../../assets/images/avatar.png" />
+        </div>
+      </div>
+      <div class="profile-usertitle">
+        <div class="sidebar-userpic-name">
+          {{ fullname }}
+          <a [routerLink]="['/admins/profile', id]"> </a>
+        </div>
+        <div class="profile-usertitle-job">{{ role }}</div>
+        <a class="red pointer" (click)="onExit()">{{ exit }}</a>
+      </div>
+    </div>
+    <div class="menu">
+      <ul
+        id="sidebarnav"
+        class="list"
+        [ngStyle]="{ position: 'relative', 'max-height': listMaxHeight + 'px', 'max-width': listMaxWidth + 'px' }"
+        [perfectScrollbar]
+      >
+        <!-- Top Most level menu -->
+        <li
+          [class.active]="level1Menu === sidebarItem.moduleName && sidebarItem.submenu.length !== 0"
+          *ngFor="let sidebarItem of sidebarItems"
+          [routerLinkActive]="sidebarItem.submenu.length !== 0 ? '' : 'active'"
+        >
+          <div class="header" *ngIf="sidebarItem.groupTitle === true">{{ sidebarItem.title | translate }}</div>
+          <a
+            [routerLink]="sidebarItem.path !== '' ? sidebarItem.path : null"
+            *ngIf="!sidebarItem.groupTitle"
+            [ngClass]="[sidebarItem.class]"
+            (click)="callLevel1Toggle($event, sidebarItem.moduleName)"
+            class="menu-top"
+          >
+            <div class="d-flex flex-row justify-content-between align-items-center">
+              <div>
+                <i [ngClass]="[sidebarItem.icon]"></i>
+                <span class="hide-menu">{{ sidebarItem.title }}</span>
+              </div>
+              <div *ngIf="sidebarItem.hasBadge" class="badge">{{ sidebarItem.count }}</div>
+            </div>
+          </a>
+          <!-- First level menu -->
+          <ul class="ml-menu" *ngIf="sidebarItem.submenu.length > 0">
+            <li
+              [ngClass]="level2Menu === sidebarSubItem.moduleName ? 'activeSub' : ''"
+              *ngFor="let sidebarSubItem of sidebarItem.submenu"
+              [routerLinkActive]="sidebarSubItem.submenu.length > 0 ? '' : 'active'"
+            >
+              <a
+                [routerLink]="sidebarSubItem.submenu.length > 0 ? null : [sidebarSubItem.path]"
+                (click)="callLevel2Toggle($event, sidebarSubItem.moduleName)"
+                [ngClass]="[sidebarSubItem.class]"
+              >
+                {{ sidebarSubItem.title | translate }}
+              </a>
+              <!-- Second level menu -->
+              <ul class="ml-menu-2" *ngIf="sidebarSubItem.submenu.length > 0">
+                <li
+                  *ngFor="let sidebarSubsubItem of sidebarSubItem.submenu"
+                  [ngClass]="level3Menu === sidebarSubsubItem.moduleName ? 'activeSubSub' : ''"
+                  [routerLinkActive]="sidebarSubsubItem.submenu.length > 0 ? '' : 'active'"
+                >
+                  <a
+                    [routerLink]="sidebarSubsubItem.submenu.length > 0 ? null : [sidebarSubsubItem.path]"
+                    (click)="callLevel3Toggle($event, sidebarSubsubItem.moduleName)"
+                    [ngClass]="[sidebarSubsubItem.class]"
+                  >
+                    {{ sidebarSubsubItem.title | translate }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <!-- #Menu -->
+  </aside>
+  <!-- #END# Left Sidebar -->
+</div>

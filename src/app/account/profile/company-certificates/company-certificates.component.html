@@ -1,0 +1,55 @@
+<div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3 mt-3" id="company_certificate">
+  <h2 class="fs-18 bold blue">{{ profileTitles.certificates }}</h2>
+  <div class="d-flex flex-column mt-2" *ngFor="let iso of isos; let i = index">
+    <app-form-checkbox
+      class="mb-2"
+      [title]="iso.Title"
+      [control]="isosCheckboxes[i]"
+      (change)="setCertificate(i)"
+    ></app-form-checkbox>
+    <ng-container *ngIf="isosCheckboxes[i].value === true">
+      <div *ngIf="isosImages[i].Path === ''" class="border border-radius p-3 logo-container" (click)="setIndex(i)">
+        <img src="../../../../assets/images/add-image.png" alt="add image" />
+      </div>
+      <div
+        *ngIf="isosImages[i].Path !== ''"
+        class="border border-radius p-3 file-image-container d-flex flex-row flex-wrap justify-content-between margin position-relative"
+      >
+        <img src="../../../../assets/icons/edit.svg" class="edit" (click)="openModal()" />
+        <img
+          [src]="isosImages[i].Path"
+          class="file-image pointer"
+          alt="add image"
+          data-bs-toggle="modal"
+          data-bs-target="#certificate"
+        />
+        <div class="border border-radius p-2 d-flex flex-column">
+          <app-form-field
+            [title]="fileTitles.alt"
+            [control]="isosImages[i].Alt"
+            [placeholder]="fileTitles.alt"
+          ></app-form-field>
+          <app-form-field
+            [title]="fileTitles.seo"
+            [control]="isosImages[i].Seo"
+            [placeholder]="fileTitles.seo"
+          ></app-form-field>
+          <app-form-field
+            [title]="fileTitles.description"
+            [control]="isosImages[i].Description"
+            [placeholder]="fileTitles.description"
+          ></app-form-field>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <button type="button" class="btn btn-primary my-2 mx-2 btn-w-240" (click)="updateProfile()">
+    {{ profileTitles.update_profile }}
+  </button>
+</div>
+<app-file-manager-modal
+  type="Image"
+  [onFileSelected]="onCertificateSelected"
+  [other]="this"
+  [index]="certificate"
+></app-file-manager-modal>

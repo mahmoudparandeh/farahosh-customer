@@ -1,0 +1,74 @@
+<ng-container>
+  <div class="d-none d-lg-flex flex-column w-100 border-radius shadow-border mb-3 mb-lg-2 bgd-white p-3">
+    <div class="d-flex flex-row align-items-center">
+      <span class="col-2 text-right text-dark d-flex align-items-center">
+        <span>{{ warehouse.Id }}</span>
+      </span>
+      <span class="col-4 text-right text-dark">{{
+        warehouse.Name[language] ? warehouse.Name[language] : warehouse.Name['fa']
+      }}</span>
+      <span class="col-4 text-right text-dark">{{
+        warehouse.Address[language] ? warehouse.Address[language] : warehouse.Address['fa']
+      }}</span>
+      <div class="col-2 text-right text-dark d-flex justify-content-end">
+        <a class="pointer mx-2" [routerLink]="['edit-warehouse', warehouse.Id]">
+          <img src="../../../assets/icons/edit.svg" alt="" />
+        </a>
+        <img class="pointer" src="../../../assets/icons/delete.svg" alt="" (click)="onDelete()" />
+      </div>
+    </div>
+  </div>
+
+  <div class="d-none d-sm-flex d-lg-none flex-column border-radius shadow-border mb-3 mb-lg-2 bgd-white mx-2 p-3">
+    <div class="d-flex flex-row justify-content-between align-items-center">
+      <span class="text-right text-dark">{{ wareHousesListTitles.Id }}: {{ warehouse.Id }} </span>
+      <span class="text-right text-dark"
+        >{{ wareHousesListTitles.Name }} :
+        {{ warehouse.Name[language] ? warehouse.Name[language] : warehouse.Name['fa'] }}</span
+      >
+    </div>
+    <hr class="mx-2" />
+    <div class="d-flex flex-row justify-content-between align-items-center">
+      <span class="text-right text-dark"
+        >{{ wareHousesListTitles.Address }} :
+        {{ warehouse.Address[language] ? warehouse.Address[language] : warehouse.Address['fa'] }}</span
+      >
+      <span class="text-right">
+        <a class="pointer mx-2" [routerLink]="['edit-warehouse', warehouse.Id]">
+          <img src="../../../assets/icons/edit.svg" alt="" />
+        </a>
+        <img class="pointer" src="../../../assets/icons/delete.svg" alt="" (click)="onDelete()" />
+      </span>
+    </div>
+  </div>
+
+  <div class="d-flex d-sm-none flex-column border-radius shadow-border mb-3 mb-lg-2 bgd-white mx-2 p-3">
+    <div class="d-flex flex-row justify-content-between align-items-center">
+      <span class="text-right text-dark">{{ wareHousesListTitles.Id }}:</span>
+      <span class="text-right text-dark">{{ warehouse.Id }}</span>
+    </div>
+    <hr class="mx-2" />
+    <div class="d-flex flex-row justify-content-between align-items-center">
+      <span class="text-right text-dark">{{ wareHousesListTitles.Name }}:</span>
+      <span class="text-right text-dark">{{
+        warehouse.Name[language] ? warehouse.Name[language] : warehouse.Name['fa']
+      }}</span>
+    </div>
+    <hr class="mx-2" />
+    <div class="d-flex flex-row justify-content-between align-items-center">
+      <span class="text-right text-dark">{{ wareHousesListTitles.Address }}:</span>
+      <span class="text-right text-dark">{{
+        warehouse.Address[language] ? warehouse.Address[language] : warehouse.Address['fa']
+      }}</span>
+    </div>
+    <hr class="mx-2" />
+    <div class="d-flex flex-row justify-content-center align-items-center">
+      <span class="text-right">
+        <a class="pointer mx-2" [routerLink]="['edit-warehouse', warehouse.Id]">
+          <img src="../../../assets/icons/edit.svg" alt="" />
+        </a>
+        <img class="pointer" src="../../../assets/icons/delete.svg" alt="" (click)="onDelete()" />
+      </span>
+    </div>
+  </div>
+</ng-container>

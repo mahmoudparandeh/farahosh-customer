@@ -1,0 +1,85 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="fs-18 bold blue" *ngIf="activeTab === 1">
+    {{ isEdit ? productDetailsTitles.edit_product : productDetailsTitles.add_new_product }} ({{
+      productDetailsTitles.product_description
+    }})
+  </h2>
+  <h2 class="fs-18 bold blue" *ngIf="activeTab === 2">
+    {{ isEdit ? productDetailsTitles.edit_product : productDetailsTitles.add_new_product }} ({{
+      productDetailsTitles.product_specification
+    }})
+  </h2>
+  <h2 class="fs-18 bold blue" *ngIf="activeTab === 3">
+    {{ isEdit ? productDetailsTitles.edit_product : productDetailsTitles.add_new_product }} ({{
+      productDetailsTitles.packaging_shipping
+    }})
+  </h2>
+  <h2 class="fs-18 bold blue" *ngIf="activeTab === 4">
+    {{ isEdit ? productDetailsTitles.edit_product : productDetailsTitles.add_new_product }} ({{
+      productDetailsTitles.certificates
+    }})
+  </h2>
+  <h2 class="fs-18 bold blue" *ngIf="activeTab === 5">
+    {{ isEdit ? productDetailsTitles.edit_product : productDetailsTitles.add_new_product }} ({{
+      productDetailsTitles.production_capacity
+    }})
+  </h2>
+  <h2 class="fs-18 bold blue" *ngIf="activeTab === 6">
+    {{ isEdit ? productDetailsTitles.edit_product : productDetailsTitles.add_new_product }} ({{
+      productDetailsTitles.faq
+    }})
+  </h2>
+  <h2 class="fs-18 bold blue" *ngIf="activeTab === 7">
+    {{ isEdit ? productDetailsTitles.edit_product : productDetailsTitles.add_new_product }} ({{
+      productDetailsTitles.confirm
+    }})
+  </h2>
+</div>
+<div class="stepper">
+  <div class="step-item" (click)="changeTab(1)">
+    <div class="step-number" [ngClass]="{ active: activeTab === 1 }">1</div>
+    <span class="step-name text-nowrap" [ngClass]="{ active: activeTab === 1 }">{{
+      productDetailsTitles.product_description
+    }}</span>
+  </div>
+  <div class="step-progress" [ngClass]="{ active: activeTab >= 2 }"></div>
+  <div class="step-item" (click)="changeTab(2)">
+    <div class="step-number" [ngClass]="{ active: activeTab === 2 }">2</div>
+    <span class="step-name text-nowrap" [ngClass]="{ active: activeTab === 2 }">{{
+      productDetailsTitles.product_specification
+    }}</span>
+  </div>
+  <div class="step-progress" [ngClass]="{ active: activeTab >= 3 }"></div>
+  <div class="step-item" (click)="changeTab(3)">
+    <div class="step-number" [ngClass]="{ active: activeTab === 3 }">3</div>
+    <span class="step-name text-nowrap" [ngClass]="{ active: activeTab === 3 }">{{
+      productDetailsTitles.packaging_shipping
+    }}</span>
+  </div>
+  <div class="step-progress" [ngClass]="{ active: activeTab >= 4 }"></div>
+  <div class="step-item" (click)="changeTab(4)">
+    <div class="step-number" [ngClass]="{ active: activeTab === 4 }">4</div>
+    <span class="step-name text-nowrap" [ngClass]="{ active: activeTab === 4 }">{{
+      productDetailsTitles.certificates
+    }}</span>
+  </div>
+  <div class="step-progress" [ngClass]="{ active: activeTab >= 5 }"></div>
+  <div class="step-item" (click)="changeTab(5)">
+    <div class="step-number" [ngClass]="{ active: activeTab === 5 }">5</div>
+    <span class="step-name text-nowrap" [ngClass]="{ active: activeTab === 5 }">{{
+      productDetailsTitles.production_capacity
+    }}</span>
+  </div>
+  <div class="step-progress" [ngClass]="{ active: activeTab >= 6 }"></div>
+  <div class="step-item" (click)="changeTab(6)">
+    <div class="step-number" [ngClass]="{ active: activeTab === 6 }">6</div>
+    <span class="step-name text-nowrap" [ngClass]="{ active: activeTab === 6 }">{{ productDetailsTitles.faq }}</span>
+  </div>
+  <div class="step-progress" [ngClass]="{ active: activeTab === 7 }"></div>
+  <div class="step-item" (click)="changeTab(7)">
+    <div class="step-number" [ngClass]="{ active: activeTab === 7 }">7</div>
+    <span class="step-name text-nowrap" [ngClass]="{ active: activeTab === 7 }">{{
+      productDetailsTitles.confirm
+    }}</span>
+  </div>
+</div>

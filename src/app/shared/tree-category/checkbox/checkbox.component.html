@@ -1,0 +1,13 @@
+<div class="px-2 d-flex align-items-center">
+  <input
+    type="checkbox"
+    id="item-{{ id }}"
+    [formControl]="control"
+    class="tree-item"
+    [name]="name"
+    #myItem
+    [checked]="checked"
+    (change)="OnCheckboxSelect(id, $event)"
+  />
+  <label class="medium-gray fs-16 mx-2" for="item-{{ id }}">{{ title }}</label>
+</div>

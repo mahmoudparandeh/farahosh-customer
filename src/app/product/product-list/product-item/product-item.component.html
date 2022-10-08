@@ -1,0 +1,164 @@
+<ng-container>
+  <div class="d-none d-lg-flex flex-column w-100 border-radius shadow-border mb-3 mb-lg-2 bgd-white p-3">
+    <div class="d-flex flex-row align-items-center">
+      <span class="col-3 d-flex flex-row text-right text-dark d-flex align-items-center">
+        <img
+          [src]="product.PicPath"
+          [alt]="product.ProductName"
+          width="75"
+          height="75"
+          class="border border-radius object-fit"
+        />
+        <span class="margin">{{ product.ProductName[language] }}</span>
+      </span>
+      <span class="col-2 text-right text-dark">{{ product.ShortDescription[language] }}</span>
+      <span class="col-2 text-center text-dark">{{ product.category }}</span>
+      <span class="col-2 text-center text-dark">{{ product.BrandName[language] }}</span>
+      <div class="col-2 d-flex flex-column">
+        <span class="text-center d-flex align-items-center justify-content-center" [ngClass]="product.Color">
+          {{ product.Status }}
+        </span>
+        <a
+          data-bs-toggle="modal"
+          [attr.data-bs-target]="'#product-' + product.ProductGuid"
+          class="text-center"
+          *ngIf="product.StatusId === 2"
+          >({{ productListTitles.rejection_reason }})</a
+        >
+      </div>
+      <div class="col-1 text-dark d-flex justify-content-end">
+        <a class="pointer" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li>
+            <a class="dropdown-item" [routerLink]="['/', language, 'product', 'edit-product', product.ProductGuid]">{{
+              productListTitles.edit
+            }}</a>
+          </li>
+          <li>
+            <a class="dropdown-item" (click)="onDelete()">{{ productListTitles.delete }}</a>
+          </li>
+          <li *ngIf="product.StatusId === 0 || product.StatusId === 3 || product.StatusId === 1">
+            <a
+              class="dropdown-item"
+              [routerLink]="[
+                '/',
+                language,
+                'product',
+                'product-inventory',
+                product.ProductGuid,
+                product.ProductName[language]
+              ]"
+              >{{ productListTitles.productInventory }}</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!--  <div class="d-none d-sm-none d-lg-none flex-column border-radius shadow-border mb-3 mb-lg-2 bgd-white mx-2 p-3">-->
+  <!--    <div class="d-flex flex-row justify-content-between align-items-center">-->
+  <!--      <span class="text-right text-dark">{{ productListTitles.products }}: {{ product.ProductName[language] ? product.ProductName[language] : product.ProductName['fa'] }} </span>-->
+  <!--      <span class="text-right text-dark">{{ productListTitles.ShortDescription }} : {{ product.ShortDescription[language] ? product.ShortDescription[language] : product.ShortDescription['fa']}}</span>-->
+  <!--    </div>-->
+  <!--    <hr class="mx-2"/>-->
+  <!--    <div class="d-flex flex-row justify-content-between align-items-center">-->
+  <!--      <span class="text-right text-dark">{{ productListTitles.BrandName }} : {{ product.BrandName[language] ? product.BrandName[language] : product.BrandName['fa'] }}</span>-->
+  <!--      <span class="text-right">-->
+  <!--        <a class="pointer mx-2" [routerLink]="['edit-product', product.ProductGuid]">-->
+  <!--          <img src="../../../assets/icons/edit.svg" alt="">-->
+  <!--        </a>-->
+  <!--        <img class="pointer" src="../../../assets/icons/delete.svg" alt="" (click)="onDelete()">-->
+  <!--      </span>-->
+  <!--    </div>-->
+  <!--  </div>-->
+
+  <div class="d-flex d-lg-none flex-column border-radius shadow-border mb-3 mb-lg-2 bgd-white mx-2 p-3">
+    <div class="d-flex flex-row justify-content-between align-items-center mb-1">
+      <label class="text-right dark-gray">{{ productListTitles.name }}:</label>
+      <span class="text-right text-dark">{{ product.ProductName[language] }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center mb-1">
+      <label class="text-right dark-gray">{{ productListTitles.shortDescription }}:</label>
+      <span class="text-right text-dark">{{ product.ShortDescription[language] }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center mb-1">
+      <label class="text-right dark-gray">{{ productListTitles.brand }}:</label>
+      <span class="text-right text-dark">{{ product.BrandName[language] }}</span>
+    </div>
+    <div class="d-flex flex-row justify-content-between align-items-center mb-1">
+      <label class="text-right dark-gray">{{ productListTitles.category }}:</label>
+      <span class="text-right text-dark">{{ product.category }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center mb-1">
+      <label class="text-right dark-gray">{{ productListTitles.status }}</label>
+      <div class="d-flex flex-row flex-wrap">
+        <span class="text-right" [ngClass]="product.Color">{{ product.Status }}</span>
+        <a
+          data-bs-toggle="modal"
+          [attr.data-bs-target]="'#product-' + product.ProductGuid"
+          class="margin"
+          *ngIf="product.StatusId === 2"
+          >({{ productListTitles.rejection_reason }})</a
+        >
+      </div>
+    </div>
+
+    <div class="d-flex flex-row justify-content-center align-items-center mb-1">
+      <a class="pointer" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="../../../../assets/icons/dots.svg" alt="" />
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+        <li>
+          <a class="dropdown-item" [routerLink]="['/', language, 'product', 'edit-product', product.ProductGuid]">{{
+            productListTitles.edit
+          }}</a>
+        </li>
+        <li>
+          <a class="dropdown-item" (click)="onDelete()">{{ productListTitles.delete }}</a>
+        </li>
+        <li *ngIf="product.StatusId === 0 || product.StatusId === 3 || product.StatusId === 1">
+          <a
+            class="dropdown-item"
+            [routerLink]="[
+              '/',
+              language,
+              'product',
+              'product-inventory',
+              product.ProductGuid,
+              product.ProductName[language]
+            ]"
+            >{{ productListTitles.productInventory }}</a
+          >
+        </li>
+      </ul>
+    </div>
+    <hr />
+  </div>
+</ng-container>
+<div
+  class="modal fade"
+  [id]="'product-' + product.ProductGuid"
+  tabindex="-1"
+  aria-labelledby="incoterms"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+      <div class="d-flex flex-row justify-content-between modal-header">
+        <h5 class="modal-title" id="fileManagerLabel">
+          {{ productListTitles.rejection_reason }}: {{ product.ProductName }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <p class="text-justify mt-2">
+        {{ product.StatusId === 2 ? product.StatusComment[language] : '' }}
+      </p>
+    </div>
+  </div>
+</div>

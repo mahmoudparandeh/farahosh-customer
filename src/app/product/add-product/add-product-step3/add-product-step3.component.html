@@ -1,0 +1,140 @@
+<form class="d-flex flex-column w-100">
+  <div class="d-flex flex-row flex-wrap border-radius shadow-border shadow bgd-white p-3">
+    <div class="col-12 col-md-6 d-flex flex-column">
+      <h3 class="blue fs-18 bold">{{ productDetailsTitles.product_kind }}</h3>
+      <app-form-radio
+        [title]="productDetailsTitles.danger"
+        [id]="'dangerous'"
+        (click)="setProductKind('dangerous')"
+        [name]="'product-kind'"
+        [checked]="productKind === 'dangerous'"
+      ></app-form-radio>
+      <app-form-radio
+        [title]="productDetailsTitles.no_danger"
+        [id]="'no-dangerous'"
+        (click)="setProductKind('not dangerous')"
+        [name]="'product-kind'"
+        [checked]="productKind === 'not dangerous'"
+      ></app-form-radio>
+    </div>
+    <div class="col-12 col-md-6 d-flex flex-column">
+      <h3 class="blue fs-18 bold">{{ productDetailsTitles.package_type }}</h3>
+      <app-form-select [control]="packageTypeController" [values]="packageTypes" [title]="''"></app-form-select>
+      <span class="red fs-12" *ngIf="packageTypeController.errors && packageTypeController.touched">{{
+        productDetailsTitles.package_type_required
+      }}</span>
+    </div>
+    <h3 class="col-12 blue fs-18 bold mt-3">{{ productDetailsTitles.package_weight }}</h3>
+    <div class="col-12 col-md-6 d-flex flex-column">
+      <app-form-field
+        (keypress)="isNumber($event)"
+        (keyup)="isNumber($event)"
+        [control]="packageWeightController"
+        [title]="productDetailsTitles.weight_unit"
+      ></app-form-field>
+      <span class="red fs-12" *ngIf="packageWeightController.errors && packageWeightController.touched">{{
+        productDetailsTitles.weight_unit_required
+      }}</span>
+    </div>
+    <div class="col-12 col-md-6 d-flex flex-column">
+      <app-form-select
+        [control]="weightUniteController"
+        [values]="weightUnits"
+        [title]="productDetailsTitles.unit"
+      ></app-form-select>
+      <span class="red fs-12" *ngIf="weightUniteController.errors && weightUniteController.touched">{{
+        productDetailsTitles.unit_required
+      }}</span>
+    </div>
+    <h3 class="col-12 blue fs-18 bold mt-3">{{ productDetailsTitles.package_size }}</h3>
+    <div class="col-12 col-md-4">
+      <app-form-field
+        (keypress)="isNumber($event)"
+        (keyup)="isNumber($event)"
+        [control]="lengthController"
+        [title]="productDetailsTitles.length"
+      ></app-form-field>
+      <span class="red fs-12" *ngIf="lengthController.errors && lengthController.touched">{{
+        productDetailsTitles.length_required
+      }}</span>
+    </div>
+    <div class="col-12 col-md-4">
+      <app-form-field
+        (keypress)="isNumber($event)"
+        (keyup)="isNumber($event)"
+        [control]="widthController"
+        [title]="productDetailsTitles.width"
+      ></app-form-field>
+      <span class="red fs-12" *ngIf="widthController.errors && widthController.touched">{{
+        productDetailsTitles.width_required
+      }}</span>
+    </div>
+    <div class="col-12 col-md-4">
+      <app-form-field
+        (keypress)="isNumber($event)"
+        (keyup)="isNumber($event)"
+        [control]="heightController"
+        [title]="productDetailsTitles.height"
+      ></app-form-field>
+      <span class="red fs-12" *ngIf="heightController.errors && heightController.touched">{{
+        productDetailsTitles.height_required
+      }}</span>
+    </div>
+    <h3 class="col-12 blue fs-18 bold mt-3">{{ productDetailsTitles.transport_type }}</h3>
+    <div class="d-flex flex-row flex-wrap">
+      <app-form-checkbox
+        *ngFor="let transport of transports; let i = index"
+        [id]="'transport-' + i"
+        [control]="transportsControllers[i]"
+        [title]="transport.name"
+        (change)="setValidation(i)"
+      ></app-form-checkbox>
+    </div>
+    <span class="col-12 red fs-12 mt-2" *ngIf="transportValidation">{{ productDetailsTitles.transport_required }}</span>
+    <h3 class="col-12 blue fs-18 bold mt-3">{{ productDetailsTitles.package_images }}</h3>
+    <ng-container *ngIf="packageImages.length > 0">
+      <div
+        *ngFor="let image of packageImages; let i = index"
+        class="border border-radius p-3 file-image-container d-flex flex-row flex-wrap justify-content-between margin mb-2 position-relative"
+      >
+        <div class="delete-button position-absolute">
+          <img src="../../../../assets/icons/delete.svg" alt="delete gallery" (click)="deletePackage(i)" />
+        </div>
+        <img [src]="image.path" class="file-image" alt="add image" />
+        <div class="border border-radius p-2 d-flex flex-column">
+          <app-form-field
+            [title]="fileTitles.alt"
+            [control]="image.alt"
+            [placeholder]="fileTitles.alt"
+          ></app-form-field>
+          <app-form-field
+            [title]="fileTitles.seo"
+            [control]="image.tags"
+            [placeholder]="fileTitles.seo"
+          ></app-form-field>
+          <app-form-field
+            [title]="fileTitles.description"
+            [control]="image.description"
+            [placeholder]="fileTitles.description"
+          ></app-form-field>
+        </div>
+      </div>
+    </ng-container>
+    <div class="border border-radius p-3 logo-container margin mb-2" (click)="openModal()">
+      <img src="../../../assets/images/add-image.png" alt="add image" />
+    </div>
+  </div>
+  <div class="d-flex justify-content-center align-items-center mt-3">
+    <button type="button" class="btn btn-secondary mx-2" (click)="goBack()">{{ productDetailsTitles.back }}</button>
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+      {{ productDetailsTitles.next }}
+    </button>
+  </div>
+</form>
+<app-file-manager-modal
+  type="Image"
+  [onFileSelected]="onPackageSelected"
+  [other]="this"
+  [id]="'package'"
+  [currentPage]="packageIndex"
+></app-file-manager-modal>

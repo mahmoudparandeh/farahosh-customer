@@ -1,0 +1,91 @@
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="fileManagerLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="d-flex flex-row justify-content-between modal-header">
+        <h5 class="modal-title" id="fileManagerLabel">File Manager</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="d-flex flex-row flex-wrap align-items-center justify-content-between px-4 my-2">
+        <span class="medium-gray fs-16">{{ fileManagerTitles.file_type }}</span>
+        <app-form-radio
+          class="fs-16 margin"
+          (change)="setFileType('video')"
+          [id]="'1'"
+          [title]="fileManagerTitles.video"
+          [checked]="fileType === 'video'"
+          [name]="'file-type'"
+        ></app-form-radio>
+        <app-form-radio
+          class="fs-16 margin"
+          (change)="setFileType('image')"
+          [id]="'2'"
+          [title]="fileManagerTitles.image"
+          [checked]="fileType === 'image'"
+          [name]="'file-type'"
+        ></app-form-radio>
+        <label class="btn border border-radius">
+          <img src="../../../assets/icons/upload-file.svg" alt="upload file" width="36" />
+          <input
+            type="file"
+            id="file"
+            class="d-none"
+            (change)="uploadFile($event)"
+            [accept]="fileType === 'video' ? '.mp4' : '.jpeg, .jpg, .png, .svg, .webp'"
+          />
+        </label>
+      </div>
+      <hr />
+      <div class="modal-body d-flex flex-row flex-wrap">
+        <div
+          class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2 px-2"
+          *ngFor="
+            let file of files
+              | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: total, id: id };
+            let i = index
+          "
+        >
+          <div class="d-flex flex-column align-items-center p-2 border-radius border">
+            <img
+              class="border-radius shadow-border border"
+              *ngIf="file.Type === 'Image'"
+              [src]="file.Path"
+              [alt]="file.Name"
+              width="80px"
+              height="80px"
+            />
+            <video
+              class="border-radius shadow-border border"
+              controls
+              *ngIf="file.Type === 'Video'"
+              [src]="file.Path"
+              width="80px"
+              height="80px"
+            ></video>
+            <span class="fs-16 black">{{ file.Size }}</span>
+            <button
+              class="btn btn-outline-primary"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              (click)="fileSelected(i)"
+            >
+              Select
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <pagination-controls
+          class="my-pagination"
+          [id]="id"
+          [directionLinks]="true"
+          [autoHide]="true"
+          [responsive]="true"
+          previousLabel="<<"
+          nextLabel=">>"
+          (pageChange)="pageChanged($event)"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<app-upload-progress [value]="progress"></app-upload-progress>

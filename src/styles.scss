@@ -1,0 +1,211 @@
+body {
+  overflow-x: hidden;
+}
+.button{
+  width: 160px;
+  height: 40px;
+}
+
+.greenSnackbar{
+  background-color: green;
+  direction: rtl;
+  text-align: right;
+  color: white;
+  z-index:100;
+}
+.redSnackbar{
+  background-color: red;
+  direction: rtl;
+  text-align: right;
+  color: white;
+  z-index:100;
+}
+ .pointer{
+   cursor: pointer;
+ }
+ app-print {
+  /* hide the printing component from @media screen */
+  display: none;
+}
+
+@media print{
+  body{
+    width: 100%;
+  }
+ .dontShow{
+    display: none;
+  }
+  .content{
+    margin: 0 !important
+  }
+  app-print {
+    display: block;
+  }
+
+  table { page-break-after:auto !important }
+  tr    { page-break-inside:avoid !important; page-break-after:auto !important }
+  td    { page-break-inside:avoid !important; page-break-after:auto  !important}
+  thead { display:table-header-group !important }
+  tfoot { display:table-footer-group !important }
+ }
+
+ .leaflet-top,
+ .leaflet-bottom {
+   position: absolute;
+   z-index: 998 !important;
+   pointer-events: none;
+   }
+
+   .f-12{
+     font-size: 12px !important;
+   }
+
+   .f-14{
+     font-size: 14px !important;
+   }
+
+   .f-16{
+     font-size: 16px !important;
+   }
+
+   .f-18{
+     font-size: 18px !important;
+   }
+
+   .f-20{
+     font-size: 20px !important;
+   }
+
+   .f-22{
+     font-size: 22px !important;
+   }
+
+   .f-24{
+    font-size: 24px !important;
+  }
+
+   .bold{
+     font-weight: bold !important;
+   }
+
+   .pointer{
+     cursor: pointer;
+   }
+
+   .padding{
+    padding: 0 16px;
+   }
+
+   .green {
+     color: #4CAF50;
+   }
+   .orange{
+     color: orange;
+   }
+
+   .red{
+     color: red;
+   }
+
+   .black{
+     color: black;
+   }
+
+   .light-grey {
+     color: #918B8B;
+   }
+
+   .grey {
+     color: #424242;
+   }
+
+   .full-width{
+     width: 100%;
+   }
+
+   .item-container {
+     background-color: white;
+     border-radius: 5px;
+     min-height: 60px;
+   }
+
+   .item-dark-container{
+    background-color: #f9f9f9;
+    border-radius: 5px;
+   }
+
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .mat-form-field-appearance-outline.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+    height: 20px;
+}
+/* pagination remove after next and prev */
+.ngx-pagination .pagination-next a:after, .ngx-pagination .pagination-next.disabled:after{
+  content: ""!important;
+  display: none!important;
+  margin-left: .5rem;
+}
+.ngx-pagination .pagination-previous a:before, .ngx-pagination .pagination-previous.disabled:before{
+  content: ""!important;
+  display: none!important;
+  margin-right: .5rem;
+}
+nav.navbar {
+  min-height: 60px;
+}
+//.mat-form-field-appearance-outline .mat-form-field-infix {
+//  padding: 0 !important;
+//}
+
+@media (min-width: 770px){
+  .modal-dialog {
+    max-width: 750px;
+    margin: 1.75rem auto;
+  }
+}
+
+.rtl .form-select {
+  background-position: left .75rem center;
+  padding: .375rem 1.25rem .375rem 2.75rem;
+}
+
+.grecaptcha-badge{
+  display: none!important;
+}
+::-webkit-scrollbar{
+  width: 20px;
+}
+
+::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: #1a42b5;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background-color: #a8bbbf;
+}
+
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto
+{
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.rtl .fr-modal .fr-modal-wrapper .fr-modal-head .fr-modal-close {
+  margin: 10px;
+  position: absolute;
+  top: 0;
+  left: 0!important;
+  right: auto!important;
+}
+
+.fr-modal.fr-middle .fr-modal-wrapper{
+  display: flex;
+}
+.fr-modal .fr-modal-wrapper .fr-modal-head {
+  display: flex;
+}

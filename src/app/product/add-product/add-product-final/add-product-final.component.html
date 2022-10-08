@@ -1,0 +1,344 @@
+<form class="d-flex flex-column w-100" (ngSubmit)="onSubmit()">
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.product_name + '*' }}</h2>
+        <span>{{ product.Detail.Name ? product.Detail.Name[language] : '' }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.shortDescription + '*' }}</h2>
+        <span>{{ product.Detail.ShortDescription ? product.Detail.ShortDescription[language] : '' }}</span>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.customizable + '*' }}</h2>
+        <span>{{
+          product.Detail.IsCustomizable ? productDetailsTitles.customizable_yes : productDetailsTitles.customizable_no
+        }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.is_ready_to_ship }}</h2>
+        <span>{{
+          product.Detail.ReadyToShip ? productDetailsTitles.yes_ready_to_ship : productDetailsTitles.no_ready_to_ship
+        }}</span>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.product_fullDescription + '*' }}</h2>
+        <span>{{ product.Detail.FullDescription ? product.Detail.FullDescription[language] : '' }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.product_metaDescription }}</h2>
+        <span>{{ product.Detail.MetaDescription ? product.Detail.MetaDescription[language] : '' }}</span>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.product_metaKeywords }}</h2>
+        <span>{{ product.Detail.MetaKeywords ? product.Detail.MetaKeywords[language] : '' }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.product_metaTitle }}</h2>
+        <span>{{ product.Detail.MetaTitle ? product.Detail.MetaTitle[language] : '' }}</span>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.UserAgreement }}</h2>
+        <span>{{ product.Detail.UserAgreementText ? product.Detail.UserAgreementText[language] : '' }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.brand + '*' }}</h2>
+        <span>{{ product.Detail.BrandName[language] }}</span>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.sku }}</h2>
+        <span>{{ product.Detail.Sku ? product.Detail.Sku : '' }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.Gtin }}</h2>
+        <span>{{ product.Detail.Gtin ? product.Detail.Gtin : '' }}</span>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.ManufacturerPartNumber }}</h2>
+        <span>{{ product.Detail.ManufacturerPartNumber ? product.Detail.ManufacturerPartNumber : '' }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.other }}</h2>
+        <p [innerHTML]="product.Detail.OtherDetails ? product.Detail.OtherDetails[language] : ''"></p>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.product_category + '*' }}</h2>
+        <span *ngFor="let category of product.Category">{{ category.CatName[language] }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.TaxCategory + '*' }}</h2>
+        <span>{{ product.Detail.TaxCategoryName[language] }}</span>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.product_attribute }}</h2>
+        <div class="d-flex flex-row flex-wrap" *ngFor="let attr of product.Attribut">
+          <span>{{ attr.AttributeName[language] }}:</span>
+          <div class="margin" *ngFor="let value of attr.DefaultAttributeValueIds">{{ value.Name[language] }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.tags }}</h2>
+        <span class="d-flex flex-row flex-wrap" *ngFor="let tag of product.Tag.fa">{{ tag }}</span>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.HSTTitle }}</h2>
+        <span>{{ product.Detail.HTSNumber }}</span>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.product_gallery + '*' }}</h2>
+        <div class="d-flex flex-row flex-wrap">
+          <a
+            class="image-gallery margin mb-2 shadow-border shadow"
+            *ngFor="let media of productImages"
+            [href]="media?.path"
+            target="_blank"
+          >
+            <img class="image-fit" [src]="media?.path" [alt]="media?.alt" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="line" *ngIf="(video && video.path) || (introductionVideo && introductionVideo.path)" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3" *ngIf="video && video.path">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.video }}</h2>
+        <div class="image-gallery">
+          <video class="image-fit" [src]="video?.path" controls></video>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3" *ngIf="introductionVideo && introductionVideo.path">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.introductory_video }}</h2>
+        <div class="image-gallery">
+          <video class="image-fit" [src]="introductionVideo?.path" controls></video>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.product_kind }}</h2>
+        <span>{{ product.Detail.pkgNature === 0 ? productDetailsTitles.danger : productDetailsTitles.no_danger }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.package_type }}</h2>
+        <span>{{ product.Detail.pkgTypeName ? product.Detail.pkgTypeName[language] : '' }}</span>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.package_weight }}</h2>
+        <span>{{ product.Detail.pkgWeigth ? product.Detail.pkgWeigth : '' }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.unit }}</h2>
+        <span>{{ product.Detail.pkgWeightUnitName ? product.Detail.pkgWeightUnitName[language] : '' }}</span>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.length }}</h2>
+        <span>{{ product.Detail.pkgLength ? product.Detail.pkgLength : '' }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.width }}</h2>
+        <span>{{ product.Detail.pkgWidth ? product.Detail.pkgWidth : '' }}</span>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.height }}</h2>
+        <span>{{ product.Detail.pkgHeight ? product.Detail.pkgHeight : '' }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.transport_type }}</h2>
+        <div class="d-flex flex-row flex-wrap">
+          <span class="margin" *ngFor="let transport of product.ProductTransportation">{{
+            transport.Name[language]
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="col-12 mb-3">
+    <div class="d-flex flex-column">
+      <h2 class="medium-gray fs-16">{{ productDetailsTitles.package_images }}</h2>
+      <div class="d-flex flex-row flex-wrap">
+        <a
+          class="image-gallery margin mb-2 shadow-border shadow"
+          *ngFor="let media of productPackageImages"
+          [href]="media.path"
+          target="_blank"
+        >
+          <img class="image-fit" [src]="media?.path" [alt]="media?.alt" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.certificate }}</h2>
+        <div class="d-flex flex-row flex-wrap">
+          <div class="d-flex flex-column" *ngFor="let media of certificateImages">
+            <a class="image-gallery margin mb-2 shadow-border shadow" [href]="media.path" target="_blank">
+              <img class="image-fit" [src]="media?.path" [alt]="media?.alt" />
+            </a>
+            <span class="text-center mt-2">{{ media.certificateName }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="line" />
+  <span
+    class="medium-gray fs-16 bold"
+    *ngIf="product.Detail.ProductionCapacity && product.Detail.ProductionCapacity.length > 0"
+    >{{ productDetailsTitles.production_capacity }}</span
+  >
+  <div
+    class="d-flex flex-column flex-md-row flex-wrap border border-radius mt-2 p-3"
+    *ngFor="let capacity of product.Detail.ProductionCapacity"
+  >
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.production_from }}</h2>
+        <span>{{ capacity.from }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.production_to }}</h2>
+        <span>{{ capacity.to }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.unit }}</h2>
+        <span>{{ capacity.unit }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.production_time }}</h2>
+        <span>{{ capacity.time }}</span>
+      </div>
+    </div>
+  </div>
+  <hr class="line" *ngIf="faqList && faqList.length > 0" />
+  <span class="medium-gray fs-16 bold" *ngIf="faqList && faqList.length > 0">{{ productDetailsTitles.faq }}</span>
+  <div class="d-flex flex-column flex-md-row mt-2 border border-radius p-3" *ngFor="let faq of faqList">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.faq_question }}</h2>
+        <span>{{ faq.question[language] }}</span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="d-flex flex-column">
+        <h2 class="medium-gray fs-16">{{ productDetailsTitles.faq_answer }}</h2>
+        <span>{{ faq.answer[language] }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center align-items-center mt-3">
+    <button type="button" class="btn btn-secondary mx-2" (click)="goBack()">{{ productDetailsTitles.back }}</button>
+    <button type="submit" class="btn btn-primary">
+      {{ productDetailsTitles.final_submit }}
+    </button>
+  </div>
+</form>

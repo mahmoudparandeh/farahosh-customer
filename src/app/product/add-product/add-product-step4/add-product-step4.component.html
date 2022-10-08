@@ -1,0 +1,60 @@
+<form class="d-flex flex-column w-100">
+  <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+    <a class="d-flex align-items-center pointer" (click)="addNewCertificate()">
+      <span class="fs-18 bold blue">{{ productDetailsTitles.new_certificate }}</span>
+      <img src="../../../assets/icons/add.png" alt="add certificate" />
+    </a>
+    <div
+      class="d-flex flex-row flew-wrap align-items-center mb-3"
+      *ngFor="let certificateImage of certificateImages; let i = index"
+    >
+      <app-form-select
+        [control]="certificateControllers[i]"
+        [values]="certificates"
+        [title]="productDetailsTitles.certificate"
+      ></app-form-select>
+      <div *ngIf="certificateImage.path === ''" class="border border-radius p-3 logo-container" (click)="setIndex(i)">
+        <img src="../../../assets/images/add-image.png" alt="add image" />
+      </div>
+      <div
+        *ngIf="certificateImage.path !== ''"
+        class="border border-radius p-3 file-image-container d-flex flex-row flex-wrap justify-content-between margin"
+      >
+        <img [src]="certificateImage.path" class="file-image pointer" alt="add image" (click)="openModal()" />
+        <div class="border border-radius p-2 d-flex flex-column">
+          <app-form-field
+            [title]="fileTitles.alt"
+            [control]="certificateImage.alt"
+            [placeholder]="fileTitles.alt"
+          ></app-form-field>
+          <app-form-field
+            [title]="fileTitles.seo"
+            [control]="certificateImage.tags"
+            [placeholder]="fileTitles.seo"
+          ></app-form-field>
+          <app-form-field
+            [title]="fileTitles.description"
+            [control]="certificateImage.description"
+            [placeholder]="fileTitles.description"
+          ></app-form-field>
+        </div>
+      </div>
+      <button class="btn margin" (click)="deleteCertificate(i)">
+        <img src="../../../assets/icons/delete.svg" alt="delete" />
+      </button>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center align-items-center mt-3">
+    <button type="button" class="btn btn-secondary mx-2" (click)="goBack()">{{ productDetailsTitles.back }}</button>
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+      {{ productDetailsTitles.next }}
+    </button>
+  </div>
+</form>
+<app-file-manager-modal
+  type="Image"
+  [onFileSelected]="onCertificateSelected"
+  [other]="this"
+  [id]="'certificate'"
+  [index]="certificate"
+></app-file-manager-modal>

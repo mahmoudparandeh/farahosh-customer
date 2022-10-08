@@ -1,0 +1,30 @@
+<div class="bgd-blue white p-3 d-flex flex-row my-3 border-radius">
+  <span class="col-1">{{ rfqTitles.id }}</span>
+  <span class="col-3">{{ rfqTitles.product }}</span>
+  <span class="col-2">{{ rfqTitles.customer }}</span>
+  <span class="col-2">{{ rfqTitles.category }}</span>
+  <span class="col-2">{{ rfqTitles.incoterms }}</span>
+  <span class="col-1">{{ rfqTitles.quantity }}</span>
+
+</div>
+<div class="d-flex flex-column bgd-white p-3">
+  <div
+    class="d-flex flex-column my-3"
+    *ngFor="
+      let inquiry of inquiries | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: total }
+    "
+  >
+    <app-inquiry-list-item [inquiry]="inquiry"></app-inquiry-list-item>
+  </div>
+  <div class="d-flex justify-content-center align-items-center">
+    <pagination-controls
+      class="my-pagination"
+      [directionLinks]="true"
+      [autoHide]="true"
+      [responsive]="true"
+      previousLabel="<<"
+      nextLabel=">>"
+      (pageChange)="pageChanged($event)"
+    ></pagination-controls>
+  </div>
+</div>

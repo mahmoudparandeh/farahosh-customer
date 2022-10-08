@@ -1,0 +1,42 @@
+<section class="content">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="fs-18 bold blue">
+          {{ this.id === undefined ? warehouseTitles.add_new_wareHouse : warehouseTitles.edit_wareHouse }}
+        </h2>
+      </div>
+      <form class="d-flex flex-column">
+        <hr class="bg-light-gray" />
+        <div class="d-flex flex-column flex-lg-row">
+          <div class="col-12 col-sm-6">
+            <app-form-select
+              [title]="warehouseTitles.Address + '*'"
+              [control]="address"
+              [values]="addressesSelect"
+            ></app-form-select>
+            <span class="red fs-12 px-2 mt-1" *ngIf="address.touched && address.hasError('required')">
+              {{ warehouseTitles.Address_required }}
+            </span>
+          </div>
+          <div class="col-12 col-sm-6 my-3 my-sm-0">
+            <app-form-field
+              [title]="warehouseTitles.Name + '*'"
+              [control]="name"
+              [placeholder]="warehouseTitles.enter_name"
+            ></app-form-field>
+            <span class="red fs-12 px-2 mt-1" *ngIf="name.touched && name.hasError('required')">
+              {{ warehouseTitles.Name_required }}
+            </span>
+          </div>
+        </div>
+        <hr class="bg-light-gray" />
+        <div class="d-flex justify-content-center align-items-center mt-3">
+          <button type="button" class="btn btn-danger" (click)="cancel()">{{ warehouseTitles.back }}</button>
+          <button type="button" class="btn btn-warning mx-3" (click)="reset()">{{ warehouseTitles.reset }}</button>
+          <button type="button" class="btn btn-success" (click)="submit()">{{ warehouseTitles.add_new }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,39 @@
+<section class="content">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <div class="d-flex justify-content-between mb-3 align-items-center">
+        <h2 class="fs-18 bold blue">{{ ticketListTitles.rfq_listing }}</h2>
+        <a class="d-flex align-items-center pointer">
+          <span class="fs-14 bold blue">{{ ticketListTitles.view_your_store }}</span>
+          <!--          <span>-->
+          <!--            <img src="../../../assets/icons/add.png" alt="">-->
+          <!--          </span>-->
+        </a>
+      </div>
+      <div class="d-none d-lg-flex flex-row align-items-center w-100 my-2 p-3 rounded bgd-blue white">
+        <span class="col-2 text-right fw-bold d-flex align-items-center fs-12">
+          <span>{{ ticketListTitles.id }}</span>
+        </span>
+        <span class="col-2 text-right fw-bold fs-12">{{ ticketListTitles.subject }}</span>
+        <span class="col-2 text-right fw-bold fs-12">{{ ticketListTitles.customer }}</span>
+        <span class="col-2 text-right fw-bold fs-12"> {{ ticketListTitles.product }}</span>
+        <span class="col-2 text-center fw-bold fs-12">{{ ticketListTitles.date }}</span>
+        <span class="col-2 text-right fw-bold d-flex justify-content-end fs-12"></span>
+      </div>
+      <app-ticket-item
+        *ngFor="
+          let ticket of tickets | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: total }
+        "
+        [ticket]="ticket"
+      ></app-ticket-item>
+      <pagination-controls
+        [directionLinks]="true"
+        [autoHide]="true"
+        [responsive]="true"
+        previousLabel="<<"
+        nextLabel=">>"
+        (pageChange)="pageChanged($event)"
+      ></pagination-controls>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,214 @@
+<section class="content">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
+        <h2 class="fs-18 bold blue">{{ profileTranslatorTitles.profile_translator }}</h2>
+        <div class="d-flex flex-row flex-wrap">
+          <app-form-select
+            [control]="fromLanguageController"
+            [others]="this"
+            [selectionChanged]="onFromLanguageChanged"
+            [values]="languages"
+            [title]="profileTranslatorTitles.from_language"
+          ></app-form-select>
+          <app-form-select
+            class="margin"
+            [control]="toLanguageController"
+            [others]="this"
+            [selectionChanged]="onToLanguageChanged"
+            [values]="languages"
+            [title]="profileTranslatorTitles.to_language"
+          ></app-form-select>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-row flex-wrap border-radius shadow-border shadow bgd-white my-3 p-3">
+      <app-form-field
+        class="col-12 col-sm-6 mb-3"
+        [control]="nameFromController"
+        [title]="profileTranslatorTitles.full_name + ' (' + currentFromLanguage + ')'"
+        [id]="'company-name-from'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-sm-6 mb-3"
+        [control]="nameToController"
+        [title]="profileTranslatorTitles.full_name + ' (' + currentToLanguage + ')'"
+        [id]="'company-name-to'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-sm-6 mb-3"
+        [control]="subjectFromController"
+        [title]="profileTranslatorTitles.subject + ' (' + currentFromLanguage + ')'"
+        [id]="'company-subject-from'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-sm-6 mb-3"
+        [control]="subjectToController"
+        [title]="profileTranslatorTitles.subject + ' (' + currentToLanguage + ')'"
+        [id]="'company-subject-to'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-sm-6 mb-3"
+        [control]="shortDescriptionFromController"
+        [title]="profileTranslatorTitles.short_description + ' (' + currentFromLanguage + ')'"
+        [id]="'company-short-description-from'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-sm-6 mb-3"
+        [control]="shortDescriptionToController"
+        [title]="profileTranslatorTitles.short_description + ' (' + currentToLanguage + ')'"
+        [id]="'company-short-description-to'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="metaDescriptionFromController"
+        [title]="profileTranslatorTitles.meta_description + ' (' + currentFromLanguage + ')'"
+        [id]="'company-meta-description-from'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="metaDescriptionToController"
+        [title]="profileTranslatorTitles.meta_description + ' (' + currentToLanguage + ')'"
+        [id]="'company-meta-description-to'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="metaKeywordsFromController"
+        [title]="profileTranslatorTitles.meta_keywords + ' (' + currentFromLanguage + ')'"
+        [id]="'company-meta-keywords-from'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="metaKeywordsToController"
+        [title]="profileTranslatorTitles.meta_keywords + ' (' + currentToLanguage + ')'"
+        [id]="'company-meta-keywords-to'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="metaTitleFromController"
+        [title]="profileTranslatorTitles.meta_title + ' (' + currentFromLanguage + ')'"
+        [id]="'company-meta-title-from'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="metaTitleToController"
+        [title]="profileTranslatorTitles.meta_title + ' (' + currentToLanguage + ')'"
+        [id]="'company-meta-title-to'"
+      ></app-form-field>
+      <app-form-textarea
+        class="col-12 col-md-6 mb-3"
+        [control]="fullDescriptionFromController"
+        [title]="profileTranslatorTitles.full_description + ' (' + currentFromLanguage + ')'"
+        [id]="'company-full-description-from'"
+      ></app-form-textarea>
+      <app-form-textarea
+        class="col-12 col-md-6 mb-3"
+        [control]="fullDescriptionToController"
+        [title]="profileTranslatorTitles.full_description + ' (' + currentToLanguage + ')'"
+        [id]="'company-full-description-to'"
+      ></app-form-textarea>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="contactPersonFromController"
+        [title]="profileTranslatorTitles.contact_person + ' (' + currentFromLanguage + ')'"
+        [id]="'company-contact-person-from'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="contactPersonToController"
+        [title]="profileTranslatorTitles.contact_person + ' (' + currentToLanguage + ')'"
+        [id]="'company-contact-person-to'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="legalStatusFromController"
+        [title]="profileTranslatorTitles.legal_status + ' (' + currentFromLanguage + ')'"
+        [id]="'company-legal-status-from'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="legalStatusToController"
+        [title]="profileTranslatorTitles.legal_status + ' (' + currentToLanguage + ')'"
+        [id]="'company-legal-status-to'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="typeOfBusinessProductsFromController"
+        [title]="profileTranslatorTitles.type_of_business_products + ' (' + currentFromLanguage + ')'"
+        [id]="'company-type-of-business-products-from'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="typeOfBusinessProductsToController"
+        [title]="profileTranslatorTitles.type_of_business_products + ' (' + currentToLanguage + ')'"
+        [id]="'company-type-of-business-products-to'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="referencesFromController"
+        [title]="profileTranslatorTitles.refrences + ' (' + currentFromLanguage + ')'"
+        [id]="'company-references-from'"
+      ></app-form-field>
+      <app-form-field
+        class="col-12 col-md-6 mb-3"
+        [control]="referencesToController"
+        [title]="profileTranslatorTitles.refrences + ' (' + currentToLanguage + ')'"
+        [id]="'company-references-to'"
+      ></app-form-field>
+      <app-editor
+        class="col-12 col-md-6 mb-3"
+        [id]="'company-profile-from'"
+        [text]="getDataFrom()"
+        [others]="this"
+        [onChanged]="profileFromChanged"
+        [title]="profileTranslatorTitles.full_profile + ' (' + currentFromLanguage + ')'"
+      ></app-editor>
+      <app-editor
+        class="col-12 col-md-6 mb-3"
+        [id]="'company-profile-to'"
+        [text]="getDataTo()"
+        [others]="this"
+        [onChanged]="profileToChanged"
+        [title]="profileTranslatorTitles.full_profile + ' (' + currentToLanguage + ')'"
+      ></app-editor>
+      <div class="d-flex flex-row w-100">
+        <h4 class="fs-18 bold blue px-2">{{ profileTranslatorTitles.faq }}</h4>
+        <hr class="margin flex-grow-1" />
+      </div>
+      <ng-container class="col-12" *ngFor="let faq of faqs; let i = index">
+        <app-form-textarea
+          class="col-12 col-md-6 mb-3"
+          [control]="faqQuestionFromControllers[i]"
+          [title]="profileTranslatorTitles.faq_question + '-' + (i + 1) + ' (' + currentFromLanguage + ')'"
+          [id]="'company-question-from-' + i"
+        ></app-form-textarea>
+        <app-form-textarea
+          class="col-12 col-md-6 mb-3"
+          [control]="faqQuestionToControllers[i]"
+          [title]="profileTranslatorTitles.faq_question + '-' + (i + 1) + ' (' + currentToLanguage + ')'"
+          [id]="'company-question-to-' + i"
+        ></app-form-textarea>
+        <app-form-textarea
+          class="col-12 col-md-6 mb-3"
+          [control]="faqAnswerFromControllers[i]"
+          [title]="profileTranslatorTitles.faq_answer + '-' + (i + 1) + ' (' + currentFromLanguage + ')'"
+          [id]="'company-answer-from-' + i"
+        ></app-form-textarea>
+        <app-form-textarea
+          class="col-12 col-md-6 mb-3"
+          [control]="faqAnswerToControllers[i]"
+          [title]="profileTranslatorTitles.faq_answer + '-' + (i + 1) + ' (' + currentToLanguage + ')'"
+          [id]="'company-question-to-' + i"
+        ></app-form-textarea>
+      </ng-container>
+      <div class="col-12 col-sm-6 px-2">
+        <button class="btn btn-warning w-100" (click)="translate()">
+          {{ profileTranslatorTitles.translate_button }}
+        </button>
+      </div>
+      <div class="col-12 col-sm-6 px-2 mt-2 mt-sm-0">
+        <button class="btn btn-primary w-100" (click)="onSubmit()">{{ profileTranslatorTitles.submit_button }}</button>
+      </div>
+    </div>
+  </div>
+</section>

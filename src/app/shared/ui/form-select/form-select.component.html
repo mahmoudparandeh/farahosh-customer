@@ -1,0 +1,6 @@
+<div class="px-2 d-flex flex-column" [ngClass]="direction === 'rtl' ? 'rtl' : 'ltr'">
+  <label class="medium-gray fs-16" [for]="id">{{ title }}</label>
+  <select [formControl]="control" class="form-select mt-1" [id]="id" (change)="onSelect($event.target.value)">
+    <option *ngFor="let item of values" [value]="item.value">{{ item.name }}</option>
+  </select>
+</div>

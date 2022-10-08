@@ -1,0 +1,25 @@
+<div class="d-flex flex-column border-radius shadow-border shadow bgd-white mt-3 p-3">
+  <div class="d-flex flex-row justify-content-between align-items-center">
+    <h2 class="fs-18 bold blue">{{ profileTitles.production_capacity }}</h2>
+    <button class="btn" (click)="createCapacity()">
+      <img src="../../../assets/icons/add.png" alt="add capacity" width="48px" height="48px" />
+    </button>
+  </div>
+  <div class="d-flex flex-row flex-wrap mt-3">
+    <div class="col-12 d-flex flex-row" *ngFor="let capacity of controllers; let i = index">
+      <app-product-capacity-item
+        class="col-10"
+        [from]="capacity.from"
+        [to]="capacity.to"
+        [unit]="capacity.unit"
+        [time]="capacity.time"
+      ></app-product-capacity-item>
+      <button *ngIf="i !== 0" class="btn col-2" (click)="deleteCapacity(i)">
+        <img src="../../../assets/icons/delete.svg" alt="delete faq" />
+      </button>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary my-2 mx-2 btn-w-240" (click)="updateProfile()">
+    {{ profileTitles.update_profile }}
+  </button>
+</div>

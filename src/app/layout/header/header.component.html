@@ -1,0 +1,51 @@
+<nav #navbar class="navbar shadow-sm dark-container" [ngClass]="isNavbarShow ? 'active' : 'inactive'">
+  <div class="container-fluid">
+    <div class="navbar-header" [ngClass]="{ rtl: siteDirection === 'rtl' }">
+      <a
+        href="#"
+        onClick="return false;"
+        class="navbar-toggle collapsed"
+        (click)="isNavbarCollapsed = !isNavbarCollapsed"
+        aria-expanded="false"
+      ></a>
+      <!-- mobile menu bars -->
+      <a href="#" onClick="return false;" class="bars" (click)="mobileMenuSidebarOpen($event, 'overlay-open')"></a>
+      <a class="navbar-brand" routerLink="dashboard/main">
+        <img height="40px" [src]="isMainLogo ? 'assets/images/logo.png' : 'assets/images/mini.png'" alt="" />
+      </a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right align-items-center">
+        <!-- Language -->
+        <div class="d-flex flex-row align-items-center margin">
+          <label class="fs-14">{{ menuTitles.language }}</label>
+          <select
+            id="language-dropdown"
+            class="form-select fs-14 bg-transparent search-type pointer margin"
+            (change)="onLanguageChange()"
+            [(ngModel)]="currentLanguage"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <option class="medium-gray pointer fs-14" *ngFor="let lang of siteLanguages" [value]="lang.name">
+              {{ lang.name }}
+            </option>
+          </select>
+        </div>
+        <!-- #END# Language -->
+        <!-- Full Screen Button -->
+        <button (click)="callFullscreen()" class="btn">
+          <div [ngClass]="isDarkTheme ? 'fullscreen-dark' : 'fullscreen-light'"></div>
+        </button>
+        <!-- #END# Full Screen Button -->
+        <!-- Dark and Light mode -->
+        <li class="pull-right">
+          <button (click)="toggleRightSidebar()" class="btn">
+            <img src="../../../assets/icons/sun.svg" *ngIf="isDarkTheme; else sun" />
+            <ng-template #sun><img src="../../../assets/icons/moon.svg" /></ng-template>
+          </button>
+        </li>
+        <!-- #END# Dark and Light mode -->
+      </ul>
+    </div>
+  </div>
+</nav>

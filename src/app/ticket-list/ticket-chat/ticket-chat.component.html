@@ -1,0 +1,27 @@
+<section class="content">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <div class="bg-blue white header d-flex justify-content-center align-items-center fs-16 bold">
+        {{ title }}
+      </div>
+      <div class="d-flex flex-column chat-container px-2" #scroll>
+        <div
+          class="d-flex flex-column p-2 border-radius shadow-sm mb-2"
+          *ngFor="let chat of chats"
+          [ngClass]="chat.IsReplay ? 'chat-left' : 'chat-right'"
+        >
+          <span class="fs-16 text-dark">{{ chat.Message }}</span>
+          <span class="fs-12 text-dark">{{ chat.CreatedOnUtc }}</span>
+        </div>
+      </div>
+      <div class="p-3">
+        <div class="d-flex flex-row border border-radius overflow-hidden">
+          <input class="flex-grow-1 bgd-white px-2" [formControl]="chat" />
+          <button [disabled]="chat.value.trim() === ''" class="btn btn-primary" (click)="sendTicketReply()">
+            {{ userRFQTitles.send }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

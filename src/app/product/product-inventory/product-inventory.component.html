@@ -1,0 +1,253 @@
+<section class="content">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <div class="my-3 bgd-blue fs-18 bold p-3 border-radius white">
+        {{ productInventoryTitles.submit_product }}: {{ productName }}
+      </div>
+      <div class="d-flex flex-row flex-wrap">
+        <!--        <div class="col-12 col-md-6 col-md-4 d-flex flex-column mb-2">-->
+        <!--          <app-form-select-->
+        <!--            [control]="warehouseController"-->
+        <!--            [values]="warehouses"-->
+        <!--            [title]="productInventoryTitles.wareHouse + '*'"-->
+        <!--          ></app-form-select>-->
+        <!--          <span class="red fs-12 mx-2" *ngIf="warehouseController.touched && warehouseController.errors">{{-->
+        <!--            productInventoryTitles.select_wareHouse-->
+        <!--          }}</span>-->
+        <!--        </div>-->
+        <div class="col-12 col-md-6 d-flex flex-column mb-2" *ngFor="let attribute of productAttributes; let i = index">
+          <app-form-select
+            [control]="attributeControllers[i]"
+            [values]="productAttributes[i].AttributeValues"
+            [title]="productAttributes[i].AttributeName + '*'"
+          ></app-form-select>
+          <span class="red fs-12 mx-2 mt-1" *ngIf="attributeControllers[i].touched && attributeControllers[i].errors">{{
+            productInventoryTitles.attribute_required
+          }}</span>
+        </div>
+        <!--        <div class="col-12 col-md-6 d-flex flex-column mb-2">-->
+        <!--          <app-form-field-->
+        <!--            (keypress)="isNumber($event)"-->
+        <!--            (keyup)="isNumber($event)"-->
+        <!--            [control]="inventoryController"-->
+        <!--            [title]="productInventoryTitles.StockBalance + '*'"-->
+        <!--            [placeholder]="productInventoryTitles.StockBalance"-->
+        <!--          ></app-form-field>-->
+        <!--          <span class="red fs-12 mx-2" *ngIf="inventoryController.touched && inventoryController.errors">{{-->
+        <!--            productInventoryTitles.StockBalance_required-->
+        <!--          }}</span>-->
+        <!--        </div>-->
+        <div class="col-12 col-md-6 d-flex flex-column mb-2">
+          <app-form-select
+            [control]="unitController"
+            [values]="units"
+            [title]="productInventoryTitles.stockUnit + '*'"
+          ></app-form-select>
+          <span class="red fs-12 mx-2 mt-1" *ngIf="unitController.touched && unitController.errors">{{
+            productInventoryTitles.StockBalance_required
+          }}</span>
+        </div>
+        <div class="col-12 col-md-6 d-flex flex-column mb-2">
+          <app-form-select
+            [control]="incotermController"
+            [values]="incoterms"
+            [title]="productInventoryTitles.incoterms"
+          ></app-form-select>
+          <span class="red fs-12 mt-1 mx-2" *ngIf="incotermController.touched && incotermController.errors">{{
+            productInventoryTitles.incoterms_required
+          }}</span>
+        </div>
+        <!--        <div class="col-12 col-md-6 col-md-4 d-flex flex-column mb-2">-->
+        <!--          <app-form-field-->
+        <!--            (keypress)="isNumber($event)"-->
+        <!--            (keyup)="isNumber($event)"-->
+        <!--            [control]="minInventoryController"-->
+        <!--            [title]="productInventoryTitles.MinStockQuantity + '*'"-->
+        <!--            [placeholder]="productInventoryTitles.MinStockQuantity"-->
+        <!--          ></app-form-field>-->
+        <!--          <span-->
+        <!--            class="red fs-12 mx-2"-->
+        <!--            *ngIf="minInventoryController.touched && minInventoryController.hasError('required')"-->
+        <!--            >{{ productInventoryTitles.MinStockQuantity_required }}</span-->
+        <!--          >-->
+        <!--          <span-->
+        <!--            class="red fs-12 mx-2"-->
+        <!--            *ngIf="minInventoryController.touched && minInventoryController.hasError('mustSmall')"-->
+        <!--            >{{ productInventoryTitles.MinStockQuantity_mustsmall }}</span-->
+        <!--          >-->
+        <!--        </div>-->
+        <!--        <div class="col-12 col-md-6 col-md-4 d-flex flex-column mb-2">-->
+        <!--          <app-form-field-->
+        <!--            (keypress)="isNumber($event)"-->
+        <!--            (keyup)="isNumber($event)"-->
+        <!--            [control]="minOrderController"-->
+        <!--            [title]="productInventoryTitles.OrderMinimumQuantity + '*'"-->
+        <!--            [placeholder]="productInventoryTitles.OrderMinimumQuantity"-->
+        <!--          ></app-form-field>-->
+        <!--          <span class="red fs-12 mx-2" *ngIf="minOrderController.touched && minOrderController.hasError('required')">{{-->
+        <!--            productInventoryTitles.OrderMinimumQuantity_required-->
+        <!--          }}</span>-->
+        <!--          <span-->
+        <!--            class="red fs-12 mx-2"-->
+        <!--            *ngIf="-->
+        <!--              minOrderController.touched &&-->
+        <!--              maxOrderController.value != '' &&-->
+        <!--              maxOrderController.value < minOrderController.value &&-->
+        <!--              minOrderController.hasError('mustSmall')-->
+        <!--            "-->
+        <!--          >-->
+        <!--            {{ productInventoryTitles.OrderMinimumQuantity_mustsmall }}</span-->
+        <!--          >-->
+        <!--        </div>-->
+        <!--        <div class="col-12 col-md-6 col-md-4 d-flex flex-column mb-2">-->
+        <!--          <app-form-field-->
+        <!--            (keypress)="isNumber($event)"-->
+        <!--            (keyup)="isNumber($event)"-->
+        <!--            [control]="maxOrderController"-->
+        <!--            [title]="productInventoryTitles.OrderMaximumQuantity + '*'"-->
+        <!--            [placeholder]="productInventoryTitles.OrderMaximumQuantity"-->
+        <!--          ></app-form-field>-->
+        <!--          <span class="red fs-12 mx-2" *ngIf="maxOrderController.touched && maxOrderController.hasError('required')">{{-->
+        <!--            productInventoryTitles.OrderMaximumQuantity_required-->
+        <!--          }}</span>-->
+        <!--        </div>-->
+        <div class="w-100 d-flex flex-row flex-wrap mb-2">
+          <div class="col-12 col-md-6">
+            <app-form-field
+              (keypress)="isNumber($event)"
+              (keyup)="isNumber($event)"
+              [control]="fromController"
+              [title]="productInventoryTitles.QuantityFrom"></app-form-field>
+            <span class="red fs-12" *ngIf="fromController.touched && fromController.hasError('required')">{{
+              productInventoryTitles.QuantityFrom_required
+            }}</span>
+            <span
+              class="red fs-12"
+              *ngIf="fromController.touched && fromController.hasError('pattern')"
+            >{{ productInventoryTitles.from_invalid }}</span
+            >
+          </div>
+          <div class="col-12 col-md-6">
+            <app-form-field
+              (keypress)="isNumber($event)"
+              (keyup)="isNumber($event)"
+              [control]="toController"
+              [title]="productInventoryTitles.QuantityTo + ' (' + productInventoryTitles.help_bigger + ')'"></app-form-field>
+            <span class="red fs-12" *ngIf="toController.touched && toController.hasError('required')">{{
+              productInventoryTitles.QuantityTo_required
+            }}</span>
+            <span
+              class="red fs-12"
+              *ngIf="toController.touched && toController.hasError('pattern')"
+            >{{ productInventoryTitles.to_invalid }}</span
+            >
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 d-flex flex-column mb-2">
+          <h3 class="fs-16 medium-gray">{{ productInventoryTitles.GeoLocation }}</h3>
+          <app-form-checkbox
+            [control]="locationCheckboxController"
+            [title]="productInventoryTitles.Negotiated"
+            [id]="'geolocation'"
+          ></app-form-checkbox>
+          <app-form-autocomplete
+            *ngIf="!locationCheckboxController.value"
+            [object]="this"
+            [onSelected]="onSelectGeolocation"
+            [control]="geoLocationController"
+            [list]="locations"
+          ></app-form-autocomplete>
+          <span
+            class="red fs-12"
+            *ngIf="!locationCheckboxController.value && geoLocationController.touched && geoLocationController.errors"
+            >{{ productInventoryTitles.GeoLocation_required }}</span
+          >
+        </div>
+        <div class="col-12 col-md-6 d-flex flex-column mb-2">
+          <h3 class="fs-16 medium-gray">{{ productInventoryTitles.Price }}</h3>
+          <app-form-checkbox
+            [control]="priceCheckboxController"
+            [title]="productInventoryTitles.Negotiated"
+            [id]="'price'"
+          ></app-form-checkbox>
+          <div class="d-flex flex-row flex-wrap">
+            <div class="d-flex flex-column col-12 col-md-6">
+             <app-form-field
+               (keypress)="isNumber($event)"
+               (keyup)="isNumber($event)"
+               *ngIf="!priceCheckboxController.value"
+               [control]="priceController"
+               [placeholder]="productInventoryTitles.Price"
+             ></app-form-field>
+             <span
+               class="red fs-12"
+               *ngIf="!priceCheckboxController.value && priceController.touched && priceController.hasError('required')"
+             >{{ productInventoryTitles.Price_required }}</span
+             >
+              <span
+                class="red fs-12"
+                *ngIf="!priceCheckboxController.value && priceController.touched && priceController.hasError('pattern')"
+              >{{ productInventoryTitles.price_invalid }}</span
+              >
+           </div>
+            <div class="d-flex flex-column col-12 col-md-6">
+              <app-form-select
+                *ngIf="!priceCheckboxController.value"
+                [control]="currencyController"
+                [values]="currenciesValue"
+              ></app-form-select>
+              <span
+                class="red fs-12"
+                *ngIf="!priceCheckboxController.value && currencyController.touched && currencyController.errors"
+              >{{ productInventoryTitles.currency_required }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col d-flex flex-row flex-wrap">
+        <button class="btn btn-primary btn-w-120 mx-2" (click)="onSubmitProductInventory()">
+          {{ isEdit ? productInventoryTitles.update : productInventoryTitles.submit }}
+        </button>
+        <button *ngIf="isEdit" class="btn btn-primary btn-w-120 mx-2 margin" (click)="onCreate()">
+          {{ productInventoryTitles.create }}
+        </button>
+      </div>
+    </div>
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3 my-3">
+      <div class="my-3 bgd-blue fs-18 bold p-3 border-radius white">
+        {{ productInventoryTitles.product_inventory_list }}
+      </div>
+      <div class="d-none d-lg-flex flex-row align-items-center w-100 my-2 p-3 border-radius border item-dark-container">
+        <span class="col-1">{{ productInventoryListTitles.id }}</span>
+        <span class="col-1">{{ productInventoryTitles.QuantityFrom }}</span>
+        <span class="col-1">{{ productInventoryTitles.QuantityTo }}</span>
+        <span [ngClass]="{'col-2': productAttributes.length === 0,'col-1': productAttributes.length > 0 }">{{ productInventoryListTitles.unit }}</span>
+        <span class="col-2" *ngIf="productAttributes.length > 0">{{ productInventoryListTitles.attributes }}</span>
+        <span class="col-2">{{ productInventoryTitles.incoterms }}</span>
+        <span class="col-2">{{ productInventoryTitles.GeoLocation }}</span>
+        <span [ngClass]="{'col-2': productAttributes.length === 0,'col-1': productAttributes.length > 0 }">{{ productInventoryTitles.Price }}</span>
+      </div>
+      <div class="d-flex flex-column my-2">
+        <app-product-inventory-item
+          *ngFor="
+            let product of products | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: total }
+          "
+          [product]="product"
+        ></app-product-inventory-item>
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <pagination-controls
+          class="my-pagination"
+          [directionLinks]="true"
+          [autoHide]="true"
+          [responsive]="true"
+          previousLabel="<<"
+          nextLabel=">>"
+          (pageChange)="pageChanged($event)"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+</section>

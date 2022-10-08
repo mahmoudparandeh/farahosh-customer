@@ -1,0 +1,116 @@
+<div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3 mt-3" id="company_overview">
+  <h2 class="fs-18 bold blue">{{ profileTitles.company_overview }}</h2>
+  <div class="d-flex flex-row flex-wrap mt-3">
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        [control]="controllers.nameController"
+        [title]="profileTitles.full_name + '*'"
+        [id]="'company-name'"
+      ></app-form-field>
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        [control]="controllers.subjectController"
+        [title]="profileTitles.subject + '*'"
+        [id]="'company-subject'"
+      ></app-form-field>
+      <span
+        class="red"
+        *ngIf="controllers.subjectController.touched && controllers.subjectController.hasError('required')"
+        >{{ profileTitles.subject_required }}</span
+      >
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        [control]="controllers.shortDescriptionController"
+        [title]="profileTitles.short_description + '*'"
+        [id]="'company-short-description'"
+      ></app-form-field>
+      <span
+        class="red"
+        *ngIf="
+          controllers.shortDescriptionController.touched && controllers.shortDescriptionController.hasError('required')
+        "
+        >{{ profileTitles.short_description_required }}</span
+      >
+    </div>
+    <app-form-field
+      class="col-12 col-md-6 mt-2"
+      [control]="controllers.metaDescriptionController"
+      [title]="profileTitles.meta_description"
+      [id]="'company-meta-description'"
+    ></app-form-field>
+    <app-form-field
+      class="col-12 col-md-6 mt-2"
+      [control]="controllers.metaKeywordsController"
+      [title]="profileTitles.meta_keywords"
+      [id]="'company-meta-keywords'"
+    ></app-form-field>
+    <app-form-field
+      class="col-12 col-md-6 mt-2"
+      [control]="controllers.metaTitleController"
+      [title]="profileTitles.meta_title"
+      [id]="'company-meta-title'"
+    ></app-form-field>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        (keypress)="isNumber($event)"
+        (keyup)="isNumber($event)"
+        [control]="controllers.registerCodeController"
+        [title]="profileTitles.register_number + '*'"
+        [id]="'company-register-code'"
+      ></app-form-field>
+      <span
+        class="red"
+        *ngIf="controllers.registerCodeController.touched && controllers.registerCodeController.hasError('required')"
+        >{{ profileTitles.register_number_required }}</span
+      >
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-field
+        [control]="controllers.postalCodeController"
+        [title]="profileTitles.post + '*'"
+        [maxLength]="10"
+        (keypress)="isNumber($event)"
+        (keyup)="isNumber($event)"
+        [id]="'company-post-code'"
+      ></app-form-field>
+      <span
+        class="red"
+        *ngIf="controllers.postalCodeController.touched && controllers.postalCodeController.hasError('required')"
+        >{{ profileTitles.postal_code_required }}</span
+      >
+      <span
+        class="red"
+        *ngIf="controllers.postalCodeController.touched && controllers.postalCodeController.hasError('pattern')"
+        >{{ profileTitles.post_invalid }}</span
+      >
+    </div>
+    <div class="d-flex flex-column col-12 col-md-6 mt-2">
+      <app-form-textarea
+        class="col-12 mt-2"
+        [control]="controllers.fullDescriptionController"
+        [title]="profileTitles.full_description + '*'"
+        [id]="'company-full-description'"
+      ></app-form-textarea>
+      <span
+        class="red"
+        *ngIf="
+          controllers.fullDescriptionController.touched && controllers.fullDescriptionController.hasError('required')
+        "
+        >{{ profileTitles.full_description_required }}</span
+      >
+    </div>
+    <app-editor
+      class="col-12 mt-3"
+      [id]="'company-profile'"
+      [text]="getData()"
+      [others]="this"
+      [onChanged]="profileChanged"
+      [title]="profileTitles.full_profile"
+    ></app-editor>
+    <button type="button" class="btn btn-primary my-2 mx-2 btn-w-240" (click)="updateProfile()">
+      {{ profileTitles.update_profile }}
+    </button>
+  </div>
+</div>

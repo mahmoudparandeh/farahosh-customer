@@ -1,0 +1,67 @@
+.stepper
+  display: flex
+  align-items: center
+  justify-content: space-evenly
+  width: 90%
+  flex-direction: column
+  margin: auto
+  //overflow-x: scroll
+// margin: 16px
+
+.step-item
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  max-width: 3%
+  //height: 130px
+  z-index: 100
+  cursor: pointer
+
+.step-number
+  display: flex
+  justify-content: center
+  align-items: center
+  border-radius: 100%
+  background-color: #CDD3D4
+  height: 30px
+  width: 30px
+
+.step-number.active
+  background-color: #0035AF
+  color: white
+
+.step-description
+  color: #333333
+  height: 25px
+
+.step-description.active
+  color: #0035AF
+
+.step-progress
+  width: 2px
+  height: 30px
+  background-color: #CDD3D4
+
+.step-progress.active
+  background-color: #0035AF
+
+.step-name
+  display: none
+
+@media screen and (min-width: 768px)
+  .stepper
+    flex-direction: row
+
+  .step-item
+    height: 80px
+
+  .step-progress
+    height: 2px
+    width: 40%
+    margin-bottom: 20px
+
+  .step-name
+    display: flex
+  .step-name.active
+    color: #0035AF

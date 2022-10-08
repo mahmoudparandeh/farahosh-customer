@@ -1,0 +1,11 @@
+<div class="px-2 d-flex flex-column">
+  <label class="medium-gray fs-16 mb-2" [for]="id">{{ title }}</label>
+  <textarea
+    class="dark"
+    [id]="id"
+    froalaEditor
+    [options]="options"
+    (ngModelChange)="onChange()"
+    [(ngModel)]="text"
+  ></textarea>
+</div>

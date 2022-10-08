@@ -1,0 +1,33 @@
+<div class="d-flex flex-row p-3 border-radius shadow-border mb-2 bgd-white">
+  <span class="col-1">{{ product.WareHouseName }}</span>
+  <div class="col-2 d-flex flex-column">
+    <div *ngFor="let specialFeature of product.SpecialAttributeValue">
+      <span>{{ specialFeature.AttributeName }}: {{ specialFeature.AttributeValue }}</span>
+    </div>
+  </div>
+  <span class="col-1">{{
+    product.QuantityFrom === -1 ? newProductPriceTitles.Negotiated : (product.QuantityFrom | number: '1.0-0')
+  }}</span>
+  <span class="col-1">{{
+    product.QuantityTo === -1 ? newProductPriceTitles.Negotiated : (product.QuantityTo | number: '1.0-0')
+  }}</span>
+  <span class="col-2">{{ product.IncotermName }}</span>
+  <span class="col-1">{{ product.UnitName }}</span>
+  <span class="col-2">{{
+    product.Price === -1 ? newProductPriceTitles.Negotiated : (product.Price | number: '1.0-0')
+  }}</span>
+  <span class="col-1">{{ product.DisplayOrder }}</span>
+  <div class="col-1 text-dark d-flex justify-content-end">
+    <a class="pointer" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li>
+        <a class="dropdown-item" (click)="onEdit()">{{ productPriceListTitles.edit }}</a>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="onDelete()">{{ productPriceListTitles.delete }}</a>
+      </li>
+    </ul>
+  </div>
+</div>

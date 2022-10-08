@@ -1,0 +1,53 @@
+<div class="d-flex flex-row align-items-center justify-content-center fullscreen">
+  <div class="d-flex flex-column justify-content-center login item-container p-3">
+    <img src="../../../assets/images/logo.png" width="240px" alt="logo" />
+    <div class="d-flex flex-row align-items-center margin mt-2">
+      <label class="fs-14">{{ menuTitles.language }}</label>
+      <select
+        id="language-dropdown"
+        class="form-select fs-14 bg-transparent search-type pointer margin"
+        (change)="onLanguageChange()"
+        [(ngModel)]="currentLanguage"
+        [ngModelOptions]="{ standalone: true }"
+      >
+        <option class="medium-gray pointer fs-14" *ngFor="let lang of siteLanguages" [value]="lang.name">
+          {{ lang.name }}
+        </option>
+      </select>
+    </div>
+    <h4 class="my-2">{{ loginTitles.login_your_account }}</h4>
+    <form class="d-flex flex-column" [formGroup]="loginForm">
+      <div class="d-flex flex-column col-12 mt-3">
+        <app-form-field
+          [id]="'email'"
+          [control]="emailController"
+          [title]="loginTitles.email"
+          [placeholder]="loginTitles.email"
+        ></app-form-field>
+        <span class="px-2 fs-12 error" *ngIf="emailController.touched && emailController.hasError('required')">
+          {{ loginTitles.email_required }}
+        </span>
+        <span class="px-2 fs-12 error" *ngIf="emailController.touched && emailController.hasError('email')">
+          {{ loginTitles.email_invalid }}
+        </span>
+      </div>
+      <div class="d-flex flex-column col-12 mt-3">
+        <app-form-field
+          [id]="'password'"
+          [control]="passwordController"
+          type="password"
+          [title]="loginTitles.password"
+          [placeholder]="loginTitles.password"
+        ></app-form-field>
+        <span class="px-2 fs-12 error" *ngIf="passwordController.touched && passwordController.hasError('required')">
+          {{ loginTitles.password_required }}
+        </span>
+      </div>
+      <app-form-checkbox class="mt-3" [title]="loginTitles.remember" [control]="rememberMe"></app-form-checkbox>
+      <a class="fs-14 mt-3" [routerLink]="['forget-password']">{{ loginTitles.forget }}</a>
+      <button type="button" class="col-12 btn btn-color white mt-1 px-2" (click)="login()">
+        {{ loginTitles.login }}
+      </button>
+    </form>
+  </div>
+</div>
