@@ -27,13 +27,17 @@ export class RFQService {
   }
 
   //#region Api Urls
-  baseUrlRFQ = '/api/v1/TicketRFQ/GetPageByPage';
+  baseUrlRFQ = '/api/v1/CustomerTicketRFQ/GetPageByPage';
+  baseUrlRFQDetail = '/api/v1/CustomerTicketRFQ/GetRFQDetails';
   baseUrlInquiry = '/api/v1/VendorTicketInquery/SendInqueries';
-  baseUrlGetInquiries = '/api/v1/VendorTicketInquery/GetPageByPage';
-  baseUrlGetInquiry = '/api/v1/TicketInquery/GetInqueryDetails/';
+  baseUrlGetInquiries = '/api/v1/CustomerTicketInquery/GetPageByPage';
+  baseUrlGetInquiry = '/api/v1/CustomerTicketInquery/GetInqueryDetails/';
   baseUrlCurrency = '/api/v1/Currency/GetAllRows';
   baseUrlRFQBasics = '/api/v1/WebTicketRFQ/GetAllBasicInformation';
   baseCategoriesUrl: string = '/api/v1/WebCategory/GetcategoryList';
+  baseUrlCloseTicket = '/api/v1/CustomerTicket/CloseTicketByCustomer';
+  baseUrlOpenTicket = '/api/v1/CustomerTicket/OpenTicketByCustomer';
+  baseUrlGetTicketList = 'api/v1/CustomerTicket/GetTicketList';
   //#endregion Api Urls
 
   //#region Properties
