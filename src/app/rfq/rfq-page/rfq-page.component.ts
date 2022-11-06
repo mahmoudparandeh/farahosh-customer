@@ -8,7 +8,7 @@ import {SharedService} from "../../shared/shared.service";
 })
 export class RfqPageComponent implements OnInit {
   rfqTitles: any;
-  currentTab = 'inquiry';
+  currentTab = 'rfq';
   constructor(private sharedService: SharedService) {
     this.sharedService.currentLanguage.subscribe(language => {
       this.sharedService.onLanguageChanges(language, 'rfqTitle');

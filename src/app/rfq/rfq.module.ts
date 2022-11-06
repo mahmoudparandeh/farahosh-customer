@@ -8,6 +8,11 @@ import {InquiryListItemComponent} from "./inquiry-list-page/inquiry-list-item/in
 import {SharedModule} from "../shared/shared.module";
 import {InquiryDetailsPageComponent} from "./inquiry-details-page/inquiry-details-page.component";
 import {RfqCategoryModalComponent} from "./rfq-category-modal/rfq-category-modal.component";
+import { RfqDetailsPageComponent } from './rfq-details-page/rfq-details-page.component';
+import { InvoiceListPageComponent } from './invoice-list-page/invoice-list-page.component';
+import { InvoiceDetailsPageComponent } from './invoice-details-page/invoice-details-page.component';
+import { ChatPageComponent } from './chat-page/chat-page.component';
+import { RfqListPageComponent } from './rfq-list-page/rfq-list-page.component';
 
 
 @NgModule({
@@ -17,6 +22,11 @@ import {RfqCategoryModalComponent} from "./rfq-category-modal/rfq-category-modal
     InquiryListItemComponent,
     InquiryDetailsPageComponent,
     RfqCategoryModalComponent,
+    RfqDetailsPageComponent,
+    InvoiceListPageComponent,
+    InvoiceDetailsPageComponent,
+    ChatPageComponent,
+    RfqListPageComponent,
   ],
   imports: [
     CommonModule,
