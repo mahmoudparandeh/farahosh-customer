@@ -1,0 +1,34 @@
+<div class="d-flex flex-row align-items-center p-3 mb-3 border border-radius shadow-border">
+  <span class="col-1">{{ invoice.Id }}</span>
+  <div class="col-2 d-flex flex-row align-items-center">
+    <img width="75" height="75" class="border border-radius object-fit" [src]="invoice.ProductImagePath" />
+    <span class="margin">{{invoice.ProductName[language]}}</span>
+  </div>
+  <div class="col-2 d-flex flex-row align-items-center">
+    <img width="75" height="75" class="border border-radius object-fit" [src]="invoice.VendorImagePath" />
+    <span class="margin">{{ invoice.VendorName[language] }}</span>
+  </div>
+  <span class="col-1">{{ invoice.InvQuantity }} ({{ invoice.InvUnitName[language] }})</span>
+  <span class="col-2">{{ invoice.InvIncotermName[language] }}</span>
+  <span class="col-2">{{ invoice.InvPrice.toString() | number: '1.0-0' }} {{ invoice.InvCurrencyName[language] }}</span>
+  <span class="col-1 green">{{getStatus(invoice.Status)}}</span>
+  <div class="col-1 d-flex flex-row justify-content-end align-items-center mb-1">
+    <a class="pointer" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+      <li>
+        <a class="dropdown-item green" [routerLink]="['/', language, 'rfqs', 'invoice', 'details', invoice.Id]">
+          {{ rfqTitles.detail }}</a
+        >
+      </li>
+      <li>
+        <a
+          class="dropdown-item blue"
+          [routerLink]="['/', language, 'rfqs', 'chat', invoice.InqueryId, invoice.TicketId]"
+        >{{ rfqTitles.chat }}</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>

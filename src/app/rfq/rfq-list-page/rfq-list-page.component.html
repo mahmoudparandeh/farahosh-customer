@@ -1,1 +1,62 @@
-<p>rfq-list-page works!</p>
+<div class="bgd-blue white p-3 d-flex flex-row my-3 border-radius">
+  <span class="col-1">{{ rfqTitles.filters }}</span>
+</div>
+<div class='d-flex flex-row flex-wrap'>
+  <app-form-field class='col-12 col-md-6 mb-2' [control]='searchCustomerController' title='نام مشتری' placeholder='نام مشتری را وارد کنید'></app-form-field>
+  <app-form-field class='col-12 col-md-6 mb-2' [control]='searchProductController' title='نام محصول' placeholder='نام محصول را وارد کنید'></app-form-field>
+  <app-form-field class='col-12 col-md-6 mb-2' (keypress)="isNumber($event)" (keyup)="isNumber($event)" [control]='searchCodeController' title='شماره ردیف' placeholder='شماره ردیف را وارد کنید'></app-form-field>
+  <app-form-select class='col-12 col-md-6 mb-2' [control]='searchStatusController' [values]='statusValues' title='وضعیت'></app-form-select>
+  <app-form-select
+    class="col-12 col-sm-6 mb-2"
+    title="دسته بندی لایه اول"
+    [values]="categories"
+    [control]="searchCategoryController"
+    [others]="this"
+    [selectionChanged]="categorySelected"
+  ></app-form-select>
+  <app-form-select *ngIf='subCategories.length > 0'
+                   class="col-12 col-sm-6 mb-2"
+                   title="دسته بندی لایه دوم"
+                   [values]="subCategories"
+                   [control]="searchSubCategoryController"
+                   [others]="this"
+                   [selectionChanged]="subCategorySelected"
+  ></app-form-select>
+  <app-form-select *ngIf='subSubCategories.length > 0'
+                   class="col-12 col-sm-6 mb-2"
+                   title="دسته بندی لایه سوم"
+                   [values]="subSubCategories"
+                   [control]="searchSubSubCategoryController"
+  ></app-form-select>
+  <div class='col-12 col-sm-6 mb-2 px-4'>
+    <button class='w-100 btn btn-primary margin-button-top' (click)='onFilter(true)'>{{rfqTitles.filter}}</button>
+  </div>
+
+</div>
+<div class="bgd-blue white p-3 d-flex flex-row my-3 border-radius">
+  <span class="col-1">{{ rfqTitles.id }}</span>
+  <span class="col-3">{{ rfqTitles.product }}</span>
+  <span class="col-2">{{ rfqTitles.category }}</span>
+  <span class="col-2">{{ rfqTitles.customer }}</span>
+  <span class="col-2">{{ rfqTitles.date }}</span>
+  <span class="col-1">{{ rfqTitles.status }}</span>
+</div>
+<div class="d-flex flex-column bgd-white p-3">
+  <div
+    class="d-flex flex-column my-3"
+    *ngFor="let rfq of rfqs | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: total }"
+  >
+    <app-rfq-list-item [rfq]="rfq"></app-rfq-list-item>
+  </div>
+  <div class="d-flex justify-content-center align-items-center">
+    <pagination-controls
+      class="my-pagination"
+      [directionLinks]="true"
+      [autoHide]="true"
+      [responsive]="true"
+      previousLabel="<<"
+      nextLabel=">>"
+      (pageChange)="pageChanged($event)"
+    ></pagination-controls>
+  </div>
+</div>

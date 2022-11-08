@@ -1,1 +1,43 @@
-<p>invoice-list-page works!</p>
+<div class="bgd-blue white p-3 d-flex flex-row my-3 border-radius">
+  <span class="col-1">{{ rfqTitles.filters }}</span>
+</div>
+<div class='d-flex flex-row flex-wrap'>
+  <app-form-field class='col-12 col-md-6 mb-2' [control]='searchProductController' title='نام محصول' placeholder='نام محصول را وارد کنید'></app-form-field>
+  <app-form-field class='col-12 col-md-6 mb-2' [control]='searchVendorController' title='نام تأمین کننده' placeholder='نام تأمین را وارد کنید'></app-form-field>
+  <app-form-field class='col-12 col-md-6 mb-2' (keypress)="isNumber($event)" (keyup)="isNumber($event)" [control]='searchCodeController' title='شماره ردیف' placeholder='شماره ردیف را وارد کنید'></app-form-field>
+  <app-form-select class='col-12 col-md-6 mb-2' [control]='searchStatusController' [values]='statusValues' title='وضعیت'></app-form-select>
+  <app-form-select class='col-12 col-md-6 mb-2' [control]='searchIncotermController' [values]='incoterms' title='اصطلاح تجارت بین الملل'></app-form-select>
+  <app-form-field class='col-12 col-md-6 mb-2' (keypress)="isNumber($event)" (keyup)="isNumber($event)" [control]='searchMinPriceController' title='حداق قیمت' placeholder='حداقل قیمت را وارد کنید'></app-form-field>
+  <app-form-field class='col-12 col-md-6 mb-2' (keypress)="isNumber($event)" (keyup)="isNumber($event)" [control]='searchMaxPriceController' title='حداکثر قیمت' placeholder='حداکثر قیمت را وارد کنید'></app-form-field>
+  <div class='col-12 col-sm-6 mb-2 px-4'>
+    <button class='w-100 btn btn-primary margin-button-top' (click)='onFilter(true)'>{{rfqTitles.filter}}</button>
+  </div>
+</div>
+<div class="bgd-blue white p-3 d-flex flex-row my-3 border-radius">
+  <span class="col-1">{{ rfqTitles.id }}</span>
+  <span class="col-2">{{ rfqTitles.product }}</span>
+  <span class="col-2">{{ rfqTitles.vendor }}</span>
+  <span class="col-1">{{ rfqTitles.quantity }}</span>
+  <span class="col-2">{{ rfqTitles.incoterms }}</span>
+  <span class="col-2">{{ rfqTitles.price }}</span>
+  <span class="col-2">{{ rfqTitles.status }}</span>
+</div>
+<div class="d-flex flex-column bgd-white p-3">
+  <div
+    class="d-flex flex-column my-3"
+    *ngFor="let invoice of invoices | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: total }"
+  >
+    <app-invoice-list-item [invoice]="invoice"></app-invoice-list-item>
+  </div>
+  <div class="d-flex justify-content-center align-items-center">
+    <pagination-controls
+      class="my-pagination"
+      [directionLinks]="true"
+      [autoHide]="true"
+      [responsive]="true"
+      previousLabel="<<"
+      nextLabel=">>"
+      (pageChange)="pageChanged($event)"
+    ></pagination-controls>
+  </div>
+</div>

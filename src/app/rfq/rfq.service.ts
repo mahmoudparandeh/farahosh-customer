@@ -7,8 +7,9 @@ import {Unit} from '../shared/models/unit.model';
 import {Inquiry} from './models/inquiry.model';
 import {Currency} from './models/currency.model';
 import {Incoterm} from "../product/models/incoterm.model";
-import {Country} from "./models/rfq.model";
+import {Country, RFQ} from "./models/rfq.model";
 import {Category} from "../product/models/category.model";
+import {Invoice} from "./models/invoice.model";
 
 @Injectable({
   providedIn: 'root',
@@ -27,17 +28,19 @@ export class RFQService {
   }
 
   //#region Api Urls
-  baseUrlRFQ = '/api/v1/CustomerTicketRFQ/GetPageByPage';
+  baseUrlRFQ = '/api/v1/CustomerTicketRFQ/SearchTicketRFQ';
   baseUrlRFQDetail = '/api/v1/CustomerTicketRFQ/GetRFQDetails';
   baseUrlInquiry = '/api/v1/VendorTicketInquery/SendInqueries';
   baseUrlGetInquiries = '/api/v1/CustomerTicketInquery/GetPageByPage';
   baseUrlGetInquiry = '/api/v1/CustomerTicketInquery/GetInqueryDetails/';
   baseUrlCurrency = '/api/v1/Currency/GetAllRows';
   baseUrlRFQBasics = '/api/v1/WebTicketRFQ/GetAllBasicInformation';
-  baseCategoriesUrl: string = '/api/v1/WebCategory/GetcategoryList';
+  baseCategoriesUrl = '/api/v1/WebCategory/GetcategoryList';
   baseUrlCloseTicket = '/api/v1/CustomerTicket/CloseTicketByCustomer';
   baseUrlOpenTicket = '/api/v1/CustomerTicket/OpenTicketByCustomer';
   baseUrlGetTicketList = 'api/v1/CustomerTicket/GetTicketList';
+  baseUrlGetInvoices = '/api/v1/CustomerTicketInvoice/SearchTicketInvoice';
+  baseUrlGetInvoice = '/api/v1/CustomerTicketInvoice/GetInvoiceDetails/';
   //#endregion Api Urls
 
   //#region Properties
@@ -53,6 +56,11 @@ export class RFQService {
   rfqUnitsReplaySubject = new ReplaySubject<Unit[]>();
   selectedCategories = new Subject<Category[]>();
   categoriesBehavioral = new BehaviorSubject<Category[]>([]);
+  rfqs = new ReplaySubject<RFQ[]>();
+  invoices = new ReplaySubject<Invoice[]>();
+  incoterms = new ReplaySubject<Incoterm[]>();
+  baseUrlIncoterms = '/api/V1/Incoterm/GetAllRows';
+
   //#endregion Properties
   //#region Methods
   getInquires(page: number): void {
@@ -134,6 +142,52 @@ export class RFQService {
       this.rfqCurrenciesReplaySubject.next(response.jsonResult.Data.Currencies);
       this.rfqCountriesReplaySubject.next(countries);
     });
+  }
+  //#region Methods
+  getRFQs(options: any): void {
+    this.httpClient
+      .get(this.baseUrlRFQ, {
+        headers: {
+          value: options,
+        },
+      })
+      .subscribe((response: any) => {
+        this.totalRFQ.next(response.jsonResult.Data.rowcount);
+        for (const rfq of response.jsonResult.Data.ticketrfq) {
+          rfq.ProductPicturePath = environment.apiUrl + rfq.ProductPicturePath;
+        }
+        this.rfqs.next(response.jsonResult.Data.ticketrfq);
+      });
+  }
+
+  getInvoices(options: any): void {
+    this.httpClient
+      .get(this.baseUrlGetInvoices, {
+        headers: {
+          value: options,
+        },
+      })
+      .subscribe((response: any) => {
+        this.totalInvoices.next(response.jsonResult.Data.rowcount);
+        const invoices: Invoice[] = response.jsonResult.Data.ticketinvoice;
+        for (const inquiry of invoices) {
+          if (inquiry.ProductImagePath) {
+            inquiry.ProductImagePath = environment.apiUrl + inquiry.ProductImagePath;
+          }
+          if (inquiry.VendorImagePath) {
+            inquiry.VendorImagePath = environment.apiUrl + inquiry.VendorImagePath;
+          }
+        }
+        this.invoices.next(invoices);
+      });
+  }
+
+  getAllIncoterms(): void {
+    this.httpClient
+      .get(this.baseUrlIncoterms)
+      .subscribe((response: any) => {
+        this.incoterms.next(response.jsonResult.Data.incoterm);
+      });
   }
 
   //#endregion Methods
