@@ -7,7 +7,7 @@
   <app-form-field class='col-12 col-md-6 mb-2' (keypress)="isNumber($event)" (keyup)="isNumber($event)" [control]='searchCodeController' title='شماره ردیف' placeholder='شماره ردیف را وارد کنید'></app-form-field>
   <app-form-select class='col-12 col-md-6 mb-2' [control]='searchStatusController' [values]='statusValues' title='وضعیت'></app-form-select>
   <app-form-select class='col-12 col-md-6 mb-2' [control]='searchIncotermController' [values]='incoterms' title='اصطلاح تجارت بین الملل'></app-form-select>
-  <app-form-field class='col-12 col-md-6 mb-2' (keypress)="isNumber($event)" (keyup)="isNumber($event)" [control]='searchMinPriceController' title='حداق قیمت' placeholder='حداقل قیمت را وارد کنید'></app-form-field>
+  <app-form-field class='col-12 col-md-6 mb-2' (keypress)="isNumber($event)" (keyup)="isNumber($event)" [control]='searchMinPriceController' title='حداقل قیمت' placeholder='حداقل قیمت را وارد کنید'></app-form-field>
   <app-form-field class='col-12 col-md-6 mb-2' (keypress)="isNumber($event)" (keyup)="isNumber($event)" [control]='searchMaxPriceController' title='حداکثر قیمت' placeholder='حداکثر قیمت را وارد کنید'></app-form-field>
   <div class='col-12 col-sm-6 mb-2 px-4'>
     <button class='w-100 btn btn-primary margin-button-top' (click)='onFilter(true)'>{{rfqTitles.filter}}</button>

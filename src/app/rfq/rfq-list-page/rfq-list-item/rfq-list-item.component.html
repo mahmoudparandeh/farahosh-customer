@@ -1,34 +1,97 @@
-<div class="d-flex flex-row align-items-center p-3 mb-3 border border-radius shadow-border">
-  <span class="col-1">{{ rfq.Id }}</span>
-  <div class="col-3 d-flex flex-row align-items-center">
-    <img
-      width="75"
-      height="75"
-      class="border border-radius object-fit"
-      [src]="rfq.ProductPicturePath"
-      [alt]="rfq.ProductName.hasOwnProperty('fa') ? rfq.ProductName[language] : rfq.ProductName"
-    />
-    <span class="margin">{{ rfq.ProductName.hasOwnProperty('fa') ? rfq.ProductName[language] : rfq.ProductName }}</span>
+<ng-container>
+  <div class="d-none d-lg-flex flex-row align-items-center p-3 mb-3 border border-radius shadow-border">
+    <span class="col-1">{{ rfq.Id }}</span>
+    <div class="col-3 d-flex flex-row align-items-center">
+      <img
+        width="75"
+        height="75"
+        class="border border-radius object-fit"
+        [src]="rfq.ProductPicturePath"
+        [alt]="rfq.ProductName.hasOwnProperty('fa') ? rfq.ProductName[language] : rfq.ProductName"
+      />
+      <span class="margin">{{ rfq.ProductName.hasOwnProperty('fa') ? rfq.ProductName[language] : rfq.ProductName }}</span>
+    </div>
+    <span class="col-3">{{ rfq.CategoryName[language] }}</span>
+    <!--  <span class="col-2">{{ rfq.FirstName + ' ' + rfq.LastName }}</span>-->
+    <span class="col-2">{{ rfq.CreatedOnUtc }}</span>
+    <ng-container ngSwitch="{{ +rfq.Status }}">
+      <span *ngSwitchCase="0" class="col-2 text-right orange">{{ rfqTitles.status_0 }}</span>
+      <span *ngSwitchCase="1" class="col-2 text-right green">{{ rfqTitles.status_1 }}</span>
+      <span *ngSwitchCase="2" class="col-2 text-right red">{{ rfqTitles.status_2 }}</span>
+      <span *ngSwitchCase="3" class="col-2 text-right dark-gray">{{ rfqTitles.status_3 }}</span>
+    </ng-container>
+    <div class="col-1 d-flex flex-row justify-content-end align-items-center mb-1">
+      <a class="pointer" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+        <li>
+          <a class="dropdown-item green" [routerLink]="['/', language, 'rfqs', 'rfq', 'details', rfq.Id]">{{
+            rfqTitles.detail
+            }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
-  <span class="col-2">{{ rfq.CategoryName[language] }}</span>
-  <span class="col-2">{{ rfq.FirstName + ' ' + rfq.LastName }}</span>
-  <span class="col-2">{{ rfq.CreatedOnUtc }}</span>
-  <ng-container ngSwitch="{{ +rfq.Status }}">
-    <span *ngSwitchCase="0" class="col-1 text-right orange">{{ rfqTitles.status_0 }}</span>
-    <span *ngSwitchCase="1" class="col-1 text-right green">{{ rfqTitles.status_1 }}</span>
-    <span *ngSwitchCase="2" class="col-1 text-right red">{{ rfqTitles.status_2 }}</span>
-    <span *ngSwitchCase="3" class="col-1 text-right dark-gray">{{ rfqTitles.status_3 }}</span>
-  </ng-container>
-  <div class="col-1 d-flex flex-row justify-content-end align-items-center mb-1">
-    <a class="pointer" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-      <li>
-        <a class="dropdown-item green" [routerLink]="['/', language, 'rfqs', 'rfq', 'details', rfq.Id]">{{
-          rfqTitles.detail
-          }}</a>
-      </li>
-    </ul>
+
+  <div class="d-flex d-lg-none flex-column p-3 border-radius shadow-border mb-2 bgd-white mx-2" >
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">{{ rfqTitles.id }}:</span>
+      <span class="text-right text-dark">{{ rfq.Id }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">{{ rfqTitles.product}}:</span>
+      <div>
+        <img
+          width="40"
+          height="40"
+          class="border border-radius object-fit"
+          [src]="rfq.ProductPicturePath"
+          [alt]="rfq.ProductName.hasOwnProperty('fa') ? rfq.ProductName[language] : rfq.ProductName"
+        />
+        <span class="margin">{{ rfq.ProductName.hasOwnProperty('fa') ? rfq.ProductName[language] : rfq.ProductName }}</span>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">{{ rfqTitles.category  }}:</span>
+      <span class="text-right text-dark">{{ rfq.CategoryName[language] }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">{{ rfqTitles.date  }}:</span>
+      <span class="text-right text-dark">{{ rfq.CreatedOnUtc }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">{{ rfqTitles.status  }}:</span>
+      <ng-container ngSwitch="{{ +rfq.Status }}">
+        <span *ngSwitchCase="0" class="text-right orange">{{ rfqTitles.status_0 }}</span>
+        <span *ngSwitchCase="1" class="text-right green">{{ rfqTitles.status_1 }}</span>
+        <span *ngSwitchCase="2" class="text-right red">{{ rfqTitles.status_2 }}</span>
+        <span *ngSwitchCase="3" class="text-right dark-gray">{{ rfqTitles.status_3 }}</span>
+      </ng-container>
+    </div>
+
+    <div class="d-flex flex-row justify-content-end align-items-center my-2">
+      <div class="d-flex flex-row align-items-center mb-1">
+        <a class="pointer" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+          <li>
+            <a class="dropdown-item green" [routerLink]="['/', language, 'rfqs', 'rfq', 'details', rfq.Id]">{{
+              rfqTitles.detail
+              }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr>
+
   </div>
-</div>
+
+</ng-container>

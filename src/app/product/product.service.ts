@@ -355,9 +355,9 @@ export class ProductService {
       const categories = [];
       for (const item of response.jsonResult.Data.category) {
         const category: Category = item;
-        // category.Name = category.Name[this.sharedService.language] ?? category.Name['fa'];
+        category.Name = category.Name[this.sharedService.language] ?? category.Name['fa'];
         for (const child of category.Childs) {
-          // child.Name = child.Name[this.sharedService.language] ?? child.Name['fa'];
+          child.Name = child.Name[this.sharedService.language] ?? child.Name['fa'];
         }
         categories.push(category);
       }

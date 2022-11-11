@@ -1,0 +1,10 @@
+<div class='d-flex flex-column overflow-hidden px-2'>
+  <label class="medium-gray fs-16">{{ title }}</label>
+  <ng-persian-datepicker
+    class="datepicker form-control mt-1"
+    [dateFormat]="'jYYYY/jMM/jDD'"
+    [timeEnable]="false"
+    [dateInitValue]="false">
+    <input type="text" [formControl]="datepickerInput">
+  </ng-persian-datepicker>
+</div>

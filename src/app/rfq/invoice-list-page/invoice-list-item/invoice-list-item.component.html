@@ -1,34 +1,108 @@
-<div class="d-flex flex-row align-items-center p-3 mb-3 border border-radius shadow-border">
-  <span class="col-1">{{ invoice.Id }}</span>
-  <div class="col-2 d-flex flex-row align-items-center">
-    <img width="75" height="75" class="border border-radius object-fit" [src]="invoice.ProductImagePath" />
-    <span class="margin">{{invoice.ProductName[language]}}</span>
+<ng-container>
+
+  <div class="d-none d-lg-flex flex-row align-items-center p-3 mb-3 border border-radius shadow-border">
+    <span class="col-1">{{ invoice.Id }}</span>
+    <div class="col-2 d-flex flex-row align-items-center">
+      <img alt="product image" width="75" height="75" class="border border-radius object-fit" [src]="invoice.ProductImagePath"/>
+      <span class="margin">{{invoice.ProductName[language]}}</span>
+    </div>
+    <div class="col-2 d-flex flex-row align-items-center">
+      <img alt="vendor image" width="75" height="75" class="border border-radius object-fit" [src]="invoice.VendorImagePath"/>
+      <span class="margin">{{ invoice.VendorName[language] }}</span>
+    </div>
+    <span class="col-1">{{ invoice.InvQuantity }} ({{ invoice.InvUnitName[language] }})</span>
+    <span class="col-2">{{ invoice.InvIncotermName[language] }}</span>
+    <span
+      class="col-2">{{ invoice.InvPrice.toString() | number: '1.0-0' }} {{ invoice.InvCurrencyName[language] }}</span>
+    <span class="col-1 green">{{getStatus(invoice.Status)}}</span>
+    <div class="col-1 d-flex flex-row justify-content-end align-items-center mb-1">
+      <a class="pointer" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="../../../../assets/icons/dots-vertical.svg" alt=""/>
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+        <li>
+          <a class="dropdown-item green" [routerLink]="['/', language, 'rfqs', 'invoice', 'details', invoice.Id]">
+            {{ rfqTitles.detail }}</a
+          >
+        </li>
+        <li>
+          <a
+            class="dropdown-item blue"
+            [routerLink]="['/', language, 'rfqs', 'chat', invoice.InqueryId, invoice.TicketId]"
+          >{{ rfqTitles.chat }}</a
+          >
+        </li>
+      </ul>
+    </div>
   </div>
-  <div class="col-2 d-flex flex-row align-items-center">
-    <img width="75" height="75" class="border border-radius object-fit" [src]="invoice.VendorImagePath" />
-    <span class="margin">{{ invoice.VendorName[language] }}</span>
+
+  <div class="d-flex d-lg-none flex-column p-3 border-radius shadow-border mb-2 bgd-white mx-2">
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">{{ rfqTitles.id }}:</span>
+      <span class="text-right text-dark">{{ invoice.Id }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">{{ rfqTitles.product }}:</span>
+      <div>
+        <img alt="product image" width="40" height="40" class="border border-radius object-fit" [src]="invoice.ProductImagePath"/>
+        <span class="margin">{{invoice.ProductName[language]}}</span>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">{{ rfqTitles.vendor }}:</span>
+      <div>
+        <img alt="vendor image" width="40" height="40" class="border border-radius object-fit" [src]="invoice.VendorImagePath"/>
+        <span class="margin">{{ invoice.VendorName[language] }}</span>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">{{ rfqTitles.quantity }}:</span>
+      <span class="text-right text-dark">{{ invoice.InvQuantity }} ({{ invoice.InvUnitName[language] }})</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">{{ rfqTitles.incoterms }}:</span>
+      <span class="text-right text-dark">{{ invoice.InvIncotermName[language] }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">{{ rfqTitles.price }}:</span>
+      <span class="text-right text-dark">{{ invoice.InvPrice.toString() | number: '1.0-0' }} {{ invoice.InvCurrencyName[language] }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">{{ rfqTitles.status }}:</span>
+      <span class="text-right green">{{getStatus(invoice.Status)}}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-end align-items-center my-2">
+      <div class="d-flex flex-row  align-items-center mb-1">
+        <a class="pointer" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="../../../../assets/icons/dots-vertical.svg" alt=""/>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+          <li>
+            <a class="dropdown-item green" [routerLink]="['/', language, 'rfqs', 'invoice', 'details', invoice.Id]">
+              {{ rfqTitles.detail }}</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item blue"
+              [routerLink]="['/', language, 'rfqs', 'chat', invoice.InqueryId, invoice.TicketId]"
+            >{{ rfqTitles.chat }}</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr>
+
   </div>
-  <span class="col-1">{{ invoice.InvQuantity }} ({{ invoice.InvUnitName[language] }})</span>
-  <span class="col-2">{{ invoice.InvIncotermName[language] }}</span>
-  <span class="col-2">{{ invoice.InvPrice.toString() | number: '1.0-0' }} {{ invoice.InvCurrencyName[language] }}</span>
-  <span class="col-1 green">{{getStatus(invoice.Status)}}</span>
-  <div class="col-1 d-flex flex-row justify-content-end align-items-center mb-1">
-    <a class="pointer" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-      <li>
-        <a class="dropdown-item green" [routerLink]="['/', language, 'rfqs', 'invoice', 'details', invoice.Id]">
-          {{ rfqTitles.detail }}</a
-        >
-      </li>
-      <li>
-        <a
-          class="dropdown-item blue"
-          [routerLink]="['/', language, 'rfqs', 'chat', invoice.InqueryId, invoice.TicketId]"
-        >{{ rfqTitles.chat }}</a
-        >
-      </li>
-    </ul>
-  </div>
-</div>
+
+</ng-container>

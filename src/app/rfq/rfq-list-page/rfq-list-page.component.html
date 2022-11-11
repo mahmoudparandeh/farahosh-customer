@@ -2,10 +2,18 @@
   <span class="col-1">{{ rfqTitles.filters }}</span>
 </div>
 <div class='d-flex flex-row flex-wrap'>
-  <app-form-field class='col-12 col-md-6 mb-2' [control]='searchCustomerController' title='نام مشتری' placeholder='نام مشتری را وارد کنید'></app-form-field>
-  <app-form-field class='col-12 col-md-6 mb-2' [control]='searchProductController' title='نام محصول' placeholder='نام محصول را وارد کنید'></app-form-field>
-  <app-form-field class='col-12 col-md-6 mb-2' (keypress)="isNumber($event)" (keyup)="isNumber($event)" [control]='searchCodeController' title='شماره ردیف' placeholder='شماره ردیف را وارد کنید'></app-form-field>
-  <app-form-select class='col-12 col-md-6 mb-2' [control]='searchStatusController' [values]='statusValues' title='وضعیت'></app-form-select>
+  <!--  <app-form-field class='col-12 col-md-6 mb-2' [control]='searchCustomerController' title='نام مشتری' placeholder='نام مشتری را وارد کنید'></app-form-field>-->
+  <app-form-field class='col-12 col-md-6 mb-2' [control]='searchProductController' title='نام محصول'
+                  placeholder='نام محصول را وارد کنید'></app-form-field>
+  <app-form-field class='col-12 col-md-6 mb-2' (keypress)="isNumber($event)" (keyup)="isNumber($event)"
+                  [control]='searchCodeController' title='شماره ردیف'
+                  placeholder='شماره ردیف را وارد کنید'></app-form-field>
+  <app-form-select class='col-12 col-md-6 mb-2' [control]='searchStatusController' [values]='statusValues'
+                   title='وضعیت'></app-form-select>
+  <app-datepicker class='col-12 col-md-6 mb-2' title='از تاریخ'
+                  [datepickerInput]='searchFromDateController'></app-datepicker>
+  <app-datepicker class='col-12 col-md-6 mb-2' title='تا تاریخ'
+                  [datepickerInput]='searchToDateController'></app-datepicker>
   <app-form-select
     class="col-12 col-sm-6 mb-2"
     title="دسته بندی لایه اول"
@@ -36,10 +44,10 @@
 <div class="bgd-blue white p-3 d-flex flex-row my-3 border-radius">
   <span class="col-1">{{ rfqTitles.id }}</span>
   <span class="col-3">{{ rfqTitles.product }}</span>
-  <span class="col-2">{{ rfqTitles.category }}</span>
-  <span class="col-2">{{ rfqTitles.customer }}</span>
+  <span class="col-3">{{ rfqTitles.category }}</span>
+  <!--  <span class="col-2">{{ rfqTitles.customer }}</span>-->
   <span class="col-2">{{ rfqTitles.date }}</span>
-  <span class="col-1">{{ rfqTitles.status }}</span>
+  <span class="col-2">{{ rfqTitles.status }}</span>
 </div>
 <div class="d-flex flex-column bgd-white p-3">
   <div

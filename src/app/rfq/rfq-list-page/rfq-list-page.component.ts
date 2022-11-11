@@ -7,6 +7,7 @@ import {ProductService} from "../../product/product.service";
 import {RFQService} from "../rfq.service";
 import {Category} from "../../product/models/category.model";
 import { Utility } from '../../shared/helper/util';
+import moment from 'jalali-moment';
 
 @Component({
   selector: 'app-rfq-list-page',
@@ -26,6 +27,8 @@ export class RfqListPageComponent implements OnInit {
   searchCategoryController = new FormControl('');
   searchSubCategoryController = new FormControl('');
   searchSubSubCategoryController = new FormControl('');
+  searchFromDateController = new FormControl('');
+  searchToDateController = new FormControl('');
   mainCategories: Category[] = [];
   subMainCategories: Category[] = [];
   categories: Value[] = [];
@@ -53,6 +56,7 @@ export class RfqListPageComponent implements OnInit {
     });
     this.sharedService.rfqTitles.subscribe(titles => {
       this.rfqTitles = titles;
+      this.statusValues = [];
       this.statusValues.push({
         name: 'انتخاب نشده',
         value: ''
@@ -148,8 +152,10 @@ export class RfqListPageComponent implements OnInit {
       CategoryId: categoryId,
       Id: this.searchCodeController.value,
       Status: this.searchStatusController.value,
-      CustomerNameKey: encodeURIComponent(this.searchCustomerController.value),
+      // CustomerNameKey: encodeURIComponent(this.searchCustomerController.value),
       ProductNameKey: encodeURIComponent(this.searchProductController.value),
+      StartDate: moment(this.searchFromDateController.value, 'jYYYY/jM/jD').format('YYYY-M-D'),
+      EndDate: moment(this.searchToDateController.value, 'jYYYY/jM/jD').format('YYYY-M-D')
     };
     if (this.searchCategoryController.value === '') {
       delete data.CategoryId;
@@ -160,9 +166,9 @@ export class RfqListPageComponent implements OnInit {
     if (this.searchStatusController.value === '') {
       delete data.Status;
     }
-    if (this.searchCustomerController.value === '') {
-      delete data.CustomerNameKey;
-    }
+    // if (this.searchCustomerController.value === '') {
+    //   delete data.CustomerNameKey;
+    // }
     if (this.searchProductController.value === '') {
       delete data.ProductNameKey;
     }

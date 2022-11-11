@@ -1,6 +1,12 @@
 body {
   overflow-x: hidden;
 }
+
+.datepicker-outer-container {
+  position: absolute!important;
+  z-index: 100;
+}
+
 .button{
   width: 160px;
   height: 40px;
