@@ -1,4 +1,4 @@
-<div class='d-flex flex-column overflow-hidden px-2'>
+<div class='d-flex flex-column px-2 position-relative' [ngClass]='direction'>
   <label class="medium-gray fs-16">{{ title }}</label>
   <ng-persian-datepicker
     class="datepicker form-control mt-1"
@@ -7,4 +7,7 @@
     [dateInitValue]="false">
     <input type="text" [formControl]="datepickerInput">
   </ng-persian-datepicker>
+  <div class='position-absolute clear pointer' *ngIf="datepickerInput.value !== ''" (click)='datepickerInput.setValue("")'>
+    <img src='../../../../assets/images/cancel.png' width='24'>
+  </div>
 </div>

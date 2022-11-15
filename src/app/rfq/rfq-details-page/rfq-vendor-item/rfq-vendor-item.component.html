@@ -1,0 +1,31 @@
+<div class="d-flex flex-row align-items-center p-3 mb-3 border border-radius shadow-border">
+  <span class="col-1">{{ vendor.Id }}</span>
+  <div class="col-4 d-flex flex-row align-items-center">
+    <img
+      width="75"
+      height="75"
+      class="border border-radius object-fit"
+      src="../../../../assets/images/default-product-image.png"
+    />
+    <span class="margin">{{ vendor.Name ? (vendor.Name[language] ?? vendor.Name['fa']) : '' }}</span>
+  </div>
+  <app-form-checkbox
+    class="col-2"
+    [control]="vendor.isSelected"
+    (change)="onVendorSelected($event)"
+  ></app-form-checkbox>
+  <span class="col-2">{{ vendor.numberOfReceivedInvoice }}</span>
+  <span class="col-2">{{ vendor.numberOfAcceptedInvoice }}</span>
+  <div class="col-1 d-flex flex-row justify-content-end align-items-center mb-1">
+    <a class="pointer" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+      <li>
+        <a class="dropdown-item green" [routerLink]="['/', language, 'rfqs', 'rfq', 'details', vendor.Id]">{{
+          rfqTitles.detail
+          }}</a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,1 +1,333 @@
-<p>invoice-details-page works!</p>
+<section class="content" *ngIf="rfqTitles">
+  <div class="container-fluid d-flex flex-column mb-3">
+    <div class="d-flex flex-row justify-content-between my-2 align-items-center">
+      <h2 class="blue fs-18 bold mb-2">{{ rfqTitles.invoice }}</h2>
+      <button class="btn btn-primary white" [routerLink]="['/', language, 'rfqs', 'list']">{{ rfqTitles.back_btn ?? 'بازگشت به صفحه قبل' }}</button>
+    </div>
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <h3 class="dark-gray fs-16 bold mt-3">{{ rfqTitles.user_input }} ({{invoiceDetail.Inquery.UserFirstName + ' ' + invoiceDetail.Inquery.UserLastName}})</h3>
+      <hr />
+      <div class="d-flex flex-row flex-wrap align-items-center my-3">
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <a [href]="invoiceDetail.Inquery.ProductPicturePath ? invoiceDetail.Inquery.ProductPicturePath : 'assets/images/default-product-image.png'" target='_blank'>
+            <img class='border-radius border' width='64' height='64' [src]="invoiceDetail.Inquery.ProductPicturePath ? invoiceDetail.Inquery.ProductPicturePath : 'assets/images/default-product-image.png'"/>
+          </a>
+          <label class="medium-gray fs-16 margin">{{ rfqTitles.product }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.Inquery.ProductName.hasOwnProperty('fa') ? invoiceDetail.Inquery.ProductName[language] : invoiceDetail.Inquery.ProductName}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.category }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.Inquery.CategoryName[language]}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.quantity }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.Inquery.Quantity}} ({{invoiceDetail.Inquery.UnitName[language]}})</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.incoterms }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.Inquery.IncotermTitle ? invoiceDetail.Inquery.IncotermTitle[language] : ''}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.max_budget }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.Inquery.MaxBudgetName ? invoiceDetail.Inquery.MaxBudgetName[language] : ''}} ({{invoiceDetail.Inquery.CurrencyName ? invoiceDetail.Inquery.CurrencyName[language] : ''}})</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.sourcing_type }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.Inquery.SourcingTypeName ? invoiceDetail.Inquery.SourcingTypeName[language] : ''}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row align-items-center mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.sourcing_purpose }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.Inquery.SourcingPurposeName ? invoiceDetail.Inquery.SourcingPurposeName[language] : ''}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.cas_number }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.Inquery.CasNo}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.purity }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.Inquery.Purity ? invoiceDetail.Inquery.Purity[language] : ''}}</span>
+        </div>
+        <div class="col-12 d-flex flex-column mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.details }}:</label>
+          <span class="fs-16">{{invoiceDetail.Inquery.TicketRFQDetails ? invoiceDetail.Inquery.TicketRFQDetails[language] : ''}}</span>
+        </div>
+        <div class="col-12 d-flex flex-column mb-3" *ngIf="invoiceDetail.TicketRFQPictures.length > 0">
+          <label class="medium-gray fs-16">{{ rfqTitles.attachments }}:</label>
+          <div class="d-flex flex-row flex-wrap">
+            <a *ngFor="let attachment of invoiceDetail.TicketRFQPictures" [href]="attachment.Path" class="margin" target="_blank">
+              <img
+                [src]="attachment.Path"
+                [alt]="attachment.Alt"
+                width="150"
+                height="150"
+                class="border border-radius object-fit"
+              />
+            </a>
+          </div>
+        </div>
+        <hr class="w-100" />
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="fs-16 medium-gray">{{ rfqTitles.supplier_business_type }}:</label>
+          <span class="fs-16 margin">{{invoiceDetail.Inquery.SupplierBusinessTypeName ? invoiceDetail.Inquery.SupplierBusinessTypeName[language] : ''}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap mb-3">
+          <label class="fs-16 medium-gray">{{ rfqTitles.product_certification }}:</label>
+          <div class="d-flex flex-row flex-wrap" *ngFor="let certificate of invoiceDetail.Inquery.ProductCertificateIds">
+            <span class="fs-16 margin">{{ certificate.Name }}</span>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="fs-16 medium-gray">{{ rfqTitles.business_certification }}:</label>
+          <div class="d-flex flex-row flex-wrap" *ngFor="let certificate of invoiceDetail.Inquery.BusinessCertificateIds">
+            <span class="fs-16 margin">{{ certificate.Name }}</span>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="fs-16 medium-gray">{{ rfqTitles.test_report }}:</label>
+          <span class="fs-16 margin">{{invoiceDetail.Inquery.TestReportName ? invoiceDetail.Inquery.TestReportName[language] : ''}}</span>
+        </div>
+        <div class="col-12 d-flex flex-column mb-3">
+          <label class="fs-16 medium-gray">{{ rfqTitles.other_requiremnets }}:</label>
+          <span class="fs-16">{{invoiceDetail.Inquery.OtherRequirements ? invoiceDetail.Inquery.OtherRequirements[language] : ''}}</span>
+        </div>
+        <hr class="w-100" />
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.shopping_method }}:</label>
+          <span class="margin">{{invoiceDetail.Inquery.ShoppingMethodName ? invoiceDetail.Inquery.ShoppingMethodName[language] : ''}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.destination }}:</label>
+          <span class="margin">{{invoiceDetail.Inquery.GeoLocationName ? invoiceDetail.Inquery.GeoLocationName[language] : ''}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.port }}:</label>
+          <span class="margin">{{invoiceDetail.Inquery.Port ? invoiceDetail.Inquery.Port[language] : ''}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.lead_time }}:</label>
+          <span class="margin">{{invoiceDetail.Inquery.LeadTime}} {{ rfqTitles.day }}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.payment_method }}:</label>
+          <span class="margin">{{invoiceDetail.Inquery.PaymentMethodName ? invoiceDetail.Inquery.PaymentMethodName[language] : ''}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3 mt-3">
+      <h3 class="dark-gray fs-16 bold mt-3">{{ rfqTitles.vendor_input }}</h3>
+      <hr />
+      <div class="d-flex flex-row flex-wrap my-3">
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.product }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.InvoiceDetails.InvProductName[language]}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.category }}:</label>
+          <span class="margin fs-16">نام دسته بندی</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.quantity }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.InvoiceDetails.InvQuantity}} ({{invoiceDetail.InvoiceDetails.InvUnitName[language]}})</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.incoterms }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.InvoiceDetails.InvIncotermName[language]}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.price }}:</label>
+          <span class="margin fs-16">{{invoiceDetail.InvoiceDetails.InvPrice | number:'1.0-0'}} {{invoiceDetail.InvoiceDetails.InvCurrencyName[language]}}</span>
+        </div>
+        <div class="col-12 d-flex flex-column mb-3">
+          <label class="medium-gray fs-16">{{ rfqTitles.details }}:</label>
+          <span class="fs-16">{{invoiceDetail.InvoiceDetails.InvDetails[language]}}</span>
+        </div>
+        <div class="col-12 d-flex flex-column mb-3" *ngIf="invoiceDetail.TicketInvoicePictures.length > 0">
+          <label class="medium-gray fs-16">{{ rfqTitles.attachments }}:</label>
+          <div class="d-flex flex-row flex-wrap">
+            <a *ngFor="let attachment of invoiceDetail.TicketInvoicePictures" [href]="attachment.Path" class="margin" target="_blank">
+              <img
+                [src]="attachment.Path"
+                [alt]="attachment.Alt"
+                width="150"
+                height="150"
+                class="border border-radius object-fit"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+      <hr class="w-100" />
+      <div class='d-flex flex-row flex-wrap'>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.shopping_method }}:</label>
+          <span class="margin">{{ invoiceDetail.InvoiceDetails.InvShoppingMethodName[language] }}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.destination }}:</label>
+          <span class="margin">{{ invoiceDetail.InvoiceDetails.InvDestinationName[language] }}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.port }}:</label>
+          <span class="margin">{{ invoiceDetail.InvoiceDetails.InvPort[language] }}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.lead_time }}:</label>
+          <span class="margin">{{ invoiceDetail.InvoiceDetails.InvLeadTime }} {{ rfqTitles.day }}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+          <label class="medium-gray">{{ rfqTitles.payment_method }}:</label>
+          <span class="margin">{{ invoiceDetail.InvoiceDetails.InvPaymentMethodName[language] }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-row flex-wrap">
+      <div class="col-12 col-md-6 mt-3">
+        <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+          <h3 class="fs-18 bold">{{ rfqTitles.logestic }}</h3>
+          <hr />
+          <div class="d-flex flex-row flex-wrap px-0">
+            <div class="col-12 col-md-6 d-flex flex-row align-items-center px-0">
+              <label class="medium-gray fs-16">{{ rfqTitles.cost }}:</label>
+              <app-form-field
+                class="margin w-100"
+                (keypress)="isNumber($event)"
+                (keyup)="isNumber($event)"
+                [control]="logisticPriceController"
+              ></app-form-field>
+            </div>
+            <app-form-select
+              class="col-12 col-md-6 px-0"
+              [control]="logisticCurrencyController"
+              [values]="currenciesValue"
+            ></app-form-select>
+          </div>
+          <app-form-textarea
+            class="px-0"
+            [control]="logisticDetailController"
+            [title]="rfqTitles.details"
+          ></app-form-textarea>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 mt-3">
+        <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+          <h3 class="fs-18 bold">{{ rfqTitles.custom }}</h3>
+          <hr />
+          <div class="d-flex flex-row flex-wrap px-0">
+            <div class="col-12 col-md-6 d-flex flex-row align-items-center px-0">
+              <label class="medium-gray fs-16">{{ rfqTitles.cost }}:</label>
+              <app-form-field
+                class="margin w-100"
+                (keypress)="isNumber($event)"
+                (keyup)="isNumber($event)"
+                [control]="customsPriceController"
+              ></app-form-field>
+            </div>
+            <app-form-select
+              class="col-12 col-md-6 px-0"
+              [control]="customsCurrencyController"
+              [values]="currenciesValue"
+            ></app-form-select>
+          </div>
+          <app-form-textarea
+            class="px-0"
+            [control]="customsDetailController"
+            [title]="rfqTitles.details"
+          ></app-form-textarea>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 mt-3">
+        <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+          <h3 class="fs-18 bold">{{ rfqTitles.insurance }}</h3>
+          <hr />
+          <div class="d-flex flex-row flex-wrap px-0">
+            <div class="col-12 col-md-6 d-flex flex-row align-items-center px-0">
+              <label class="medium-gray fs-16">{{ rfqTitles.cost }}:</label>
+              <app-form-field
+                class="margin w-100"
+                (keypress)="isNumber($event)"
+                (keyup)="isNumber($event)"
+                [control]="insurancePriceController"
+              ></app-form-field>
+            </div>
+            <app-form-select
+              class="col-12 col-md-6 px-0"
+              [control]="insuranceCurrencyController"
+              [values]="currenciesValue"
+            ></app-form-select>
+          </div>
+          <app-form-textarea
+            class="px-0"
+            [control]="insuranceDetailController"
+            [title]="rfqTitles.details"
+          ></app-form-textarea>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 mt-3">
+        <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+          <h3 class="fs-18 bold">{{ rfqTitles.tax }}</h3>
+          <hr />
+          <div class="d-flex flex-row flex-wrap px-0">
+            <div class="col-12 col-md-6 d-flex flex-row align-items-center px-0">
+              <label class="medium-gray fs-16">{{ rfqTitles.cost }}:</label>
+              <app-form-field
+                class="margin w-100"
+                (keypress)="isNumber($event)"
+                (keyup)="isNumber($event)"
+                [control]="taxPriceController"
+              ></app-form-field>
+            </div>
+            <app-form-select
+              class="col-12 col-md-6 px-0"
+              [control]="taxCurrencyController"
+              [values]="currenciesValue"
+            ></app-form-select>
+          </div>
+          <app-form-textarea
+            class="px-0"
+            [control]="taxDetailController"
+            [title]="rfqTitles.details"
+          ></app-form-textarea>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-row flex-wrap border-radius shadow-border shadow bgd-white p-3 mt-3">
+      <div class="col-12 col-md-6 d-flex flex-row mb-3">
+        <label class="medium-gray fs-16">{{ rfqTitles.unit_price }}:</label>
+        <span class="fs-16 margin">{{invoiceDetail.InvoiceDetails.InvPrice | number: '1.0-0' }} {{invoiceDetail.InvoiceDetails.InvCurrencyName[language]}}</span>
+      </div>
+      <div class="col-12 col-md-6 d-flex flex-row mb-3">
+        <label class="medium-gray fs-16">{{ rfqTitles.quantity }}:</label>
+        <span class="fs-16 margin">{{invoiceDetail.InvoiceDetails.InvQuantity}} ({{invoiceDetail.InvoiceDetails.InvUnitName[language]}})</span>
+      </div>
+      <div class="col-12 col-md-6 d-flex flex-row mb-3">
+        <label class="medium-gray fs-16">{{ rfqTitles.subtotal }}:</label>
+        <span class="fs-16 margin">{{(invoiceDetail.InvoiceDetails.InvPrice * invoiceDetail.InvoiceDetails.InvQuantity) | number: '1.0-0' }} {{invoiceDetail.InvoiceDetails.InvCurrencyName[language]}}</span>
+      </div>
+      <div class="col-12 col-md-6 d-flex flex-row mb-3">
+        <label class="medium-gray fs-16">{{ rfqTitles.logestic }}:</label>
+        <span class="fs-16 margin">{{logisticPriceController.value | number: '1.0-0'}} ({{getCurrencyName(logisticCurrencyController.value)}})</span>
+      </div>
+      <div class="col-12 col-md-6 d-flex flex-row mb-3">
+        <label class="medium-gray fs-16">{{ rfqTitles.custom }}:</label>
+        <span class="fs-16 margin">{{customsPriceController.value | number: '1.0-0'}} ({{getCurrencyName(customsCurrencyController.value)}})</span>
+      </div>
+      <div class="col-12 col-md-6 d-flex flex-row mb-3">
+        <label class="medium-gray fs-16">{{ rfqTitles.insurance }}:</label>
+        <span class="fs-16 margin">{{insurancePriceController.value | number: '1.0-0'}} ({{getCurrencyName(insuranceCurrencyController.value)}})</span>
+      </div>
+      <div class="col-12 col-md-6 d-flex flex-row mb-3">
+        <label class="medium-gray fs-16">{{ rfqTitles.tax }}:</label>
+        <span class="fs-16 margin">{{taxPriceController.value | number: '1.0-0'}} ({{getCurrencyName(taxCurrencyController.value)}})</span>
+      </div>
+      <hr class="w-100" />
+      <div class="col-12 d-flex flex-row align-items-center justify-content-between">
+        <div class="d-flex flex-row flex-wrap">
+          <label class="blue fs-18 bold">{{ rfqTitles.totalprice }}:</label>
+          <span class="fs-16 margin">{{((invoiceDetail.InvoiceDetails.InvPrice * invoiceDetail.InvoiceDetails.InvQuantity) +
+            +logisticPriceController.value + +customsPriceController.value + +insurancePriceController.value + +taxPriceController.value) | number: '1.0-0'}} ({{invoiceDetail.InvoiceDetails.InvCurrencyName[language]}})</span>
+        </div>
+        <button class="btn btn-warning" (click)='sendInvoiceByAdmin()'>{{ rfqTitles.send_invoice }}</button>
+      </div>
+    </div>
+  </div>
+</section>

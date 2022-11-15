@@ -15,6 +15,7 @@ import { ChatPageComponent } from './chat-page/chat-page.component';
 import { RfqListPageComponent } from './rfq-list-page/rfq-list-page.component';
 import { RfqListItemComponent } from './rfq-list-page/rfq-list-item/rfq-list-item.component';
 import { InvoiceListItemComponent } from './invoice-list-page/invoice-list-item/invoice-list-item.component';
+import { RfqVendorItemComponent } from './rfq-details-page/rfq-vendor-item/rfq-vendor-item.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { InvoiceListItemComponent } from './invoice-list-page/invoice-list-item/
     RfqListPageComponent,
     RfqListItemComponent,
     InvoiceListItemComponent,
+    RfqVendorItemComponent,
   ],
   imports: [
     CommonModule,

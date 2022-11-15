@@ -1,1 +1,205 @@
-<p>rfq-details-page works!</p>
+<section class="content" *ngIf="rfqTitles">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-row flex-wrap justify-content-between border-radius shadow-border shadow bgd-white p-3">
+      <span *ngIf="+rfq.Status === 0" class="fs-18 bold">{{ rfqTitles.text_for_approve }}</span>
+      <div *ngIf="+rfq.Status !== 0" class="d-flex flex-row flex-wrap">
+        <span class="fs-18 bold">{{ rfqTitles.status }}: </span>
+        <ng-container ngSwitch="{{ +rfq.Status }}">
+          <span *ngSwitchCase="0" class="text-right fs-18 orange margin">{{ rfqTitles.status_0 }}</span>
+          <span *ngSwitchCase="1" class="text-right fs-18 green margin">{{ rfqTitles.status_1 }}</span>
+          <span *ngSwitchCase="2" class="text-right fs-18 red margin">{{ rfqTitles.status_2 }}</span>
+          <span *ngSwitchCase="3" class="text-right fs-18 dark-gray margin">{{ rfqTitles.status_3 }}</span>
+          <span *ngSwitchCase="4" class="text-right fs-18 blue margin">ارسال شده توسط مشتری</span>
+        </ng-container>
+      </div>
+      <button class="btn btn-primary white" [routerLink]="['/', language, 'rfqs', 'list']">{{ rfqTitles.back_btn ?? 'بازگشت به صفحه قبل' }}</button>
+      <div class="d-flex flex-row" *ngIf="+rfq.Status === 0">
+        <button class="btn btn-primary" (click)="onApproveRFQ()">{{ rfqTitles.approved }}</button>
+        <button class="btn btn-warning margin" (click)="onRejectRFQ()">{{ rfqTitles.rejected }}</button>
+      </div>
+    </div>
+    <div class="d-flex flex-row flex-wrap border-radius shadow-border shadow bgd-white p-3 mt-3">
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center">
+        <img
+          width="75"
+          height="75"
+          class="border border-radius object-fit"
+          src="../../../../assets/images/default-product-image.png"
+        />
+        <span class="margin">{{
+          rfq.ProductName.hasOwnProperty('fa') ? rfq.ProductName[language]: rfq.ProductName
+          }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.category }}:</label>
+        <span class="margin">{{ rfq.CategoryName[language] }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.customer }}:</label>
+        <span class="margin">{{ rfq.FirstName + ' ' + rfq.LastName }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.sourcing_type }}:</label>
+        <span class="margin">{{ rfq.SourcingTypeName ? rfq.SourcingTypeName[language] : '' }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.sourcing_purpose }}:</label>
+        <span class="margin">{{ rfq.SourcingPurposeName ? rfq.SourcingPurposeName[language] : '' }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.quantity }}:</label>
+        <span class="margin">{{ rfq.Quantity | number: '1.0-0' }} {{ rfq.UnitName[language] }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.incoterms }}:</label>
+        <span class="margin">{{ rfq.IncotermTitle ? rfq.IncotermTitle[language] : '' }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.max_budget }}:</label>
+        <span class="margin">{{ rfq.MaxBudget }} {{ rfq.CurrencyName ? rfq.CurrencyName[language] : '' }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.cas_number }}:</label>
+        <span class="margin">{{ rfq.CasNO }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.purity }}:</label>
+        <span class="margin">{{ rfq.Purity ? rfq.Purity[language] : '' }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.supplier_business_type }}:</label>
+        <span class="margin">{{ rfq.SupplierBusinessTypeName ? rfq.SupplierBusinessTypeName[language] : '' }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.product_certification }}:</label>
+        <div class="d-flex flex-row flex-wrap" *ngFor="let certificate of rfq.ProductCertificateIds">
+          <span class="margin">{{ certificate.Name }}</span>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.business_certification }}:</label>
+        <div class="d-flex flex-row flex-wrap" *ngFor="let certificate of rfq.BusinessCertificateIds">
+          <span class="margin">{{ certificate.Name }}</span>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.test_report }}:</label>
+        <span class="margin">{{ rfq.TestReportName ? rfq.TestReportName[language] : '' }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.other_requiremnets }}:</label>
+        <span class="margin">{{ rfq.OtherRequirements ? rfq.OtherRequirements[language] : '' }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.shopping_method }}:</label>
+        <span class="margin">{{ rfq.ShoppingMethodName ? rfq.ShoppingMethodName[language] : '' }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.destination }}:</label>
+        <span class="margin">{{ rfq.GeoLocationName ? rfq.GeoLocationName[language] : '' }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.port }}:</label>
+        <span class="margin">{{ rfq.Port ? rfq.Port[language]: '' }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.lead_time }}:</label>
+        <span class="margin">{{ rfq.LeadTime }} {{ rfqTitles.day }}</span>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-row flex-wrap align-items-center mt-3">
+        <label class="medium-gray">{{ rfqTitles.payment_method }}:</label>
+        <span class="margin">{{ rfq.PaymentMethodName ? rfq.PaymentMethodName[language] : '' }}</span>
+      </div>
+      <div class="col-12 d-flex flex-column mt-3">
+        <label class="medium-gray">{{ rfqTitles.detail }}:</label>
+        <p class="border border-radius bgd-brown text-justify p-3">
+          {{ rfq.Details ? rfq.Details[language] : '' }}
+        </p>
+      </div>
+      <div class="col-12 d-flex flex-column">
+        <label class="medium-gray">{{ rfqTitles.attachments }}</label>
+        <div class="d-flex flex-row flex-wrap">
+          <a *ngFor="let attachment of rfq.Attachments" [href]="attachment.Path" class="margin" target="_blank">
+            <img
+              [src]="attachment.Path"
+              [alt]="attachment.Alt"
+              width="150"
+              height="150"
+              class="border border-radius object-fit"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="+rfq.Status === 1"
+      class="d-flex flex-column border-radius shadow-border shadow bgd-white my-3 p-3 selected-vendors-sticky"
+    >
+      <h4>{{ rfqTitles.selected_vendors }}:</h4>
+      <div class="d-flex flex-row flex-wrap border border-radius p-2">
+        <div class="vendor-container" *ngFor="let vendor of selectedVendors; let i = index">
+          <img src="assets/icons/delete-x.svg" alt="delete-icon" class="pointer" (click)="removeSelectedVendor(i)" />
+          <span class="px-3 fs-14"> {{ vendor.name }}</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="+rfq.Status === 1" class="d-flex flex-column border-radius shadow-border shadow bgd-white my-3 p-3">
+      <div class="my-3 bgd-blue fs-18 bold p-3 border-radius white">
+        {{ rfqTitles.filters }}
+      </div>
+      <div class="d-flex flex-wrap align-items-end justify-content-between my-3">
+        <app-form-field
+          class="col-12 col-sm-6 col-md-4 mb-2"
+          [title]="rfqTitles.name"
+          [placeholder]="rfqTitles.name"
+          [control]="searchNameController"
+        ></app-form-field>
+        <app-form-field
+          class="col-12 col-sm-6 col-md-4 mb-2"
+          (keypress)="isNumber($event)"
+          (keyup)="isNumber($event)"
+          [title]="rfqTitles.register_code"
+          [placeholder]="rfqTitles.register_code"
+          [control]="searchRegisterCodeController"
+        ></app-form-field>
+        <div class="col-12 col-sm-6 col-md-4 mb-2 px-2">
+          <button type="button" class="w-100 btn btn-primary" (click)="onSearch()">
+            <span class="mx-1"><img src="assets/icons/white-filter.svg" alt="" /></span>
+            <span>{{ rfqTitles.filter }}</span>
+          </button>
+        </div>
+      </div>
+      <div class="d-flex flex-row flex-wrap border-radius shadow-border shadow bgd-blue white p-3 mt-3">
+        <span class="col-1">{{ rfqTitles.id }}</span>
+        <span class="col-4">{{ rfqTitles.vendor }}</span>
+        <span class="col-2">{{ rfqTitles.send }}</span>
+        <span class="col-2">{{ rfqTitles.invoiceSent }}</span>
+        <span class="col-2">{{ rfqTitles.invoiceApproved }}</span>
+      </div>
+      <div class="d-flex flex-column p-3 my-3">
+        <app-rfq-vendor-item
+          *ngFor="
+            let vendor of vendors | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: total }
+          "
+          [vendor]="vendor"
+        ></app-rfq-vendor-item>
+      </div>
+      <div class="d-flex flex-row justify-content-center align-items-center">
+        <pagination-controls
+          class="my-pagination"
+          [directionLinks]="true"
+          [autoHide]="true"
+          [responsive]="true"
+          previousLabel="<<"
+          nextLabel=">>"
+          (pageChange)="pageChanged($event)"
+        ></pagination-controls>
+      </div>
+      <div class="d-flex justify-content-center my-3">
+        <button class="btn btn-warning bold fs-18 btn-w-240" (click)="sendInvoices()">
+          {{ rfqTitles.send_inquiry }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

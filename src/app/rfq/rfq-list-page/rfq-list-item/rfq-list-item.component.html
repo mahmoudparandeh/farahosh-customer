@@ -6,7 +6,7 @@
         width="75"
         height="75"
         class="border border-radius object-fit"
-        [src]="rfq.ProductPicturePath"
+        [src]="rfq.ProductPicturePath ? rfq.ProductPicturePath : 'assets/images/default-product-image.png'"
         [alt]="rfq.ProductName.hasOwnProperty('fa') ? rfq.ProductName[language] : rfq.ProductName"
       />
       <span class="margin">{{ rfq.ProductName.hasOwnProperty('fa') ? rfq.ProductName[language] : rfq.ProductName }}</span>
@@ -15,10 +15,11 @@
     <!--  <span class="col-2">{{ rfq.FirstName + ' ' + rfq.LastName }}</span>-->
     <span class="col-2">{{ rfq.CreatedOnUtc }}</span>
     <ng-container ngSwitch="{{ +rfq.Status }}">
-      <span *ngSwitchCase="0" class="col-2 text-right orange">{{ rfqTitles.status_0 }}</span>
-      <span *ngSwitchCase="1" class="col-2 text-right green">{{ rfqTitles.status_1 }}</span>
-      <span *ngSwitchCase="2" class="col-2 text-right red">{{ rfqTitles.status_2 }}</span>
-      <span *ngSwitchCase="3" class="col-2 text-right dark-gray">{{ rfqTitles.status_3 }}</span>
+      <span *ngSwitchCase="0" class="col-1 text-right orange">{{ rfqTitles.status_0 }}</span>
+      <span *ngSwitchCase="1" class="col-1 text-right green">{{ rfqTitles.status_1 }}</span>
+      <span *ngSwitchCase="2" class="col-1 text-right red">{{ rfqTitles.status_2 }}</span>
+      <span *ngSwitchCase="3" class="col-1 text-right dark-gray">{{ rfqTitles.status_3 }}</span>
+      <span *ngSwitchCase="4" class="col-1 text-right blue">ارسال شده توسط مشتری</span>
     </ng-container>
     <div class="col-1 d-flex flex-row justify-content-end align-items-center mb-1">
       <a class="pointer" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,7 +49,7 @@
           width="40"
           height="40"
           class="border border-radius object-fit"
-          [src]="rfq.ProductPicturePath"
+          [src]="rfq.ProductPicturePath ? rfq.ProductPicturePath : 'assets/images/default-product-image.png'"
           [alt]="rfq.ProductName.hasOwnProperty('fa') ? rfq.ProductName[language] : rfq.ProductName"
         />
         <span class="margin">{{ rfq.ProductName.hasOwnProperty('fa') ? rfq.ProductName[language] : rfq.ProductName }}</span>
@@ -68,10 +69,11 @@
     <div class="d-flex flex-row justify-content-between align-items-center my-2">
       <span class="text-right text-dark">{{ rfqTitles.status  }}:</span>
       <ng-container ngSwitch="{{ +rfq.Status }}">
-        <span *ngSwitchCase="0" class="text-right orange">{{ rfqTitles.status_0 }}</span>
-        <span *ngSwitchCase="1" class="text-right green">{{ rfqTitles.status_1 }}</span>
-        <span *ngSwitchCase="2" class="text-right red">{{ rfqTitles.status_2 }}</span>
-        <span *ngSwitchCase="3" class="text-right dark-gray">{{ rfqTitles.status_3 }}</span>
+        <span *ngSwitchCase="0" class="col-1 text-right orange">{{ rfqTitles.status_0 }}</span>
+        <span *ngSwitchCase="1" class="col-1 text-right green">{{ rfqTitles.status_1 }}</span>
+        <span *ngSwitchCase="2" class="col-1 text-right red">{{ rfqTitles.status_2 }}</span>
+        <span *ngSwitchCase="3" class="col-1 text-right dark-gray">{{ rfqTitles.status_3 }}</span>
+        <span *ngSwitchCase="4" class="col-1 text-right blue">ارسال شده توسط مشتری</span>
       </ng-container>
     </div>
 
