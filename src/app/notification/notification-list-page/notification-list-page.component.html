@@ -1,0 +1,53 @@
+<section class="content">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-column border-radius shadow-border shadow bgd-white p-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="fs-18 bold blue">لیست اعلانات</h2>
+<!--        <a class="pointer" [routerLink]="['/', language, 'message', 'create']">-->
+<!--          <span class="fs-14 bold blue">اعلان جدید</span>-->
+<!--          <img src="../../../assets/icons/add.png" alt="new message" />-->
+<!--        </a>-->
+      </div>
+      <div class="bgd-blue white p-3 d-flex flex-row my-3 border-radius">
+        <span class="col-1">فیلترها</span>
+      </div>
+      <div class='d-flex flex-row flex-wrap'>
+        <app-form-field class='col-12 col-md-6 mb-2' [control]='searchController' title='متن جستجو' placeholder='متن جستجو را وارد کنید'></app-form-field>
+        <app-form-field class='col-12 col-md-6 mb-2' (keypress)="isNumber($event)" (keyup)="isNumber($event)" [control]='searchCodeController' title='شماره ردیف' placeholder='شماره ردیف را وارد کنید'></app-form-field>
+        <app-form-select class='col-12 col-md-6 mb-2' [control]='searchStatusController' [values]='statusValues' title='وضعیت'></app-form-select>
+        <app-datepicker class='col-12 col-md-6 mb-2' title='از تاریخ' [datepickerInput]='searchFromDateController'></app-datepicker>
+        <app-datepicker class='col-12 col-md-6 mb-2' title='تا تاریخ' [datepickerInput]='searchToDateController'></app-datepicker>
+        <div class='col-12 col-sm-6 mb-2 px-4'>
+          <button class='w-100 btn btn-primary margin-button-top' (click)='onFilter(true)'>فیلتر</button>
+        </div>
+
+      </div>
+      <div class="d-none d-lg-flex flex-row align-items-center w-100 my-2 p-3 rounded bgd-blue white">
+        <span class="col-1 text-right fw-bold d-flex align-items-center fs-12">
+          ردیف
+        </span>
+        <span class="col-2 text-right fw-bold fs-12">نام فرستنده</span>
+        <span class="col-2 text-right fw-bold fs-12">نام گیرنده</span>
+        <span class="col-2 text-right fw-bold fs-12">موضوع</span>
+        <span class="col-2 text-center fw-bold fs-12">تاریخ</span>
+        <span class="col-2 text-center fw-bold fs-12">وضعیت</span>
+      </div>
+      <app-notification-list-item
+        *ngFor="
+          let message of messages | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: total }
+        "
+        [message]="message"
+      ></app-notification-list-item>
+      <div class='d-flex flex-row justify-content-center'>
+        <pagination-controls
+          [directionLinks]="true"
+          [autoHide]="true"
+          [responsive]="true"
+          previousLabel="<<"
+          nextLabel=">>"
+          (pageChange)="pageChanged($event)"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+</section>

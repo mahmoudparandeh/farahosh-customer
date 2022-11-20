@@ -1,0 +1,27 @@
+<ng-container>
+  <div class="d-none d-lg-flex flex-column w-100 border-radius shadow-border mb-3 mb-lg-2 bgd-white p-3">
+    <div class="d-flex flex-row align-items-center">
+      <span class="col-1 text-right text-dark d-flex align-items-center">
+        <span>{{ message.Id }}</span>
+      </span>
+      <span class="col-2 text-right text-dark">{{ message.SenderFirstName + ' ' + message.SenderLastName }}</span>
+      <span class="col-2 text-right text-dark">{{ message.FirstName + ' ' + message.LastName }}</span>
+      <span class="col-2 text-right text-dark">{{ message.Subject[language] }}</span>
+      <span class="col-2 text-right text-dark">{{ message.CreatedOnUtc }} </span>
+      <span class="col-2 text-right text-dark green">{{ getStatus(message.Status) }} </span>
+      <div class="col-1 text-dark d-flex justify-content-end">
+        <a class="pointer" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li>
+            <a class="dropdown-item orange" [routerLink]="['/', language, 'message', 'details',  message.Id]">مشاهده جزئیات پیام</a>
+          </li>
+          <li>
+            <a class="dropdown-item red" (click)="onDelete()">حذف</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</ng-container>

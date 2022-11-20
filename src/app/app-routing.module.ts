@@ -38,6 +38,10 @@ const routes: Routes = [
     path: ':lang/product',
     loadChildren: () => import('./product/product.module').then(m => m.ProductModule),
   },
+  {
+    path: ':lang/message',
+    loadChildren: () => import('./notification/notification.module').then(m => m.NotificationModule),
+  },
 ];
 
 @NgModule({

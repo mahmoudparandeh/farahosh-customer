@@ -34,4 +34,15 @@ export const ROUTES: RouteInfo[] = [
     count: 0,
     submenu: [],
   },
+  {
+    path: 'fa/message/list',
+    title: 'مدیریت اعلانات',
+    moduleName: 'message',
+    icon: 'fas fa-envelope',
+    class: '',
+    groupTitle: false,
+    hasBadge: false,
+    count: 0,
+    submenu: [],
+  },
 ];
