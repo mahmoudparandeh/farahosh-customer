@@ -18,12 +18,12 @@ export class NotificationService {
   }
 
   //#region APIs
-  private baseUrlNotificationList = '/api/v1/Message/SearchMessage';
+  private baseUrlNotificationList = '/api/v1/WebMessage/SearchMessage';
   private baseUrlAllUsers = '/api/v1/Message/SearchUser';
   private baseUrlAllVendors = '/api/v1/Message/SearchVendor';
   private baseUrlSendMessage = '/api/v1/Message/SendMessage';
   private baseUrlDeleteMessage = '/api/v1/Message/';
-  private baseUrlGetMessage = '/api/v1/Message/GetMessageDetails/';
+  private baseUrlGetMessage = '/api/v1/WebMessage/GetMessageDetails/';
   //#endregion
 
   //#region Properties

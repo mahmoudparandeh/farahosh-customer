@@ -1,27 +1,76 @@
 <ng-container>
+
   <div class="d-none d-lg-flex flex-column w-100 border-radius shadow-border mb-3 mb-lg-2 bgd-white p-3">
     <div class="d-flex flex-row align-items-center">
       <span class="col-1 text-right text-dark d-flex align-items-center">
         <span>{{ message.Id }}</span>
       </span>
-      <span class="col-2 text-right text-dark">{{ message.SenderFirstName + ' ' + message.SenderLastName }}</span>
-      <span class="col-2 text-right text-dark">{{ message.FirstName + ' ' + message.LastName }}</span>
-      <span class="col-2 text-right text-dark">{{ message.Subject[language] }}</span>
+      <span class="col-3 text-right text-dark">{{ message.SenderFirstName + ' ' + message.SenderLastName }}</span>
+<!--      <span class="col-2 text-right text-dark">{{ message.FirstName + ' ' + message.LastName }}</span>-->
+      <span class="col-2 text-right text-dark">{{ message.Subject }}</span>
       <span class="col-2 text-right text-dark">{{ message.CreatedOnUtc }} </span>
-      <span class="col-2 text-right text-dark green">{{ getStatus(message.Status) }} </span>
+      <span class="col-3 text-right text-dark green">{{ getStatus(message.Status) }} </span>
       <div class="col-1 text-dark d-flex justify-content-end">
         <a class="pointer" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="../../../../assets/icons/dots-vertical.svg" alt="" />
+          <img src="../../../assets/icons/dots-vertical.svg" alt="" />
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li>
             <a class="dropdown-item orange" [routerLink]="['/', language, 'message', 'details',  message.Id]">مشاهده جزئیات پیام</a>
           </li>
-          <li>
-            <a class="dropdown-item red" (click)="onDelete()">حذف</a>
-          </li>
+<!--          <li>-->
+<!--            <a class="dropdown-item red" (click)="onDelete()">حذف</a>-->
+<!--          </li>-->
         </ul>
       </div>
     </div>
   </div>
+
+  <div class="d-flex d-lg-none flex-column p-3 border-radius shadow-border mb-2 bgd-white mx-2">
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">ردیف :</span>
+      <span class="text-right text-dark">{{ message.Id }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">نام فرستنده :</span>
+      <span class="text-right text-dark">{{ message.SenderFirstName + ' ' + message.SenderLastName }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">موضوع :</span>
+      <span class="text-right text-dark">{{ message.Subject }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">تاریخ :</span>
+      <span class="text-right text-dark">{{ message.CreatedOnUtc }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between align-items-center my-2">
+      <span class="text-right text-dark">وضعیت :</span>
+      <span class="text-right text-dark">{{ getStatus(message.Status) }}</span>
+    </div>
+
+    <div class="d-flex flex-row justify-content-end align-items-center my-2">
+      <div class="d-flex flex-row align-items-center mb-1">
+        <a class="pointer" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="../../../assets/icons/dots-vertical.svg" alt="" />
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+          <li>
+            <a class="dropdown-item orange" [routerLink]="['/', language, 'message', 'details',  message.Id]">مشاهده جزئیات پیام</a>
+          </li>
+          <!--          <li>-->
+          <!--            <a class="dropdown-item red" (click)="onDelete()">حذف</a>-->
+          <!--          </li>-->
+        </ul>
+      </div>
+    </div>
+
+    <hr>
+
+  </div>
+
 </ng-container>
